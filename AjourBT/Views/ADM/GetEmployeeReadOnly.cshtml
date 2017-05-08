@@ -1,0 +1,43 @@
+﻿@{
+    Layout = null; 
+}
+
+
+@{
+    AjaxOptions ajaxOpts = new AjaxOptions
+    {
+        UpdateTargetId = "EmployeeData",
+        Url = Url.Action("GetEmployeeDataReadOnly"),
+        HttpMethod = "GET"
+
+    };
+}
+
+<script>
+    $(function () {
+        $("[id^=btnGetMailAliasEMails], [id^=btnGetSecondMailAliasEMails]").button();
+    })
+</script>
+
+@using (Ajax.BeginForm(null, null, ajaxOpts, new { id = "GetEmployeeDataReadOnlyForm" }))
+{
+    @Html.AntiForgeryToken()
+    <div >
+        @Html.DropDownList("selectedDepartment", (SelectList)ViewBag.DepartmentList, "All Departments", new { onchange = "$(this.form).submit();", id = "depDropList" })
+        <span>
+            <button type="button" id="btnGetMailAliasEMailsADM" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                <span>Get @WebConfigurationManager.AppSettings["MailAlias"] Mails</span>
+            </button>
+            <button type="button" id="btnGetSecondMailAliasEMailsADM" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                <span>Get @WebConfigurationManager.AppSettings["SecondMailAlias"] Mails</span>
+            </button>
+        </span>
+
+            <input id="seachInputEmployeesForADM" type="search" name="searchString" value="@ViewBag.SearchString" placeholder="Search... " /> 
+        <div id="EMailData">
+        </div>
+</div>
+}
+<div id="EmployeeData" style="position:relative;top:8px;">
+    @Html.Action("GetEmployeeDataReadOnly", "ADM", new { selectedDepartment = ViewBag.SelectedDepartment, searchString = ViewBag.SearchString })
+</div>

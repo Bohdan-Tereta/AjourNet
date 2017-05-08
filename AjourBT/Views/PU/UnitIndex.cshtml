@@ -1,0 +1,66 @@
+﻿@model IEnumerable<AjourBT.Domain.Entities.Unit>
+
+@{
+    Layout = null;
+    ViewBag.Title = "Unit";
+}
+
+<div id="UnitData">
+    <p>
+        <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="CreateUnit" href="/PU/UnitCreate"><span> Add Unit</span></a>
+    </p>
+
+    <table>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ShortTitle)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+           
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.ShortTitle, "UnitEdit", new { id = item.UnitID }, new { @class = "unitEditDialog" })
+                </td>
+              
+                <td>
+                    @Html.ActionLink(item.Title, "UnitEdit", new { id = item.UnitID }, new { @class = "unitEditDialog" })
+                </td>
+
+            </tr>
+        }
+
+    </table>
+</div>
+
+<script>
+    $(function () {
+        $("#CreateUnit").button()
+    });
+</script>
+
+@*<div id="unitDialog-create" style="display:none">
+
+</div>
+
+<div id="unitDialog-confirm" style="display: none">
+</div>
+
+<div id="unitDialog-exception">
+
+</div>
+
+<div id="unitDialog-edit" style="display: none">
+
+</div>
+
+<div id="unitDialog-view" style="display: none">
+</div>*@
+
+

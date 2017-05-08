@@ -1,0 +1,62 @@
+﻿@model AjourBT.Domain.Entities.Country
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = null;
+}
+
+@using (Ajax.BeginForm("Edit", "Country",new AjaxOptions{HttpMethod = "POST", OnSuccess = "CountryEditOnSuccess"}, new { id = "editCountryForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+
+    <fieldset>
+        <legend>Location</legend>
+
+        @Html.HiddenFor(model => model.CountryID)
+        @Html.HiddenFor(model => model.RowVersion)
+
+        <table>
+             <tr>
+                <td>@Html.LabelFor(model => model.CountryName)</td>
+                <td>
+                    @Html.EditorFor(model => model.CountryName)
+                <br />   @Html.ValidationMessageFor(model => model.CountryName)
+                    <div id="CountryModelError" style="max-width: 400px; color: red"></div>
+
+            </td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(model => model.Comment)</td>
+            <td>
+                @Html.EditorFor(model => model.Comment)
+            <br />  @Html.ValidationMessageFor(model => model.Comment)
+        </td>
+    </tr>
+</table>
+       
+</fieldset>
+    <div style="float:left">
+    </div> <button type="submit" id="btnSaveCountry" name="Command" value="Save">
+    <span>Save</span>
+</button>
+}
+
+
+
+@*<br/>*@
+@using (Html.BeginForm("Delete", "Country", new { id = Model.CountryID }, FormMethod.Get))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div style="float:right">
+        <button type="submit" id="btnDeleteCountry" data-href="/Country/Delete/@Model.CountryID" data-title="Delete @Model.CountryName" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+            <span>Delete</span>
+        </button>
+
+    </div>
+}
+
+<div id="deleteCountry-Confirm"></div>

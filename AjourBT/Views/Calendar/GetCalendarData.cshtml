@@ -1,0 +1,171 @@
+﻿@model IEnumerable<CalendarRowViewModel>
+
+      
+<div class="calendar" style="height: 100%; overflow-y: scroll; overflow-x: hidden " onscroll="OnScrollDiv()"></div>
+<script type="text/javascript">
+ 
+    $(function () {
+        var data = @Html.Raw(Json.Encode(Model))
+        var holidays = @Html.Raw(Json.Encode(ViewBag.Holidays))
+        var postponedHolidays = @Html.Raw(Json.Encode(ViewBag.PostponedHolidays))
+        var empCount = @ViewBag.ItemsPerPage
+        $(".calendar").gantt({
+            source: data,
+            navigate: "scroll",
+            scale: "days",
+            minScale: "days",
+            maxScale: "days",
+            itemsPerPage: '@ViewBag.ItemsPerPage',
+            holidays:holidays,
+            postponedHolidays:postponedHolidays,
+            onItemClick: function (data) {
+                var spacePos;
+                var subS;
+                var type = data.attr('desc');
+
+
+                spacePos = type.search(' ');
+                subS = type.substr(0,spacePos);
+                type = subS;
+
+                var fromVacationDate = data.attr('dayFrom');
+                var toVacationDate = data.attr('dayTo');
+                var id = data.attr('data_id');
+                var sickType = data.attr('sick_desc');
+
+                EditEvent(type, fromVacationDate, toVacationDate, id,sickType);
+                //dayFrom attribute hold StartDay of event
+                //dayTo attribute hold EndDay of event
+                //data_id attribute hold emloyee ID
+                //desc attribute hold type of event
+                //InitCRUD();
+
+            },
+
+            onAddClick: function (dt, rowId) {
+                //rowId id of user to which we want to add event
+                //dt date(milliseconds) value of date where was onClick occured
+
+                var date = new Date(parseInt(dt));
+                CreateEvent(rowId, dt);
+            },
+
+            onRender: function () {
+
+                var firstChild = $('div.leftPanel div:nth-child(3)').attr('id');
+                var lastChild = $('div.leftPanel div:last-child').attr('id');
+                var slash = firstChild.search("_");
+                var firstChildIndex = firstChild.substr(slash + 1, firstChild.length - slash);
+                slash = lastChild.search("_");
+                var lastChildIndex = lastChild.substr(slash + 1, lastChild.length - slash);
+
+                res = lastChildIndex - firstChildIndex;
+
+                var dataPanel = document.getElementsByClassName("dataPanel")[0];
+                res++;
+
+                var elem = document.getElementById("daysOfWeekRow");
+                var elemLength = elem.childElementCount;
+
+                var htmlData = [];
+                htmlData.push(
+                  0,
+                  0,
+                  0
+                );
+
+                var fragment = document.createDocumentFragment();
+
+                for(var j = 0; j<elemLength; j++ )
+                {
+                    if(elem.childNodes[j].className == "row day sa" || elem.childNodes[j].className == "row day sn")
+                    {
+                            htmlData[1] = elem.childNodes[j].offsetTop + 24;
+                            htmlData[2] = elem.childNodes[j].offsetLeft + 1;
+                            htmlData[3] = empCount * 24;
+
+                            var div = document.createElement("div");
+                            div.setAttribute("id", "weekendMarker");
+                            div.setAttribute("style", "top:"+ htmlData[1] +'px; '+"left:"+ htmlData[2] +'px; ' + "height:"+ htmlData[3] +'px; ');
+                            fragment.appendChild(div);
+                    }
+
+                    if(elem.childNodes[j].className == "row day holiday")
+                    {
+                        htmlData[1] = elem.childNodes[j].offsetTop + 24;
+                        htmlData[2] = elem.childNodes[j].offsetLeft + 1;
+                        htmlData[3] = empCount * 24;
+
+                        var div = document.createElement("div");
+                        div.setAttribute("id", "holidayMarker");
+                        div.setAttribute("style", "top:"+ htmlData[1] +'px; '+"left:"+ htmlData[2] +'px; ' + "height:"+ htmlData[3] +'px; ');
+                        fragment.appendChild(div);
+                    }
+
+                    if(elem.childNodes[j].className == "row day postponedHoliday")
+                    {
+                        htmlData[1] = elem.childNodes[j].offsetTop + 24;
+                        htmlData[2] = elem.childNodes[j].offsetLeft + 1;
+                        htmlData[3] = empCount * 24;
+
+                        var div = document.createElement("div");
+                        div.setAttribute("id", "weekendMarker");
+                        div.setAttribute("style", "top:"+ htmlData[1] +'px; '+"left:"+ htmlData[2] +'px; ' + "height:"+ htmlData[3] +'px; ');
+                        fragment.appendChild(div);
+                    }
+
+                    if(elem.childNodes[j].className == "row day holiday today")
+
+                    {
+
+                        htmlData[1] = elem.childNodes[j].offsetTop + 24;
+
+                        htmlData[2] = elem.childNodes[j].offsetLeft + 1;
+
+                        htmlData[3] = empCount * 24;
+
+                        var div = document.createElement("div");
+
+                        div.setAttribute("id", "holidayMarker");
+
+                        div.setAttribute("style", "top:"+ htmlData[1] +'px; '+"left:"+ htmlData[2] +'px; ' + "height:"+ htmlData[3] +'px; ');
+
+                        fragment.appendChild(div);
+
+                    }
+
+                    if(elem.childNodes[j].className == "row day postponedHoliday today")
+
+                    {
+
+                        htmlData[1] = elem.childNodes[j].offsetTop + 24;
+
+                        htmlData[2] = elem.childNodes[j].offsetLeft + 1;
+
+                        htmlData[3] = empCount * 24;
+
+                        var div = document.createElement("div");
+
+                        div.setAttribute("id", "weekendMarker");
+
+                        div.setAttribute("style", "top:"+ htmlData[1] +'px; '+"left:"+ htmlData[2] +'px; ' + "height:"+ htmlData[3] +'px; ');
+
+                        fragment.appendChild(div);
+
+                    } 
+
+                }
+
+
+                dataPanel.appendChild(fragment);
+
+                $("[data-id='fake_row']").css("display", "none");
+                //var heightWithoutfakeRow = $(".dataPanel").height();
+                //$(".dataPanel").height(heightWithoutfakeRow-24);
+
+                return false;
+
+            },
+        })
+    })
+</script>

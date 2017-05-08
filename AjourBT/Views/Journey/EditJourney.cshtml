@@ -1,0 +1,38 @@
+﻿@model AjourBT.Domain.Entities.Journey
+
+@{
+    Layout = null;
+    var date = Html.CustomDisplayDateTime(Model.Date);
+    var reclDate = Html.CustomDisplayDateTime(Model.ReclaimDate);
+}
+   
+
+<div id="JourneyModelError" style="max-width: 400px; color: red"></div>
+
+@using (Html.BeginForm("EditJourney", "Journey", FormMethod.Post, new { id = "editJourneyForm"}))
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("id",Model.JourneyID)
+
+    <table class="showJourney">
+        <tr>
+            <td>@Html.LabelFor(journey => journey.Date)</td>
+            <td>&nbsp;@date</td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(journey => journey.ReclaimDate)</td>
+            <td>@Html.EditorFor(journey => journey.ReclaimDate, new { @class = "reclaimDateField"})</td>
+            <td><p id="errorMsg"></p></td>
+        </tr>
+    </table>
+
+    <input type="hidden" name="searchString" value="@ViewBag.SearchString" />  
+}
+
+<div style="float:right">
+
+    <a id="btnEditReclaimDate">Change Date</a>
+
+
+</div>

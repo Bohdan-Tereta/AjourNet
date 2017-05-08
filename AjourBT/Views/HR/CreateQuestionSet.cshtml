@@ -1,0 +1,55 @@
+﻿@{
+    Layout = null; 
+    ViewBag.Title = "CreateQuestionSet";
+}
+
+
+
+<table id="createQuestionSetTable"> 
+
+    <tr>
+        <td id="questionSetTitleLabel">
+            Title
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <input data-bind="value: $rawData.Title" id="questionSetTitleInput" /> 
+        </td>         
+    </tr>
+    <tr>
+        <td id="questionSetQuestionsLabel">
+            Questions
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table id="QuestionSetQuestions" data-bind="foreach: Questions()">
+                <tr>
+                    <td>
+                        <textarea data-bind="value: $rawData, attr: {'data-questionsetid': $index}" class="questionInput" />
+                    </td>
+                    <td data-bind="visible: $index() == $root.Questions().length-1"><a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only questionToAdd" role="button" data-bind="attr: {'data-questionsetid': $index}"> Add </a></td>
+                    <td data-bind="visible: $index() != $root.Questions().length-1"><a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only questionDelete" role="button" data-bind="attr: {'data-questionsetid': $index}"> Delete </a></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <br /> 
+            <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="saveQuestionSet" data-bind="click: SaveData">Save</a>
+        </td>
+    </tr> 
+    <tr>
+        <td>           
+            <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="deleteQuestionSet" data-bind="visible: QuestionSetId()!=0">Delete</a>
+        </td>
+    </tr>
+</table> 
+
+<div id="ConfirmQuestionSetDelete"></div> 
+
+<script>
+
+</script>

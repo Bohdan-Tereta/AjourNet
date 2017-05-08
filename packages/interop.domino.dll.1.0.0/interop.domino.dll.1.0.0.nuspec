@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>interop.domino.dll</id>
+    <version>1.0.0</version>
+    <authors>IBM</authors>
+    <owners>IBM</owners>
+    <projectUrl>http://www.codeproject.com/Articles/18517/Lotus-Notes-Integration-with-Microsoft-NET-Platfor</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Interop library for Notes Domino 8.5.3</description>
+    <releaseNotes>Initial release.</releaseNotes>
+    <tags>Lotus Notes Domino</tags>
+  </metadata>
+</package>

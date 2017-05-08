@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "QuestionSets";
+    Layout = null;
+}
+
+@*<h2>QuestionSets</h2>*@
+
+<div id="getQuestionSets">
+    <a id="createQuestionSetButton" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" data-bind="attr: {'href': '/HR/CreateQuestionSet'}">Add QuestionSet</a>
+    <br /> 
+    <table>
+        <tbody data-bind="foreach: questionSets">
+            <tr>
+                <td>
+                    <a class="questionSetTitle" data-bind="text: $data.Title, attr: {'href': '/HR/CreateQuestionSet', 'data-questionset-id': QuestionSetId}"></a>
+                </td>
+                @*<td style="display: none" data-bind="text: $data.id" class="questionSetId"></td>*@
+                @*<td data-bind="foreach: $data.questions">
+                        <span data-bind="text: $data"></span>
+                        <input data-bind='value: $rawData, valueUpdate: "afterkeydown"' />
+                    </td>*@
+            </tr>
+        </tbody>
+    </table>   
+</div>
+
+<div id="createQuestionSet"></div>
+
+<script>
+    $(document).ready(function () {
+        getAllItems();
+        ko.applyBindings(getQuestionSetsModel, document.getElementById("getQuestionSets"));
+    });
+    $("#createQuestionSetButton").button();
+</script>

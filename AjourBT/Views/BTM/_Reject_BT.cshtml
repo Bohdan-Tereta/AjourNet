@@ -1,0 +1,42 @@
+﻿@* Duplicated in BTM and DIR *@
+
+@model AjourBT.Domain.ViewModels.BusinessTripViewModel
+
+
+@{
+    Layout = null;
+}
+
+
+<script type="text/javascript">
+    clearTimeout(timer);
+    timer = window.setTimeout(function () { location.reload(); }, timeout);
+</script>
+<legend>BusinessTrip</legend>
+<table>
+<tr>
+    <td><b>Location </b></td>
+    <td>@Html.DisplayFor(model => model.Title)</td>
+</tr>
+
+<tr>
+    <td><b>From </b></td>
+    <td>@Html.DisplayFor(model => model.StartDate)</td>
+</tr>
+
+<tr>
+    <td><b>To </b></td>
+    <td>@Html.DisplayFor(model => model.EndDate)</td>
+</tr>
+
+<tr>
+    <td colspan="0"><b>@Html.DisplayNameFor(model => model.RejectComment)</b></td>
+</tr>
+<tr>
+    <td colspan="0">
+        @Html.TextAreaFor(model => model.RejectComment, new { @rows = "1", @class = "textAreaBTM" })
+        <br /> @Html.ValidationMessageFor(model => model.RejectComment)  
+    </td>
+</tr>
+
+</table>

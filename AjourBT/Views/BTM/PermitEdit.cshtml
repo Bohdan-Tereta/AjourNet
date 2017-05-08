@@ -1,0 +1,101 @@
+﻿@model AjourBT.Domain.ViewModels.PermitViewModel
+@{
+    Layout = null;
+}
+
+<script type="text/javascript">
+    clearTimeout(timer);
+    timer = window.setTimeout(function () { location.reload(); }, timeout);
+</script>
+
+<div id="PermitModelError" style="max-width: 400px; color: red"></div>
+
+<h4>@ViewBag.EmployeeInformation</h4>
+<br>
+
+@using (Html.BeginForm("PermitEdit", "BTM", FormMethod.Post, new { id = "PermitEditForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    
+<input type="hidden" name="searchString" value="@ViewBag.SearchString">
+<input type="hidden" name="EmployeeID" value="@ViewBag.EmployeeID">
+<fieldset>
+    <legend>Permit</legend>
+
+    @Html.HiddenFor(model => model.EmployeeID)
+    @Html.HiddenFor(model => model.RowVersion)
+
+    <table>
+        <tr>
+            <td><b>@Html.LabelFor(model => model.IsKartaPolaka)</b></td>
+            <td>
+                @Html.EditorFor(model => model.IsKartaPolaka)
+                @Html.ValidationMessageFor(model => model.IsKartaPolaka)
+            </td>
+        </tr>
+
+        <tr>
+            <td><b>@Html.LabelFor(model => model.Number)</b></td>
+            <td>
+                @Html.TextBoxFor(model => model.Number, new { @class = "forNumber" })
+                <br />    @Html.ValidationMessageFor(model => model.Number)
+            </td>
+        </tr>
+
+        <tr>
+            <td><b>@Html.LabelFor(model => model.StartDate)</b></td>
+            <td>
+                @Html.TextBoxFor(model => model.StartDate, new { id = "editStartDatePermit", @readonly = true, @class = "editorForCalendar" })
+                <br />@Html.ValidationMessageFor(model => model.StartDate)
+            </td>
+        </tr>
+
+        <tr>
+            <td><b>@Html.LabelFor(model => model.EndDate)</b></td>
+            <td>
+                @Html.TextBoxFor(model => model.EndDate, new { id = "editEndDatePermit", @readonly = true, @class = "editorForCalendar" })
+                <br /> @Html.ValidationMessageFor(model => model.EndDate)
+            </td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(model => model.CancelRequestDate)</td>
+            <td>
+                @Html.TextBoxFor(model => model.CancelRequestDate, new { id = "CancelRequestDatePermitCreate", @readonly = true, @class = "editorForCalendar" })
+                <br /> @Html.ValidationMessageFor(model => model.CancelRequestDate)
+            </td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(model => model.ProlongRequestDate)</td>
+            <td>
+                @Html.TextBoxFor(model => model.ProlongRequestDate, new { id = "ProlongRequestDatePermitCreate", @readonly = true, @class = "editorForCalendar" })
+                <br />@Html.ValidationMessageFor(model => model.ProlongRequestDate)
+            </td>
+        </tr>
+
+    </table>
+    <div style="float:left">
+
+        <button type="submit" id="btnSavePermit" name="Command" value="Save">
+            Save
+        </button>
+
+    </div>
+
+</fieldset>
+}
+@using (Html.BeginForm("PermitDelete", "BTM", FormMethod.Get))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+<div style="float:right">
+    <button type="submit" id="btnDeletePermit" data-href="/BTM/PermitDelete/@Model.EmployeeID?searchString=@ViewBag.SearchString" data-updateID="Data-@Model.EmployeeID">
+       Delete
+    </button>
+
+</div>
+}
+
+<div id="DeletePermit-confirm" style="display:none"></div>

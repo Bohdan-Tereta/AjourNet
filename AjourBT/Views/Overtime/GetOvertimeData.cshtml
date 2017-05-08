@@ -1,0 +1,79 @@
+﻿@model IEnumerable<AjourBT.Domain.ViewModels.OvertimeByEmployeeModel>
+
+@{
+    Layout = null;
+    string searchString = ViewBag.SearchString;
+}
+
+<table class="overtimeView" id="overtimeViewABM">
+    <colgroup>
+        <col class="overtimeDep" />
+        <col class="overtimeName" />
+        <col class="overtimeEID" />
+        <col class="overtime" />
+    </colgroup>
+
+    <thead>
+        <tr>
+            <th>
+                Department
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                EID
+            </th>
+            <th>
+                Overtimes
+            </th>
+        </tr>
+    </thead>
+
+    <tbody id="tbodyOvertime">
+
+            @foreach (var overtime in Model)
+        {
+            <tr>
+            <td>
+                @overtime.Department
+            </td>
+            <td>
+                @overtime.FirstName @overtime.LastName
+            </td>
+            <td>
+                    @overtime.EID
+            </td>
+            <td>
+                @foreach (var overset in overtime.Overtimes)
+                {
+                    @Html.CustomDisplayOvertimeDate(overset, searchString)
+                }
+            </td>    
+           </tr>
+        }
+    </tbody>
+</table>
+
+<input type="hidden" name="searchString" value=@ViewBag.SearchString>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        aTable = $('#overtimeViewABM').DataTable({
+            "sScrollY": "415px",
+            "bPaginate": false,
+            "bDestroy": true,
+            "bFilter": false,
+            "bStateSave": false,
+            "bScrollCollapse": true,
+            "aaSorting": [],
+            "aoColumns": [
+                null,
+                null,
+                null,
+                { "sType": "date" },
+            ],
+        })
+        $("div.dataTables_scrollBody").scrollTop(window.scrollPositionABM);
+    });
+</script>

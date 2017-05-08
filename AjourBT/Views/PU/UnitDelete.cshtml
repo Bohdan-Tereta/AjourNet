@@ -1,0 +1,25 @@
+﻿@model AjourBT.Domain.Entities.Unit
+@{
+    Layout = null;
+    ViewBag.Title = "Delete";
+}
+
+<script type="text/javascript">
+
+        $("#OKDelete, #btnCancelDeleteUnit").button();
+   
+</script>
+<p>
+    Please Confirm
+</p>
+<table>
+    <tr>
+        <td>
+            @using (Ajax.BeginForm("UnitDelete", "PU", new AjaxOptions { UpdateTargetId = "UnitData", HttpMethod = "POST" }, new { id = "deleteUnitForm"}))
+            {
+                @Html.AntiForgeryToken()
+                @Html.Hidden("id", Model.UnitID);
+            }
+        </td>
+    </tr>
+</table>

@@ -1,0 +1,261 @@
+﻿@model List<AjourBT.Domain.ViewModels.BusinessTripViewModel>
+
+@{
+    ViewBag.Title = "GetBusinessTripData by Units for VU";
+    string style;
+    MvcHtmlString name;
+}
+
+
+<table class="btsViewbyUnitsVU" id="exampleBtsViewByUnits">
+
+    <colgroup>
+        <col class="byUnits1" />
+        <col class="byUnits2" />
+        <col class="byUnits3" />
+        <col class="byUnits4" />
+        <col class="byUnits5" />
+        <col class="byUnits6" />
+        <col class="byUnits7" />
+        <col class="byUnits8" />
+        <col class="byUnits9" />
+        <col class="byUnits10"/>
+        @*<col class="vu8" />*@
+    </colgroup>
+
+
+    <thead>
+
+        <tr id="vuByUnitsFirstHeader">
+            <td>            </td>
+            <td>            </td>
+            <td>            </td>
+            <td>            </td>
+            <td>            </td>
+            <td>            </td>
+            <td>            </td>
+            <td>            </td>
+            <td>            </td>
+            <td>            </td>
+
+        </tr>
+
+        <tr id="vuByUnitsSecondHeader">
+            
+            <th>
+                ID
+            </th>
+            <th>
+                EID
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Loc
+            </th>
+            <th>
+                From
+            </th>
+            <th>
+                To
+            </th>
+            <th>
+                Unit
+            </th>
+            <th>
+                Purpose
+            </th>
+            <th>
+                Mgr
+            </th>
+            <th>
+                Resp
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (AjourBT.Domain.ViewModels.BusinessTripViewModel item in Model)
+        {
+            style = Html.CustomBtModelStyle(item);
+
+            <tr class="zebra">
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.BusinessTripID)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.BTof.EID)
+                </td>
+
+                @{
+                    name = Html.CustomDisplayNameOfEmployee(item.BTof);
+                }
+
+                <td id="notUnderlineText">
+                    @name
+                </td>
+
+                <td style="@style">
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td style="@style">
+                    @Html.DisplayFor(modelItem => item.StartDateFormated)
+                </td>
+                <td style="@style">
+                    @Html.DisplayFor(modelItem => item.EndDateFormated)
+                </td>
+                <td style="@style">
+                     @Html.DisplayFor(modelItem => item.Unit)
+                </td>
+                <td style="@style">
+                    @Html.DisplayFor(modelItem => item.Purpose)
+                </td>
+                <td style="@style">
+                    @Html.DisplayFor(modelItem => item.Manager)
+                </td>
+                <td style="@style">
+                    @Html.DisplayFor(modelItem => item.Responsible)
+                </td>
+
+
+            </tr>
+        }
+    </tbody>
+
+</table>
+
+<script>
+    $(function () {
+        $("[id^=ExportBusinessTripByUnitsToXls]").button();
+    })
+</script>
+
+
+@{
+
+    using (Html.BeginForm("ExportBusinessTripByUnitsToExcel", "VU", new { selectedYear = ViewBag.SelectedYear }, FormMethod.Post, null))
+{
+@Html.AntiForgeryToken()
+    <input type="submit" id="ExportBusinessTripByUnitsToXls" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" value="ExportToXls">
+}
+
+}
+
+
+<script type="text/javascript">
+
+    jQuery.fn.dataTableExt.oSort['datefrm-pre'] = function (a) {
+
+        var dateAtagPos = a.search("<a");
+        if (dateAtagPos != -1) {
+            var dateAtagEndPos = a.search("</a>");
+            var dateText = a.substr(dateAtagPos + 1, dateAtagEndPos - 1);
+            var dateAtagClosePos = dateText.search(">");
+            var dateTxt = dateText.substr(dateAtagClosePos + 1, dateAtagEndPos - 1);//Date extracted
+
+            var regexp = /\d{2}\.\d{2}\.\d{4}/
+            var dateTxt = dateTxt.match(regexp);
+
+            if (dateTxt == null) {
+                return "";
+            }
+
+            var dateTxt = dateTxt.toString();
+            var extDate = dateTxt;
+            var extArr = extDate.substr(0, 2);
+            if ($.isNumeric(extArr)) {
+                var extTrm = jQuery.trim(extDate);
+                var extX = jQuery.datepicker.parseDate("yy-mm-dd", extTrm);
+                return extX;
+            }
+        }
+
+        var partDate = a.substr(0, 11);
+        var partArr = partDate.substr(0, 2);
+        if ($.isNumeric(partArr)) {
+            var trm = jQuery.trim(partDate);
+            var x = jQuery.datepicker.parseDate("yy-mm-dd", trm);
+            return x;
+        }
+        return "";
+    }
+
+    jQuery.fn.dataTableExt.oSort['datefrm-asc'] = function (x, y) {
+
+        var retVal;
+
+        if (x == y) retVal = 0;
+        else if (x == "" || x == "&nbsp;") retVal = 1;
+        else if (y == "" || y == "&nbsp;") retVal = -1;
+        else if (x > y) retVal = 1;
+        else retVal = -1;
+
+        return retVal;
+    }
+
+    jQuery.fn.dataTableExt.oSort['datefrm-desc'] = function (x, y) {
+
+        return ((x < y) ? 1 : ((x > y) ? -1 : 0));
+    }
+
+    jQuery.fn.dataTableExt.oSort['numeral-asc'] = function (x, y) { //ok
+
+        var retVal;
+
+        if (x == y) retVal = 0;
+        else if (x == "" || x == "&nbsp;") retVal = 1;
+        else if (y == "" || y == "&nbsp;") retVal = -1;
+        else return x - y;
+    }
+
+    jQuery.fn.dataTableExt.oSort['numeral-desc'] = function (x, y) { //ne ok
+
+        //if (x < y) return 1;
+        //else if (x > y) return -1;
+        //else return 0;
+        return y - x;
+    }
+
+    $(document).ready(function () {
+        var vuTable = $('#exampleBtsViewByUnits').DataTable({
+            "sScrollY": (0.5 * $(window).height()),
+            "bPaginate": false,
+            "bFilter": true,
+            "bScrollCollapse": true,
+            "bDestroy": true,
+            "aaSorting": [[0, 'asc']],
+            "aoColumns": [
+                 { "sType": "numeral" },
+                 null,
+                 null,
+                 null,
+                 { "sType": "datefrm" },
+                 { "sType": "datefrm" },
+                 null,
+                 null,
+                 null,
+                 null,
+            ],
+        });
+
+        vuTable.columnFilter({
+            sPlaceHolder: "head:before",
+            "aoColumns": [
+                null,
+                null,
+                null,
+                { "type": "select" },
+                { "type": "date-range" },
+                { "type": "date-range" },
+                { "type": "select" },
+                 null,
+                 null,
+                 null,
+            ]
+        });        
+    });
+
+</script>

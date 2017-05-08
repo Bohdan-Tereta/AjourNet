@@ -1,0 +1,28 @@
+﻿@model int
+@{
+    ViewBag.Title = "Director View";
+    string SearchString = @ViewBag.SearchString;
+    string SelectedDepartment = @ViewBag.SelectedDepartment;
+ }
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#tabsDIR").tabs({ selected: @Model });
+        $("li#DIRLink a").css({
+            'color': '#E1701D'
+        })
+    });
+</script>
+
+@Scripts.Render("~/bundles/AjourBTScript/BusinessTripForDirector")
+@Scripts.Render("~/bundles/AjourBTScript/EmpScript") 
+
+
+<div id="tabsDIR" class="DirTab">
+    <ul>
+        <li><a href="@Url.Action("GetBusinessTripDIR", "DIR", new { userName = HttpContext.Current.User.Identity.Name.ToString()})">Business Trips</a></li>
+        <li><a href="@Url.Action("getMessagesForRole", "Message", new { page = Request.Params["page"], role = "DIR", tab = Tabs.DIR.Messages, searchString = @ViewBag.SearchString, actionNameForPagination = ViewContext.RouteData.GetRequiredString("action") })">Messages</a></li> 
+        <li><a href="@Url.Action("GetEmployeeReadOnly", "ADM", new { selectedDepartment = @SelectedDepartment, searchString = @SearchString })">Employees</a></li>
+    </ul>
+</div>

@@ -1,0 +1,124 @@
+﻿@model IEnumerable<AjourBT.Domain.ViewModels.JourneysAndOvertimesModel>
+
+@{
+    Layout = null;
+    string searchString = ViewBag.SearchString;
+}
+
+<title>GetBusinessTripDataViewer</title>
+<table class="journeyView" id="journeysViewABM">
+    <colgroup>
+        <col class="j1" />
+        <col class="j2" />
+        <col class="j3" />
+        <col class="j4" />
+    </colgroup>
+    <thead>
+        <tr>
+            <th>
+                Department
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                EID
+            </th>
+            <th>
+                Days
+            </th>
+        </tr>
+    </thead>
+    <tbody id="tbodyJourneys">
+        @foreach (var employee in Model)
+        {
+            <tr>
+                <td>
+                    @employee.Department
+                </td>
+                @if (employee.DateDismissed != null && employee.DateDismissed != String.Empty)
+                {
+                    <td>
+                        <strike> @employee.LastName @employee.FirstName</strike> <br><span id='i2'> @employee.DateDismissed.ToString() </span>
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @employee.LastName @employee.FirstName
+                    </td>
+                }
+                <td>
+                    @employee.EID
+                </td>
+                <td>
+                    @{int i = 0, j = 0;
+                    while (i < employee.Journeys.Count || j < employee.Overtimes.Count)
+                    {
+                        if (j >= employee.Overtimes.Count)
+                        {
+                            @Html.CustomDisplayJourneyDateForVU(employee.Journeys[i], searchString);
+                                                                                              i++;
+                        }
+                        else if (i >= employee.Journeys.Count)
+                        {
+                            @Html.CustomDisplayOvertimeDateForVU(employee.Overtimes[j], searchString);
+                                                                                                j++;
+                        }
+                        else
+                        {
+                            if (employee.Journeys != null && employee.Journeys.Count != 0 && employee.Journeys[i].Date < employee.Overtimes[j].Date)
+                            {
+                                @Html.CustomDisplayJourneyDateForVU(employee.Journeys[i], searchString);
+                                i++;
+                            }
+                            else if (employee.Overtimes != null && employee.Overtimes.Count != 0)
+                            {
+                                @Html.CustomDisplayOvertimeDateForVU(employee.Overtimes[j], searchString);
+                                                                                                    j++;
+                            }
+                        }
+                    }
+                    }
+                    
+                        @*@if (employee.Journeys != null)
+                    {
+                        foreach (Journey journey in employee.Journeys)
+                        {
+                            @Html.CustomDisplayJourneyDateForVU(journey, searchString)
+                        }
+                    }
+
+                    @if (employee.Overtimes != null)
+                    {
+                        foreach (Overtime overtime in employee.Overtimes)
+                        {
+                            @Html.CustomDisplayOvertimeDateForVU(overtime, searchString)
+                        }
+                    }*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        sortTable = $('#journeysViewABM').DataTable({
+            "sScrollY": "415px",
+            "bPaginate": false,
+            "bDestroy": true,
+            "bFilter": false,
+            "bStateSave": false,
+            "bScrollCollapse": true,
+            "aaSorting": [],
+            "aoColumns": [
+                null,
+                null,
+                null,
+                { "sType": "date" },
+            ],
+        })
+        $("div.dataTables_scrollBody").scrollTop(window.scrollPositionACC);
+    });
+</script>

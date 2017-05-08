@@ -1,0 +1,29 @@
+﻿@*@model IEnumerable<SelectListItem>
+
+
+@{
+    Layout = null;
+}
+
+@{
+    AjaxOptions ajaxOpts = new AjaxOptions
+    {
+        UpdateTargetId = "tableBodyEMP",
+        Url = Url.Action("GetReportedBTs")
+
+    };
+}
+
+
+@using (Ajax.BeginForm(null, null, ajaxOpts, new { id = "EMPDataForm" }))
+{
+    <div>
+        @Html.DropDownList( "selectedYear", (SelectList)ViewBag.SelectedYearEMP, new { onchange = "$(EMPDataForm).submit();" })
+    </div>
+
+
+}
+<div id="tableBodyEMP">
+    @Html.Action("GetReportedBTs", "EMP", new { selectedYear = Model, userName = HttpContext.Current.User.Identity.Name.ToString() })
+</div>*@
+    

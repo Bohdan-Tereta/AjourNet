@@ -1,0 +1,42 @@
+﻿@model AjourBT.Domain.ViewModels.QuestionnairePreviewModel
+@{
+    Layout = null;
+    ViewBag.Title = "GenerateQuestionnaire";
+}
+
+<div id="randomQuestion">
+
+
+    <table id="createQuestionnaireTable">
+        <thead>
+            <tr>
+                <b>@Model.Title</b>
+
+            </tr>
+            <tr>
+                <td> @Html.Label("Title")</td>
+                <td> @Html.Label("Question")</td>
+
+
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (KeyValuePair<string, string> item in @Model.GeneratedQuestionary)
+        {
+
+            <tr>
+
+                <td>@item.Key</td>
+                <td>
+                    @Html.Raw(item.Value)
+                </td>
+
+            </tr>
+        }
+            </tbody>
+    </table>
+</div>
+<br />
+
+@Html.ActionLink("Get PDF", "GenerateQuestionnairePDF", "HR", null, new { @class = "ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" })
+

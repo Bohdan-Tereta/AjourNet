@@ -1,0 +1,2505 @@
+﻿/* general
+----------------------------------------------------------*/
+html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-size: .85em;
+    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: #333;
+    outline: none;
+    padding-left: 3px;
+    padding-right: 3px;
+    text-decoration: underline;
+} 
+
+#EditReportedBTACC {
+    color: #333;
+    outline: none;
+    padding-left: 3px;
+    padding-right: 3px;
+    font-size: 0.85em;
+}
+
+header, footer, hgroup,
+nav, section {
+    display: block;
+}
+
+.float-left {
+    float: left;
+}
+
+/* main layout
+----------------------------------------------------------*/
+.content-wrapper {
+    margin: 0 auto;
+    max-width: 97%;
+}
+
+#body {
+    clear: both;
+    padding-bottom: 5px;
+}
+
+.main-content {
+    background: url("../Images/accent.png") no-repeat;
+    padding-left: 10px;
+    padding-top: 30px;
+}
+
+.featured + .main-content {
+    background: url("../Images/heroAccent.png") no-repeat;
+}
+
+header .content-wrapper {
+    padding-top: 20px;
+}
+
+footer {
+    clear: both;
+    background-color: #62a2d3;
+    font-size: .9em;
+    height: 20px;
+    position: fixed;
+    width: 100%;
+    bottom: 0px;
+    z-index: 1;
+}
+
+/*site title
+-------------------------------------------------------*/
+.site-title {
+    color: #c8c8c8;
+    font-family: Rockwell, Consolas, "Courier New", Courier, monospace;
+    font-size: 2.3em;
+    margin: 0;
+}
+
+    .site-title a, .site-title a:hover, .site-title a:active {
+        background: none;
+        color: #c8c8c8;
+        outline: none;
+        text-decoration: none;
+    }
+
+/* login
+----------------------------------------------------------*/
+#login {
+    display: block;
+    font-size: .85em;
+    margin: 0 0 10px;
+    text-align: right;
+}
+
+    #login a {
+        background-color: #d3dce0;
+        margin-left: 10px;
+        margin-right: 3px;
+        padding: 2px 3px;
+        text-decoration: none;
+    }
+
+        #login a.username {
+            background: none;
+            margin: 0;
+            padding: 0;
+            text-decoration: underline;
+        }
+
+    #login ul {
+        margin: 0;
+    }
+
+    #login li {
+        display: inline;
+        list-style: none;
+    }
+
+/* menu
+----------------------------------------------------------*/
+ul#menu {
+    font-size: 1.3em;
+    font-weight: 600;
+    margin: 0 0 5px;
+    padding: 0;
+    text-align: right;
+}
+
+    ul#menu li {
+        display: inline;
+        list-style: none;
+        padding-left: 15px;
+    }
+        ul#menu li a {
+        color: #036AB9;
+        }
+
+/* page elements
+----------------------------------------------------------*/
+/* featured */
+.featured {
+    background-color: #fff;
+}
+
+    .featured .content-wrapper {
+        background-color: #7ac0da;
+        background-image: -ms-linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
+        background-image: -o-linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
+        background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #7ac0da), color-stop(1, #a4d4e6));
+        background-image: -webkit-linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
+        background-image: linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
+        color: #3e5667;
+        padding: 20px 40px 30px 40px;
+    }
+
+    .featured hgroup.title h1, .featured hgroup.title h2 {
+        color: #fff;
+    }
+
+    .featured p {
+        font-size: 1.1em;
+    }
+
+/* page titles
+---------------------------------------------------------- */
+hgroup.title {
+    margin-bottom: 10px;
+}
+
+    hgroup.title h1, hgroup.title h2 {
+        display: inline;
+    }
+
+    hgroup.title h2 {
+        font-weight: normal;
+        margin-left: 3px;
+    }
+
+
+/* content 
+----------------------------------------------------------*/
+article {
+    float: left;
+    width: 70%;
+}
+
+aside {
+    float: right;
+    width: 25%;
+}
+
+    aside ul {
+        list-style: none;
+        padding: 0;
+    }
+
+        aside ul li {
+            background: url("../Images/bullet.png") no-repeat 0 50%;
+            padding: 2px 0 2px 20px;
+        }
+
+.label {
+    font-weight: 700;
+}
+
+/* Change Password  page
+----------------------------------------------------------*/
+
+.manage-form {
+    margin-left: 37%;
+    width: 55%;
+}
+
+
+/* login page 
+----------------------------------------------------------*/
+
+#loginForm {
+    margin-left: 33%;
+    width: 55%;
+}
+
+    #loginForm .validation-error {
+        display: block;
+        margin-left: 15px;
+    }
+
+    #loginForm .validation-summary-errors ul {
+        margin: 0;
+        padding: 0;
+    }
+
+    #loginForm .validation-summary-errors li {
+        display: inline;
+        list-style: none;
+        margin: 0;
+    }
+
+    #loginForm input {
+        width: 250px;
+    }
+
+    #loginForm h1 {
+        margin-left: 25%;
+    }
+
+    #loginForm .LoginButton {
+        margin-left: 25%;
+    }
+
+
+    #loginForm input[type="checkbox"],
+    #loginForm input[type="submit"],
+    #loginForm input[type="button"],
+    #loginForm button {
+        width: auto;
+    }
+
+#socialLoginList button {
+    margin-bottom: 12px;
+}
+
+#logoutForm {
+    display: inline;
+}
+
+/* contact
+---------------------------------------------------------- */
+
+.contact h3 {
+    font-size: 1.2em;
+}
+
+.contact p {
+    margin: 5px 0 0 10px;
+}
+
+.contact iframe {
+    border: 1px solid #333;
+    margin: 5px 0 0 10px;
+}
+
+/* forms 
+----------------------------------------------------------*/
+fieldset {
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+    fieldset legend {
+        display: none;
+    }
+
+    fieldset ol {
+        padding: 0;
+        list-style: none;
+    }
+
+        fieldset ol li {
+            padding-bottom: 5px;
+        }
+
+label {
+    display: inline-block;
+    font-size: 1em;
+    font-weight: 600;
+    margin-right: 5%;
+}
+
+    label.checkbox {
+        display: inline;
+    }
+
+input, textarea {
+    border: 1px solid #e2e2e2;
+    background: #fff;
+    color: #333;
+    font-size: 1.2em;
+    margin: 5px 0 6px 0;
+    padding: 5px;
+    width: 300px;
+}
+
+textarea {
+    font-family: inherit;
+    width: 500px;
+}
+
+    input:focus, textarea:focus {
+        border: 1px solid #7ac0da;
+    }
+
+input[type="checkbox"] {
+    background: transparent;
+    border: inherit;
+    width: auto;
+}
+
+input[type="submit"],
+input[type="button"],
+button {
+    background-color: #d3dce0;
+    border: 1px solid #787878;
+    cursor: pointer;
+    font-size: 1.2em;
+    font-weight: 600;
+    padding: 7px;
+    margin-right: 8px;
+    width: auto;
+}
+
+td input[type="submit"],
+td input[type="button"],
+td button {
+    font-size: 1em;
+    padding: 4px;
+    margin-right: 4px;
+}
+
+/* info and errors
+---------------------------------------------------------- */
+.message-info {
+    border: 1px solid;
+    clear: both;
+    padding: 10px 20px;
+}
+
+.message-error {
+    clear: both;
+    color: #e80c4d;
+    font-size: 1.1em;
+    font-weight: bold;
+    margin: 20px 0 10px 0;
+}
+
+.message-success {
+    color: #7ac0da;
+    font-size: 1.3em;
+    font-weight: bold;
+    margin: 20px 0 10px 0;
+}
+
+.error {
+    color: #e80c4d;
+}
+
+/* styles for validation helpers
+---------------------------------------------------------- */
+.field-validation-error {
+    color: #e80c4d;
+    font-weight: bold;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #e80c4d;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #e80c4d;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+
+/* general table's style
+----------------------------------------------------------*/
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin-top: 0.75em;
+    border: 0 none;
+}
+
+th {
+    font-size: 0.95em;
+    text-align: left;
+    border: none 0px;
+    padding-left: 0;
+}
+
+    th a {
+        display: block;
+        position: relative;
+    }
+
+td {
+    padding: 0.2em 1.5em 0em 0em;
+    border: 0 none;
+}
+
+    td a {
+        font-size: 0.85em;
+    }
+
+/* Zebra style fot tables
+----------------------------------------------------------*/
+.visasView tr.indexBT:nth-child(2n) {
+    background-color: #F0F0F0;
+}
+
+.btsView tr.zebra:nth-child(2n) {
+    background-color: #F0F0F0;
+}
+
+.visasViewBTM tr.indexBT:nth-child(2n) {
+    background-color: #F0F0F0;
+}
+
+.viewBTsBTM tr.zebra:nth-child(2n) {
+    background-color: #F0F0F0;
+}
+
+.privateTripsBTM tr.zebra:nth-child(2n) {
+    background-color: #F0F0F0;
+}
+
+.indexDIR tr.zebra:nth-child(2n) {
+    background-color: #F0F0F0;
+}
+
+.employeeView tr.zebra:nth-child(2n) {
+    background-color: #F0F0F0;
+}
+
+.BTsInQuarterForViewer tr.zebra:nth-child(2n) {
+    background-color: #F0F0F0;
+}
+
+.indexADM tr.zebra:nth-child(2n) {
+    background-color: #F0F0F0;
+}
+
+.btsViewbyDatesVU tr.zebra:nth-child(2n), .btsViewbyDatesPU tr.zebra:nth-child(2n) {
+    background-color: #f0f0f0;
+}
+
+.UsersOnlyTable tr.zebra:nth-child(2n) {
+    background-color: #f0f0f0;
+}
+
+.weekTable th{
+    background-color: #f0f0f0 !important;
+}
+
+#wtrTotal {
+    background-color: #f0f0f0 !important;
+    text-align:left !important;
+}
+
+
+.btsViewbyUnitsVU tr.zebra:nth-child(2n) {
+    background-color: #f0f0f0;
+}
+
+
+
+#viewBT {
+    line-height: 80%;
+}
+
+
+/*ADM Table Style
+----------------------------------------------------------*/
+.indexADM {
+    width: 100%;
+    table-layout: fixed;
+}
+
+    .indexADM th {
+        background: #eaeaea;
+        border: 1px solid #c8c8c8;
+        text-align: center;
+    }
+
+    .indexADM td {
+        padding-top: 0.1em !important;
+        padding-right: 0em !important;
+        padding-bottom: 0em !important;
+        padding-left: 0.5em !important;
+        border: 1px solid #c8c8c8;
+    }
+
+col.col1 {
+    width: 5%;
+}
+
+col.col2 {
+    width: 15%;
+}
+
+col.col3 {
+    width: 7%;
+}
+
+col.col4 {
+    width: 16%;
+}
+
+col.col5 {
+    width: 16%;
+}
+
+col.col6 {
+    width: 13.5%;
+}
+
+col.col7 {
+    width: 13.5%;
+}
+
+col.col8 {
+    width: 17%;
+}
+
+/*Buttons Position
+-------------------------------------------------------*/
+
+.Buttons { /*ADM(BT's)*/
+    width: 100%;
+    table-layout: fixed;
+}
+
+.Button { /*BTM(BT's in process)*/
+    width: 100%;
+    table-layout: fixed;
+}
+
+
+/*VU(Visas And Permits) Table Style
+--------------------------------------------------------*/
+.visasViewBTM {
+    width: 100%;
+    table-layout: fixed;
+}
+
+    .visasViewBTM th {
+        background: #eaeaea;
+        border: 1px solid #c8c8c8;
+        text-align: center;
+    }
+
+    .visasViewBTM tbody td {
+        border: 1px solid #c8c8c8;
+        padding-left: 10px;
+    }
+
+col.cc1 {
+    width: 4%;
+}
+
+col.cc2 {
+    width: 11.5%;
+}
+
+col.cc3 {
+    width: 9%;
+}
+
+col.cc4 {
+    width: 5%;
+}
+
+col.cc5 {
+    width: 6.5%;
+}
+
+col.cc6 {
+    width: 6.5%;
+}
+
+col.cc7 {
+    width: 6%;
+}
+
+col.cc8 {
+    width: 6%;
+}
+
+col.cc9 {
+    width: 9%;
+}
+
+col.cc10 {
+    width: 5%;
+}
+
+col.cc11 {
+    width: 12%;
+}
+
+col.cc12 {
+    width: 11.5%;
+}
+col.cc13 {
+    width: 8%;
+}
+
+/*BTM(VisasAndPermits)*/
+
+col.visaCol1 {
+    width: 4%;
+}
+
+col.visaCol2 {
+    width: 11%;
+}
+
+col.visaCol3 {
+    width: 8.5%;
+}
+
+col.visaCol4 {
+    width: 5%;
+}
+
+col.visaCol5 {
+    width: 11.5%;
+}
+
+col.visaCol6 {
+    width: 4.5%;
+}
+
+col.visaCol7 {
+    width: 5.5%;
+}
+
+col.visaCol8 {
+    width: 9%;
+}
+
+col.visaCol9 {
+    width: 6.5%;
+}
+
+col.visaCol10 {
+    width: 5%;
+}
+
+col.visaCol11 {
+    width: 11.5%;
+}
+
+col.visaCol12 {
+    width: 10%;
+}
+
+col.visaCol13 {
+    width: 7.5%;
+}
+
+
+
+/*BTM(Private Trips) Table Style
+----------------------------------------------------------*/
+.privateTripsBTM {
+    width: 100%;
+    table-layout: fixed;
+}
+
+    .privateTripsBTM th {
+        background: #eaeaea;
+        border: 1px solid #c8c8c8;
+        text-align: center;
+    }
+
+    .privateTripsBTM tbody td {
+        border: 1px solid #c8c8c8;
+        padding-left: 10px;
+        font-size: 0.85em;
+    }
+
+col.pt1 {
+    width: 5.5%;
+}
+
+col.pt2 {
+    width: 17.5%;
+}
+
+col.pt3 {
+    width: 8%;
+}
+
+col.pt4 {
+    width: 8%;
+}
+
+col.pt5 {
+    width: 61%;
+}
+
+.margin30 {
+    text-align:center;
+}
+
+
+/*BTM(BTs in process) Table Style
+----------------------------------------------------------*/
+.viewBTsBTM {
+    width: 100%;
+    table-layout: fixed;
+}
+
+    .viewBTsBTM th {
+        background: #eaeaea;
+        border: 1px solid #c8c8c8;
+        text-align: center;
+    }
+
+    .viewBTsBTM tbody td {
+        padding-left: 1%;
+        border: 1px solid #c8c8c8;
+    }
+
+col.viewBTsBTM1 {
+    width: 4.5%;
+    padding-left: 0%;
+}
+
+col.viewBTsBTM2 {
+    width: 16.5%;
+}
+
+col.viewBTsBTM3 {
+    width: 20%;
+}
+
+col.viewBTsBTM4 {
+    width: 20%;
+}
+
+col.viewBTsBTM5 {
+    width: 20%;
+}
+
+col.viewBTsBTM6 {
+    width: 20%;
+}
+
+/*ACC(BT) Table Style
+----------------------------------------------------------*/
+.btsView {
+    width: 100%;
+    table-layout: fixed;
+}
+
+    .btsView th {
+        background: #eaeaea;
+        border: 1px solid #c8c8c8;
+        text-align: center;
+    }
+
+    .btsView tbody td {
+        padding-left: 10px;
+        border: 1px solid #c8c8c8;
+        font-size: 0.85em;
+    }
+
+col.c001 {
+    width: 5%;
+}
+
+col.c002 {
+    width: 15%;
+}
+
+col.c003 {
+    width: 23%;
+}
+
+col.c004 {
+    width: 7%;
+}
+
+col.c005 {
+    width: 25%;
+}
+
+col.c006 {
+    width: 25%;
+}
+
+
+.btsDetailsView {
+    width: 100%;
+}
+
+/*ADM(Visas and Permit) Table Style
+----------------------------------------------------------*/
+.visasView th {
+    background: #eaeaea;
+    border: 1px solid #c8c8c8;
+    text-align: center;
+}
+
+.visasView tbody td {
+    padding-left: 10px;
+    border: 1px solid #c8c8c8;
+}
+
+.visasView {
+    width: 100%;
+    table-layout: fixed;
+}
+
+col.c1 {
+    width: 5%;
+}
+
+col.c2 {
+    width: 14%;
+}
+
+col.c3 {
+    width: 8.5%;
+}
+
+col.c4 {
+    width: 6%;
+    padding-right: 0.5em;
+}
+
+col.c5 {
+    width: 19.5%;
+}
+
+col.c6 {
+    width: 7%;
+}
+
+col.c7 {
+    width: 8%;
+}
+
+col.c8 {
+    width: 11%;
+}
+
+col.c9 {
+    width: 7%;
+}
+
+col.c10 {
+    width: 20%;
+}
+
+
+/*DIR(Business Trips) Table Style
+----------------------------------------------------------*/
+.indexDIR {
+    width: 100%;
+}
+
+    .indexDIR th {
+        background: #eaeaea;
+        border: 1px solid #c8c8c8;
+        text-align: center;
+    }
+
+    .indexDIR tbody td {
+        padding-left: 10px;
+        border: 1px solid #c8c8c8;
+        font-size: 0.85em;
+    }
+
+col.c01 {
+    width: 4%;
+}
+
+col.c02 {
+    width: 15%;
+}
+
+col.c03 {
+    width: 23%;
+}
+
+col.c04 {
+    width: 7%;
+}
+
+col.c05 {
+    width: 10%;
+}
+
+col.c06 {
+    width: 7%;
+}
+
+col.c07 {
+    width: 16%;
+}
+
+col.c08 {
+    width: 14%;
+}
+
+col.c09 {
+    width: 3%;
+}
+
+/*PU(Employees) Table Style
+----------------------------------------------------------*/
+.employeeView {
+  width: 100%;
+    /*table-layout: fixed;*/
+}
+
+    .employeeView th {
+        background: #eaeaea;
+        border: 1px solid #c8c8c8;
+        text-align: center;
+                font-size: 0.91em;
+
+    }
+
+    /*.employeeView td {
+        padding-left: 3px;
+        font-size: 0.85em;
+        border: 1px solid #c8c8c8;
+    }*/
+#employeeViewexample td {
+            padding-left: 7px;
+        font-size: 0.9em;
+        border: 1px solid #c8c8c8;
+}
+
+    .employeeViewVU {
+    width: 66%;
+}
+
+    .employeeViewVU th {
+        background: #eaeaea;
+        border: 1px solid #c8c8c8;
+        text-align: center;
+    }
+
+    .employeeViewVU td {
+        padding-left: 10px;
+        font-size: 0.95em;
+        border: 1px solid #c8c8c8;
+    }
+
+.UsersOnlyTable {
+        width: 100%;
+        table-layout: fixed;
+}
+
+    .UsersOnlyTable th {
+        background: #eaeaea;
+        border: 1px solid #c8c8c8;
+        text-align: center;
+    }
+
+    .UsersOnlyTable td {
+        padding-left: 10px;
+        font-size: 0.95em;
+        border: 1px solid #c8c8c8;
+    }
+
+#empDismissedDetailsDialog {
+    text-decoration:line-through underline;
+}
+
+    col.empColVU01 {
+    width: 5%;
+}
+
+col.empColVU02 {
+    width: 15%;
+}
+
+col.empColVU03 {
+    width: 20%;
+}
+
+col.empColVU04 {
+    width: 5%;
+}
+
+col.empColVU05 {
+    width: 15%;
+}
+
+col.empColVU06 {
+    width: 20%;
+}
+
+col.empColVU07 {
+    width: 10%;
+}
+
+col.empColVU08 {
+    width: 10%;
+}
+
+col.empColVU09 {
+    width: 0%;
+}
+
+
+col.empCol01 {
+    width: 3.5%;
+}
+
+col.empCol02 {
+    width: 11.5%;
+}
+
+col.empCol03 {
+    width: 5%;
+}
+
+col.empCol04 {
+    width: 6.5%;
+}
+
+col.empCol05 {
+    width: 5%;
+}
+
+col.empCol06 {
+    width: 13%;
+}
+
+col.empCol07 {
+    width: 6%;
+}
+
+col.empCol08 {
+    width: 15%;
+}
+
+col.empCol09 {
+    width: 6%;
+}
+
+col.empCol010 {
+    width: 6%;
+}
+col.empCol011 {
+   width: 21%;
+}
+
+col.empCol012 {
+    width: 0%;
+}
+
+
+
+
+/*VU(BT in Quarter)
+----------------------------------------------------------*/
+.BTsInQuarterForViewer {
+    table-layout: fixed;
+    width: 100%;
+}
+
+    .BTsInQuarterForViewer th {
+        background: #eaeaea;
+        border: 1px solid #c8c8c8;
+        text-align: center;
+    }
+
+    .BTsInQuarterForViewer tbody td {
+        padding-left: 10px;
+        border: 1px solid #c8c8c8;
+    }
+
+col.ccv1 {
+    width: 6%;
+}
+
+col.ccv2 {
+    width: 18%;
+}
+
+col.ccv3 {
+    width: 19%;
+}
+
+col.ccv4 {
+    width: 19%;
+}
+
+col.ccv5 {
+    width: 19%;
+}
+
+col.ccv6 {
+    width: 19%;
+}
+
+.DaysInBt {
+    font-size: 0.85em;
+    font-style: normal;
+}
+
+.BTsForVU {
+    font-size: 0.8em;
+    font-style: initial;
+}
+
+.hasDatepicker {
+    width: 25%;
+    margin-right: 2%;
+}
+
+/*BTs for VU by mounth
+----------------------------------------------------------*/
+.BTsForViewer {
+    table-layout: fixed;
+    width: 100%;
+}
+
+col.cv1 {
+    width: 3%;
+    border: 1px solid black;
+    border-color: #999;
+}
+
+col.cv2 {
+    width: 13%;
+    border: 1px solid black;
+    border-color: #999;
+}
+
+col.cv3 {
+    width: 7%;
+    border: 1px solid black;
+    border-color: #999;
+}
+
+col.cv4 {
+    width: 7%;
+    border: 1px solid black;
+    border-color: #999;
+}
+
+col.cv5 {
+    width: 7%;
+    border: 1px solid black;
+    border-color: #999;
+}
+
+col.cv6 {
+    width: 7%;
+    border: 1px solid black;
+    border-color: #999;
+}
+
+col.cv7 {
+    width: 7%;
+    border: 1px solid black;
+    border-color: #999;
+}
+
+col.cv8 {
+    width: 7%;
+    border: 1px solid black;
+    border-color: #999;
+}
+
+col.cv9 {
+    width: 7%;
+    border: 1px solid black;
+    border-color: #999;
+}
+
+col.cv10 {
+    width: 7%;
+    border: 1px solid black;
+    border-color: #999;
+}
+
+col.cv11 {
+    width: 7%;
+    border: 1px solid black;
+    border-color: #999;
+}
+
+col.cv12 {
+    width: 7%;
+    border: 1px solid black;
+    border-color: #999;
+}
+
+col.cv13 {
+    width: 7%;
+    border: 1px solid black;
+    border-color: #999;
+}
+
+col.cv14 {
+    width: 7%;
+    border: 1px solid black;
+    border-color: #999;
+}
+
+/*Order Dates in table
+-------------------------------------------------------------*/
+.orderTable td {
+    width: 80%;
+}
+
+#col1 {
+    width: 15%;
+}
+
+#col11 {
+    width: 25%;
+}
+
+#col2 {
+    width: 15%;
+}
+
+#col22 {
+    width: 30%;
+}
+
+.orderTableADM td {
+    width: 90px;
+}
+
+
+/*BTs by Dates/Locations table style
+ ----------------------------------------------------------*/
+
+/*.btsViewbyDatesPU*/
+.btsViewbyDatesVU{
+    table-layout: fixed;
+    width: 100%;
+}
+
+#vuByDatesFirstHeader, #puByDatesFirstHeader {
+    background: none;
+    font-size: 0.85em;
+}
+
+#vuByDatesSecondHeader th, #puByDatesSecondHeader th {
+    background: #eaeaea;
+    border: 1px solid #c8c8c8;
+    text-align: center;
+    border-left: 1px solid #c8c8c8;
+}
+
+.btsViewbyDatesVU tbody td, .btsViewbyDatesPU tbody td {
+    padding-left: 10px;
+    border: 1px solid #c8c8c8;
+    font-size: 0.85em;
+}
+
+col.vu1, col.pu1 {
+    width: 5%;
+    border-left: 1px solid #c8c8c8;
+}
+
+col.vu2, col.pu2 {
+    width: 15%;
+}
+
+col.vu3, col.pu3 {
+    width: 9%;
+}
+
+col.vu4, col.pu4 {
+    width: 18%;
+}
+
+col.vu5, col.pu5 {
+    width: 18%;
+}
+
+col.vu6, col.pu6 {
+    width: 18%;
+}
+
+col.vu7, col.pu7 {
+    width: 17%;
+}
+
+
+/*BTs by Units table style
+ ----------------------------------------------------------*/
+
+
+.btsViewbyUnitsVU {
+    table-layout: fixed;
+    width: 100%;
+}
+
+#vuByUnitsFirstHeader {
+    background: none;
+    font-size: 0.85em;
+}
+
+#vuByUnitsSecondHeader th {
+    background: #eaeaea;
+    border: 1px solid #c8c8c8;
+    text-align: center;
+    border-left: 1px solid #c8c8c8;
+}
+
+.btsViewbyUnitsVU tbody td {
+    padding-left: 10px;
+    border: 1px solid #c8c8c8;
+    font-size: 0.85em;
+}
+
+
+col.byUnits1 {
+    width: 3%;
+    border-left: 1px solid #c8c8c8;
+}
+
+col.byUnits2 {
+    width: 5%;
+    border-left: 1px solid #c8c8c8;
+}
+
+col.byUnits3 {
+    width: 13%;
+}
+
+col.byUnits4 {
+    width: 6%;
+}
+
+col.byUnits5 {
+    width: 21%;
+}
+
+col.byUnits6 {
+    width: 21%;
+}
+
+col.byUnits7 {
+    width: 5%;
+}
+
+col.byUnits8 {
+    width: 18%;
+}
+
+col.byUnits9 {
+    width: 5%;
+}
+
+
+col.byUnits10 {
+    width: 5%;
+}
+
+
+/*Emp Absence style
+ ----------------------------------------------------------*/
+
+#absenceDataPerEMP th {
+    background: #eaeaea;
+    border: 1px solid #c8c8c8;
+    text-align:center
+}
+
+#absenceDataPerEMP tbody td {
+    padding-left: 10px;
+    border: 1px solid #c8c8c8;
+}
+
+#absenceDataPerEMP {
+    table-layout:fixed;
+}
+
+#absenceDataPerEMP #absenceDataTitle{
+    background-color: #eaeaea;
+}
+
+
+/*-----EMP(Birthday)*/
+#bdayTable th {
+    background: #eaeaea;
+    border: 1px solid #c8c8c8;
+    text-align:center
+}
+
+#bdayTable tbody td {
+    padding-left: 10px;
+    border: 1px solid #c8c8c8;
+}
+
+
+/*-----EMP(Reported BT's)-----*/
+#reportedBTs th {
+    background: #eaeaea;
+    border: 1px solid #c8c8c8;
+    text-align:center
+}
+
+#reportedBTs tbody td {
+    padding-left: 10px;
+    border: 1px solid #c8c8c8;
+}
+
+/*-----EMP(Reported BT's)-----*/
+
+col.fromCol {
+    width:15%;
+}
+
+col.locCol {
+    width:5%;
+}
+
+col.orderCol {
+    width:15%;
+}
+
+col.managerCol {
+    width:3%;
+}
+
+col.respCol {
+    width:2%;
+}
+
+col.habitationCol {
+    width:30%;
+}
+
+col.flightsCol {
+    width:30%;
+}
+
+/*Fonts Size and Colors
+    ----------------------------------------------------------*/
+h1, h2, h3,
+h4, h5, h6 {
+    color: #000;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+h2 {
+    font-size: 1.75em;
+}
+
+h3 {
+    font-size: 1.6em;
+}
+
+h4 {
+    font-size: 1.1em;
+}
+
+h5, h6 {
+    font-size: 1em;
+}
+
+    h5 a:link, h5 a:visited, h5 a:active {
+        padding: 0;
+        text-decoration: none;
+    }
+
+i {
+    color: red;
+}
+
+#i2 {
+    color: red;
+    font-size: 0.8em;
+}
+
+#i4 {
+    color: red;
+    font-size: 0.65em;
+}
+
+#size0_8 {
+    font-size: 0.8em;
+}
+
+orange {
+    color: #ff6a00;
+}
+
+blue {
+    color: #0474ca;
+}
+
+/*For TextBox size
+----------------------------------------------------------*/
+.forCalcDays {
+    border: none;
+    width: 25%;
+}
+
+.forNumber {
+    width: 60%;
+}
+
+.editorReadOnly {
+    width: 220px;
+}
+
+.editorForCalendar {
+    width: 90px;
+}
+
+.BTMEdit {
+    width: 55%;
+}
+
+.forOrderStartDate {
+    border: none;
+    width: 40%;
+}
+   .forOrderStartDateInAccComment {
+    border: none;
+    width: 50%;
+}
+
+#dateVacationFrom, #dateVacationTo, #sickText, #sicknessText {
+    width: 40%;
+}
+
+
+/*For TextArea size
+----------------------------------------------------------*/
+.textAreaReadOnly {
+    width: 320px;
+    height: 35px;
+    margin-right: 5px;
+}
+
+.textAreaAccCommentReadOnly {
+    width: 320px;
+    height: 40px;
+    margin-right: 5px;
+}
+
+.textAreaBTM {
+    width: 350px;
+    height: 35px;
+    margin-right: 5px;
+}
+
+.textAreaACC, .textAreaPU {
+    width: 500px;
+    height: 35px;
+    margin-right: 5px;
+}
+
+.textAreaAccComment, textAreaPUComment{
+    width: 500px;
+    height: 40px;
+    margin-right: 5px;
+}
+/*For Tabs
+----------------------------------------------------------*/
+/*.PuTab {
+    width: 95%;
+    margin: 0px,auto;
+    margin-left: 2%;
+}*/
+
+#feedbackTab {
+    right: 0;
+    position: fixed;
+    width: 25px;
+    height: 100px;
+    top: 150px;
+    z-index: 1;
+    background-color: #036AB9;
+    border-radius: 5px;
+    box-shadow: -2px 0px 5px 0px rgba(50, 50, 50, 0.6);
+}
+    #feedbackTab a:link {
+        text-decoration:none;
+    }
+    #feedbackTab p {
+      transform:rotate(270deg);
+      margin-top:160%;
+      color: #fff !important;
+      font: 16px "Segoe UI",Verdana,Helvetica,sans-serif;
+    }
+
+.sorting_asc {
+    background: url('../Images/sort_asc.png') no-repeat center right !important;
+}
+
+.sorting_desc {
+    background: url('../Images/sort_desc.png') no-repeat center right !important;
+}
+
+.sorting {
+    background: url('../Images/sort_both.png') no-repeat center right !important;
+}
+
+#example {
+    margin-top: -1px;
+}
+
+#viewBTsBTMexample {
+    margin-top: -1px;
+}
+
+#exampleBtsView {
+    margin-top: -1px;
+}
+
+#closedBTsView {
+    margin-top: -1px;
+}
+
+#btsViewExample {
+    margin-top: -1px;
+}
+
+#visasViewExample {
+    margin-top: -1px;
+}
+
+#visasViewexample {
+    margin-top: -1px;
+}
+
+#visasViewVU {
+    margin-top:-1px;
+
+}
+
+#privateTripsBTMexample {
+    margin-top: -1px;
+}
+
+#indexDIRexample {
+    margin-top: -1px;
+}
+
+#BTsInQuarterForViewerexample {
+    margin-top: -1px;
+}
+
+#BTsInQuarterForViewerMonthexample {
+    margin-top: -1px;
+}
+
+#employeeViewexample, #employeeViewexampleVU{
+    margin-top: -1px;
+    padding: 3px;
+}
+
+.UsersOnlyTable {
+    margin-top: 0px;
+}
+
+#visasView {
+    margin-top: -1px;
+}
+
+#exampleBtsViewByDates, #exampleBtsViewByDatesPU {
+    margin-top: -2px;
+}
+
+#prepBTDataVU {
+    margin-top: -1px;
+}
+
+#journeysViewABM {
+    margin-top: -1px;
+}
+
+#exampleBtsViewByUnits {
+    margin-top:-2px;
+}
+
+#overtimeViewABM {
+    margin-top: -1px;
+}
+
+#wtrDataId {
+    margin-top: -2px;
+}
+
+#absenceViewABM {
+    margin-top: -2px;
+}
+
+/*ACC(BT)*/
+
+#exampleBtsView_filter {
+    width: 23%;
+    position: relative;
+    left: 70%;
+    bottom: 0px;
+    height: 40px;
+}
+
+.destination1 {
+    width: 13%;
+    position: relative;
+    top: 13px;
+}
+
+
+#btsViewExample_filter {
+    width: 23%;
+    position: relative;
+    left: 70%;
+}
+
+#seachInput, #seachInputBT, #searchInputACC, #searchInput, #seachInputVU, #searchBusinessTripsDIR, #searchForQuarterVU, #searchPrepBTsDataVU, #searchClosedBTs{
+    width: 23%;
+    position: fixed;
+    left: 70%;
+}
+
+#seachInputEmployeesForADM{ 
+    width: 23%;
+    float: right;
+} 
+
+#btnGetMailAliasEMailsADM { 
+margin-left: 20%;
+} 
+
+#btnGetSecondMailAliasEMailsADM { 
+margin-left: 1%;
+} 
+
+#btnGetMailAliasEMailsPU { 
+margin-left: 20%;
+} 
+
+#btnGetSecondMailAliasEMailsPU { 
+margin-left: 1%;
+}
+
+#formForPU #seachInput {
+    position: relative !important;
+    left: 15% !important;
+}
+
+#searchInputMessages {
+    position: relative !important;
+    left: 65% !important;
+}
+
+#formForACC #searchInputACC {
+    position: relative !important;
+    left: 60% !important;
+    /*box-shadow: 0 0 2px rgb(4,116,202);*/
+}
+
+
+/*ADM(Visas And Perm)*/
+
+#visasViewExample_filter {
+    width: 30%;
+    position: relative;
+    left: 10%;
+    bottom: 0px;
+    height: 40px;
+}
+
+/*ADM(BTs)*/
+
+#example_filter {
+    width: 30%;
+    position: relative;
+    left: 10%;
+    bottom: 0px;
+    height: 40px;
+}
+
+/*DIR(BT)*/
+
+#indexDIRexample_filter {
+    width: 23%;
+    position: relative;
+    left: 70%;
+    bottom: 0px;
+    height: 40px;
+}
+
+#destination5 {
+    width: 13%;
+    position: relative;
+    top: 15px;
+}
+
+/*PU(Employees)*/
+
+#employeeViewexample_filter {
+    width: 30%;
+    position: relative;
+    left: 11%;
+    bottom: 0px;
+    height: 40px;
+}
+
+/*PU(Users)*/
+#userSearchInput {
+    position:relative;
+    left:65%;
+}
+
+#destination6 {
+    width: 13%;
+    position: relative;
+    top: 95px;
+}
+
+/*VU(BTs in Quarters)*/
+
+#BTsInQuarterForViewerexample_filter {
+    width: 23%;
+    position: relative;
+    left: 70%;
+    bottom: 0px;
+    height: 40px;
+}
+
+#destination7 {
+    width: 30%;
+    position: relative;
+    top: 13px;
+}
+
+#prepBTDataVU_filter {
+    width: 23%;
+    position: relative;
+    left: 70%;
+}
+
+#form0 {
+    height: 1px;
+}
+
+#form1 {
+    height: 1px;
+}
+
+#formForAcountableACC, #formPrepBTsDataVU{
+    height: 42px;
+}
+
+#formDIR, #formBTsDataInQuarterVU, #formClosedBTs {
+    height: 52px;
+}
+#exampleBtsViewByDates_filter, #exampleBtsViewByDatesPU_filter {
+    width: 23%;
+    position: relative;
+    left: 70%;
+    bottom: 0px;
+    height: 30px;
+}
+
+
+#exampleBtsViewByUnits_filter {
+    width: 23%;
+    position: relative;
+    left: 70%;
+    bottom: 0px;
+    height: 30px;
+}
+
+
+
+.destination8 {
+    width: 6%;
+    position: relative;
+    top: 13px;
+    font-size: 0.85em;
+}
+
+.destination9 {
+    width: 7%;
+    position: absolute;
+    top: 75px;
+    left: 20px;
+    font-size: 1em;
+}
+
+.destination00 {
+    width: 6%;
+    position: relative;
+    top: 13px;
+    font-size: 0.85em;
+}
+
+#BTsInQuarterForViewerMonthexample_filter {
+    width: 23%;
+    position: relative;
+    left: 70%;
+}
+
+
+#exampleBtsViewByDates_range_from_3, #exampleBtsViewByDatesPU_range_from_3 {
+    width: 30%;
+}
+
+#exampleBtsViewByDates_range_to_3, #exampleBtsViewByDatesPU_range_to_3 {
+    width: 30%;
+}
+
+#exampleBtsViewByDates_range_from_4, #exampleBtsViewByDatesPU_range_from_4 {
+    width: 30%;
+}
+
+#exampleBtsViewByDates_range_to_4, #exampleBtsViewByDatesPU_range_to_4 {
+    width: 30%;
+}
+
+#exampleBtsViewByDates_range_from_5, #exampleBtsViewByDatesPU_range_from_5 {
+    width: 30%;
+}
+
+#exampleBtsViewByDates_range_to_5, #exampleBtsViewByDatesPU_range_to_5 {
+    width: 30%;
+}
+
+#exampleBtsViewByDates_range_from_6, #exampleBtsViewByDatesPU_range_from_6 {
+    width: 30%;
+}
+
+#exampleBtsViewByDates_range_to_6, #exampleBtsViewByDatesPU_range_to_6 {
+    width: 30%;
+}
+
+
+
+.prepBusinessTripDataVU {
+    width: 100%;
+    table-layout: fixed;
+}
+
+    .prepBusinessTripDataVU th {
+        background: #eaeaea;
+        border: 1px solid #c8c8c8;
+        text-align: center;
+    }
+
+    .prepBusinessTripDataVU tbody td {
+        padding-left: 1%;
+        border: 1px solid #c8c8c8;
+        font-size: 0.85em;
+    }
+
+col.ccc1 {
+    width: 5%;
+}
+
+col.ccc2 {
+    width: 16.5%;
+}
+
+col.ccc3 {
+    width: 20%;
+}
+
+col.ccc4 {
+    width: 20%;
+}
+
+col.ccc5 {
+    width: 20%;
+}
+
+col.ccc6 {
+    width: 18.5%;
+}
+
+
+/*.buttonStyle {
+    font-size: 111px;
+}*/
+
+/*.bottomLeft {
+float: left;    
+}*/
+
+#saveDepartmentButton {
+    position: absolute;
+    top: 100px;
+    left: 15px;
+}
+
+#deleteDepartmentButton {
+    position: absolute;
+    top: 110px;
+    right: 15px;
+}
+
+#okDepartmentButton {
+    position: absolute;
+    top: 100px;
+    left: 15px;
+}
+
+#cancelDepartmentButton {
+    position: absolute;
+    top: 110px;
+    right: 15px;
+}
+
+.onlineUsersString {
+    text-align: right;
+    margin-right: 15px;
+    margin-left: 15px;
+    color: #fff;
+}
+
+.noOnlineUser {
+    text-align: right;
+}
+
+a.onlineUsersClass {
+    color: #fff;
+}
+
+#formForPU {
+    height: 40px;
+}
+
+.littleSrift {
+    font-size: 0.8em;
+}
+
+#HelpLink {
+    font-style: italic;
+}
+
+.helpMap {
+    position:relative;
+}
+
+
+#mapImage {
+    position: relative;
+    top: 10%;
+    left: 10%;
+}
+
+#countryAjaxForm {
+    width: 20%;
+    display: inline-block;
+}
+
+/*#selectedYear {
+    margin-left: 10%;
+}*/
+
+#registerPlanedBt, #confirmPlanedBt, #confirmRegisterBt, #replanRegisterBt, #cancelRegisterBt {
+    margin: 2px;
+    width: 50%;
+}
+
+#buttonsADM {
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
+
+.HelpInstruction {
+    padding-left: 15px;
+    font-size: 0.9em;
+}
+
+
+.lastBTColoumnForBTM {
+    padding-left: 2px!important;
+}
+
+redText {
+    color: red;
+}
+
+.wtrContainer {
+    width: 70%;
+    display: inline-block;
+}
+
+#wtrInput, #wtrInput2 {
+    width: 30%;
+}
+
+#From, #To {
+    resize:none;
+    width: 40%;
+    height: 15px;
+}
+
+#FromAbsence, #ToAbsence {
+    width: 40%;
+    height: 15px;
+}
+
+#fromDate, #toDate, #calendarFromDate, #calendarToDate {
+    width:45%;
+    height: 15px;
+}
+
+#searchInputABM, #absenceSearchInput {
+    width: 70%;
+    position: relative;
+    left: 10%;
+}
+
+#InputABM {
+    width: 30%;
+    position: fixed;
+    left: 70%;
+    bottom: 78%;
+}
+
+#formJourneys #searchInput {
+    position: relative !important;
+    left: 73% !important;
+}
+
+
+.journeyView {
+    width: 100%;
+    table-layout: fixed;
+}
+
+    .journeyView th {
+        background: #eaeaea;
+        border: 1px solid #c8c8c8;
+        text-align: center;
+    }
+
+    .journeyView tbody td {
+        padding-left: 10px;
+        border: 1px solid #c8c8c8;
+        font-size: 0.85em;
+    }
+
+
+/*Absence(ABM)*/
+
+.absenceABM {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.absenceABM th {
+        background: #eaeaea;
+        border: 1px solid #c8c8c8 !important;
+        text-align: center;
+}
+
+.absenceABM tbody td {
+        padding-left: 10px;
+        border: 1px solid #c8c8c8;
+        font-size: 0.85em;
+}
+
+col.absDep {
+    width: 9%; 
+}
+
+col.absName {
+    width: 10%;
+}
+
+col.absEID {
+    width: 5%;
+}
+
+col.absJourney {
+    width: 13.5%;
+}
+
+col.absOvertime {
+    width: 13.5%;
+}
+
+col.absBusinessTrip {
+    width: 16%;
+}
+
+col.absSickness {
+    width: 13.5%;
+}
+
+col.absVacation {
+    width: 13.5%;
+}
+
+
+col.j1 {
+    width:9%;
+}
+
+col.j2 {
+    width:13%;
+}
+
+col.j3 {
+    width:4%;
+}
+
+col.j4 {
+    width:69%;
+}
+
+
+.overtimeView {
+    width: 100%;
+    table-layout: fixed;
+}
+
+    .overtimeView th {
+        background: #eaeaea;
+        border: 1px solid #c8c8c8;
+        text-align: center;
+    }
+
+    .overtimeView tbody td {
+        padding-left: 10px;
+        border: 1px solid #c8c8c8;
+        font-size: 0.85em;
+    }
+
+col.overtimeDep {
+    width: 9%;
+}
+
+col.overtimeName {
+    width: 13%;
+}
+
+col.overtimeEID {
+    width: 4%;
+}
+
+col.overtime {
+    width: 69%;
+}
+
+
+col.name {
+    width:15%;
+    table-layout:fixed;
+}
+
+col.hours {
+    width:5%;
+    table-layout:fixed;
+}
+
+col.factor {
+    width:10%;
+    table-layout:fixed;
+}
+
+col.location {
+    width: 5%;
+    table-layout:fixed;
+}
+
+col.dates {
+    width:15%;
+    table-layout:fixed;
+}
+
+.wtrWrap th {
+background: #fff;
+border: 1px solid #c8c8c8;
+border-collapse:collapse;
+text-align: center;
+}
+.weekTable td {
+border: 1px solid #c8c8c8;
+text-align:center;
+padding-left: 14px;
+}
+
+.weekTable{
+    width:60%;
+}
+#errorFrom , #errorTo , #errorFromAbsence,
+ #errorToAbsence, #validatorCountryID,
+ #validatorTitle , #validatorHolidayDate,
+ #errorMsg, #errorMsgFrom, #errorMsgTo,
+#errorMessageAbs, #errorToAbs, #errorMsgReclaim, #errorFromAbs{
+color: rgb(232, 12, 77);
+font-weight: bold;
+}
+
+
+#notUnderlineText a {
+    text-decoration: none !important; 
+    font-size: 1.0em;
+}
+
+.customBlueItalic {
+    font-style:italic;
+    font-weight:bold;
+    color: #0066CC !important;
+}
+
+customBlueItalic {
+    font-style:italic;
+    color: #0066CC !important;
+}
+
+margin72 {
+   margin-left:72%;
+}
+
+
+margin75 {
+   margin-left:75%;
+}
+
+#ReclaimDate {
+    width:40% !important;
+}
+
+#absenceSubmitBtn,#empAbsenceSubmitButton{
+    width: 20%;
+    position:relative;
+    left:35%;
+    top:-82%;
+}
+
+#empWtrSubmitButton, #wtrSubmitButton{
+    width: 20%;
+    position:relative;
+    left:35%;
+    bottom:50px;
+}
+
+#calendarAbsenceSubmitBtn{
+    width: 6%;
+    position:relative;
+    left:51%;
+    bottom:95px;
+}
+
+#formAbsence {
+    height:60px;
+}
+
+#rangeCalendar {
+    position:relative;
+    left: 225px;
+    width:70%;
+    bottom:45px;
+}
+
+#formForABM {
+    height:70px;
+}
+
+#EMailData { 
+    overflow-x:auto; 
+    overflow-y:auto;
+}
+
+/*Index Page*/
+
+#AjourWrapper {
+    display:inline-block;
+    clear:both;
+    position:relative;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+}
+
+#AjourLogo {
+    float:left;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+#AjourSlogan {
+    margin-left:auto;
+    margin-right:auto;
+    float:right;
+    color:#036AB9;
+    font: 35px/8 Helvetica,arial,freesans,clean,sans-serif,"Segoe UI Emoji","Segoe UI Symbol";
+    font-weight:bold;
+}
+
+#prodVersion {
+    float:left;
+    margin-left:1%;
+    color:#fff;
+}
+
+#privateTripBTMSearch, #privateTripVUSearch, #visaVUSearch {
+    margin-bottom:3%;
+}
+
+#progressBarBTM {
+    position:absolute;
+    right:50%;
+    background-color:#f3f3f3;
+    height:2%;
+    border-radius:5px;
+}
+
+#orderVal{
+    width:10%; 
+    margin-right: 1.5em;
+}
+
+#TitleQuest {
+    width: 82%;
+} 
+
+#deleteQuestionSet{
+    float: right; 
+    margin-right: 1.8em;
+} 
+
+select[name="testDropDown"]
+{
+    margin-right: 1.5em;
+} 
+
+#QuestionnaireOrderNumber
+{
+    margin-right: 4em;
+} 
+
+label[for="Title"]
+{
+    margin-right: 3em;
+} 
+
+#questionnaireSaveBtn
+{
+    margin-right: 2.8em;
+}

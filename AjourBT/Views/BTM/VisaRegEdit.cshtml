@@ -1,0 +1,117 @@
+﻿@model AjourBT.Domain.ViewModels.RegistrationDateViewModel
+
+@{
+    Layout = null;
+}
+
+
+<script type="text/javascript">
+    clearTimeout(timer);
+    timer = window.setTimeout(function () { location.reload(); }, timeout);
+</script>
+
+<div id="ModelError" style="max-width: 400px; color: red"></div>
+
+<h4>@ViewBag.EmployeeInformation</h4>
+<br>
+@using (Html.BeginForm("VisaRegEdit", "BTM", FormMethod.Post, new { id = "EditRegDateForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <input type="hidden" name="searchString" value="@ViewBag.SearchString">
+    <input type="hidden" name="EmployeeID" value="@ViewBag.EmployeeID">
+    <fieldset>
+        <legend>VisaRegistrationDate</legend>
+
+        @Html.HiddenFor(model => model.EmployeeID)
+        @Html.HiddenFor(model => model.RowVersion)
+
+<table>
+        <tr>
+            <td><b>@Html.Label("Type")</b></td>
+            <td>@Html.TextBoxFor(model => model.VisaType, new { @class = "editorReadOnly" })
+                <br /> @Html.ValidationMessageFor(model => model.VisaType)</td>
+        </tr>
+
+        <tr>
+            <td><b>@Html.Label("Date")</b></td>
+            <td>@Html.TextBoxFor(model => model.RegistrationDate, new { @readonly = true, @class = "editorForCalendar" })
+                <br /> @Html.ValidationMessageFor(model => model.RegistrationDate)</td>
+        </tr>
+
+    <tr>
+        <td><b>@Html.Label("Time")</b></td>
+        <td>
+            @Html.TextBoxFor(model => model.RegistrationTime, new { @class = "editorForCalendar", @id = "editVisaRegTime" })
+            <br />@Html.ValidationMessageFor(model => model.RegistrationTime)
+
+        </td>
+    </tr>
+    <tr>
+        <td><b>@Html.Label("City")</b></td>
+        <td>
+            @Html.TextBoxFor(model => model.City, new { @class = "editorReadOnly" })
+            <br />@Html.ValidationMessageFor(model => model.City)
+
+        </td>
+    </tr>
+
+    <tr>
+        <td><b>@Html.Label("Reg #")</b></td>
+        <td>
+            @Html.TextBoxFor(model => model.RegistrationNumber, new { @class = "editorReadOnly" })
+            <br />@Html.ValidationMessageFor(model => model.RegistrationNumber)
+
+        </td>
+    </tr>
+
+    <tr>
+        <td><b>@Html.Label("Payment Date")</b></td>
+        <td>
+            @Html.TextBoxFor(model => model.PaymentDate, new { @readonly = true, @class = "editorForCalendar" })
+            <br />@Html.ValidationMessageFor(model => model.PaymentDate)
+        </td>
+    </tr>
+    <tr>
+        <td><b>@Html.Label("Payment Time")</b></td>
+        <td>
+            @Html.TextBoxFor(model => model.PaymentTime, new { @class = "editorForCalendar", @id = "eidtVisaPaymentTime" })
+            <br />@Html.ValidationMessageFor(model => model.PaymentTime)
+        </td>
+    </tr>
+    <tr>
+        <td><b>@Html.Label("Payment PIN")</b></td>
+        <td>
+            @Html.TextBoxFor(model => model.PaymentPIN, new { @class = "editorReadOnly" })
+            <br />@Html.ValidationMessageFor(model => model.PaymentPIN)
+
+        </td>
+    </tr>
+
+</table>
+    </fieldset>
+
+    <div style="float:left">
+
+        <button type="submit" id="btnSave" name="Command" value="Save">
+            Save
+        </button>
+
+    </div>
+}
+<br>
+@using (Html.BeginForm("VisaRegDelete", "BTM", new { id = @Model.EmployeeID }, FormMethod.Post, new { id = "DeleteRegDate" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <input type="hidden" name="searchString" value="@ViewBag.SearchString">
+        <input type="hidden" name="id" value="@ViewBag.EmployeeID">
+
+        <div style="float:right">
+            <button type="submit" id="btnDeleteVisaRegistrationDate" name="Command" value="Delete">
+                Delete
+            </button>
+
+        </div>
+    }

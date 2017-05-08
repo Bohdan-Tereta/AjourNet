@@ -1,0 +1,60 @@
+﻿@model AjourBT.Domain.Entities.Unit
+
+@{
+    ViewBag.Title = "Update Unit";
+    Layout = null;
+}
+
+@using (Ajax.BeginForm("UnitEdit","PU", new AjaxOptions{ @*UpdateTargetId = "UnitData",*@HttpMethod = "POST",OnSuccess = "UnitEditOnSuccess"}, new {id = "editUnitForm"}))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div id="UnitModelError" style="max-width: 400px; color: red"></div>
+
+
+    <fieldset>
+        <legend>Unit</legend>
+
+        @Html.HiddenFor(model => model.UnitID)
+        @Html.HiddenFor(model => model.RowVersion)
+
+        <table>
+            <tr>
+                <td>@Html.LabelFor(model => model.ShortTitle)</td>
+                <td>
+                    @Html.EditorFor(model => model.ShortTitle)
+                    <br />   @Html.ValidationMessageFor(model => model.ShortTitle)
+                </td>
+            </tr>
+
+            <tr>
+                <td>@Html.LabelFor(model => model.Title)</td>
+                <td>
+                    @Html.EditorFor(model => model.Title)
+                    <br />  @Html.ValidationMessageFor(model => model.Title)
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+    <div style="float:left">
+
+        <button type="submit" id="btnSaveUnit" name="Command" value="Save" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                <span>Save</span>
+            </button>
+
+    </div>
+
+}
+
+@using ( Html.BeginForm("UnitDelete", "PU", new { id = Model.UnitID }, FormMethod.Get))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div style="float:right">
+        <button type="submit" id="btnDeleteUnit" data-href="/PU/UnitDelete/@Model.UnitID" data-title="Delete @Model.ShortTitle" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+            <span>Delete</span>
+        </button>
+    </div>
+}
+
+<div id="deleteUnit-Confirm"></div>

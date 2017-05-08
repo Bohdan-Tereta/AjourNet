@@ -1,0 +1,33 @@
+﻿@model AjourBT.Domain.Entities.Country
+
+@{
+    ViewBag.Title = "Create";
+    Layout = null;
+}
+
+@using (Ajax.BeginForm("Create", "Country", new AjaxOptions { HttpMethod = "POST", OnSuccess = "CountryCreateOnSuccess" }, new { id = "createCountryForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Location</legend>
+        <table>
+        <tr>
+                <td>@Html.LabelFor(model => model.CountryName)</td>
+                <td>
+                    @Html.EditorFor(model => model.CountryName)
+                <br />  @Html.ValidationMessageFor(model => model.CountryName)
+            </td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(model => model.Comment)</td>
+            <td>
+                @Html.EditorFor(model => model.Comment)
+            <br />  @Html.ValidationMessageFor(model => model.Comment)
+        </td>
+    </tr>
+</table>
+</fieldset>
+}

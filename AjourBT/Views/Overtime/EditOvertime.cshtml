@@ -1,0 +1,39 @@
+﻿@model AjourBT.Domain.Entities.Overtime
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = null;
+    var date = Html.CustomDisplayDateTime(Model.Date);
+}
+
+<div id="OvertimeModelError" style="max-width: 400px; color: red"></div>
+
+@using (Html.BeginForm("EditOvertime", "Overtime", FormMethod.Post, new { id = "editOvertimeForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.Hidden("id", Model.OvertimeID)
+
+    <table class="showOvertime">
+        <tr>
+            <td>@Html.LabelFor(overtime => overtime.Date)</td>
+            <td>&nbsp;@date</td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(overtime => overtime.ReclaimDate)</td>
+            <td>@Html.EditorFor(overtime => overtime.ReclaimDate, new { @class = "reclaimDateField" })</td>
+            <td><p id="errorMsg"></p></td>
+        </tr>
+    </table>
+
+    <input type="hidden" name="searchString" value="@ViewBag.SearchString" />
+}
+
+<div style="float:right">
+
+    <a id="btnEditReclaimDate">Change Date</a>
+
+
+</div>
+
+

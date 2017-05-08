@@ -1,0 +1,24 @@
+﻿@{
+    Layout = null;
+}
+
+@{
+    AjaxOptions ajaxOpts = new AjaxOptions
+    {
+        UpdateTargetId = "UsersData",
+        Url = Url.Action("GetUsersOnlyData"),
+        HttpMethod = "GET"
+    };
+}
+
+@using (Ajax.BeginForm(null, null, ajaxOpts, new { id = "formUsersPU" }))
+{
+    <div>
+        @Html.DropDownList("selectedDepartment", (SelectList)ViewBag.DepartmentList, "All Departments", new { onchange = "$(this.form).submit();", id = "userDepDropList" })
+
+        <input id="userSearchInput" type="search" name="searchString" value="@ViewBag.SearchString" placeholder="Search... " />
+    </div>
+}
+<div id="UsersData" style="position:relative;top:8px;">
+    @Html.Action("GetUsersOnlyData", "PU", new { selectedDepartment = ViewBag.SelectedDepartment, searchString = ViewBag.SearchString })
+</div>

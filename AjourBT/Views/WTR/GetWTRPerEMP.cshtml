@@ -1,0 +1,66 @@
+﻿@{
+    Layout = null;
+    string textBoxFromText = ViewBag.FromText.ToString("dd.MM.yyyy");
+    string textBoxToText = ViewBag.ToText.ToString("dd.MM.yyyy");
+    
+    AjaxOptions ajaxOpts = new AjaxOptions
+    {
+        UpdateTargetId = "wtrData",
+        Url = Url.Action("GetWTRDataPerEMP"),
+        HttpMethod = "GET"
+    };
+}
+
+@using (Ajax.BeginForm("GetWTRDataPerEMP", "WTR", ajaxOpts, new { id = "formWTR" }))
+{
+    <table class="wtrContainer">
+        <tr id="wtrInput">
+            <td>@Html.Label("From")</td>
+            <td>@Html.TextBox("From",textBoxFromText)</td>
+            <td>@Html.Label("To")</td>
+            <td>@Html.TextBox("To",textBoxToText)</td>
+        </tr>
+        <tr id="wtrInput2">
+            <td></td>
+            <td><p id="errorFrom"></p></td>
+            <td></td>
+            <td><p id="errorTo"></p></td>
+        </tr>
+    </table>
+    <div id="empWtrSubmitButton">
+        <a id="buttonSubmit">Show data</a>
+    </div>
+
+    var userName = HttpContext.Current.User.Identity.Name.ToString();
+
+    @Html.Hidden("userName", userName);
+}
+<div id="wtrData">
+    @{Html.RenderAction("GetWTRDataPerEMP", "WTR");}
+</div>
+
+
+<script type="text/javascript"> 
+    $('#buttonSubmit').button();
+    $(document).ready(function () {
+        $('#From').datepicker({
+            firstDay: 1,
+            dateFormat: "dd.mm.yy",
+            showWeek: true,
+            calculateWeek: myWeekCalc,
+            showOn: 'button',
+            buttonImage: '/Content/themes/base/images/calendar2.gif',
+            buttonImageOnly: true
+        });
+
+        $('#To').datepicker({
+            firstDay: 1,
+            dateFormat: "dd.mm.yy",
+            calculateWeek: myWeekCalc,
+            showWeek: true,
+            showOn: 'button',
+            buttonImage: '/Content/themes/base/images/calendar2.gif',
+            buttonImageOnly: true
+        });
+    })
+</script>

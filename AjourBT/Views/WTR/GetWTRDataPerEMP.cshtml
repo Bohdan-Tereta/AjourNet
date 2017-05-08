@@ -1,0 +1,136 @@
+﻿@model IEnumerable<WTRViewModel>
+
+@{
+    Layout = null;
+
+    int FromYear = ViewBag.FromYear;
+    int ToYear = ViewBag.ToYear;
+    int FromWeek = ViewBag.FromWeek;
+    int ToWeek = ViewBag.ToWeek;
+
+    var weekInterval = Html.CustomCreateWeekInterval(FromYear, ToYear, FromWeek, ToWeek);
+}
+
+
+
+<table class="wtrWrap" id="wtrDataId">
+
+    <thead>
+        <tr><th>Reports by Weeks</th></tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @foreach (var weekInt in weekInterval)
+                {
+                    for (int i = weekInt.weekFrom; i <= weekInt.weekTo; i++)
+                    {
+                        var week = Html.CustomSelectEmployeeByWeek(Model, i, weekInt.year);
+                        if (week.ToList().Count == 0)
+                        {
+                            <h6>@weekInt.year - W @i</h6>
+                            <table class="no-data">
+                                <tr>
+                                    <td>No absence data for this week</td>
+                                </tr>
+                            </table>
+                        }
+                        else
+                        {
+                            <h6>@weekInt.year - W @i</h6>
+                        }
+
+                        if (week.ToList().Count != 0)
+                        {
+                            <table class="weekTable">
+                                <colgroup>
+                                    <col class="name" />
+                                    <col class="location" />
+                                    <col class="factor" />
+                                    <col class="dates">
+                                    <col class="hours" />
+                                </colgroup>
+
+                                <tr>
+                                    <th>Employee</th>
+                                    <th>Location</th>
+                                    <th>Factor</th>
+                                    <th>Dates</th>
+                                    <th>Hours</th>
+                                </tr>
+
+                                @foreach (var emp in week)
+                                {
+                                    var SortedList = Html.CustomSortingFactorDataByStartDate(emp.FactorDetails);
+
+                                    <tr>
+                                        <td>@emp.LastName @emp.FirstName <br>  (@emp.ID)</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+
+                                    foreach (var factor in SortedList)
+                                    {
+                                        <tr>
+                                            <td></td>
+                                            <td>@factor.Location</td>
+                                            <td>@factor.Factor</td>
+                                            <td>@Html.CustomDisplayDateTime(factor.From)  - @Html.CustomDisplayDateTime(factor.To)</td>
+                                            <td>@factor.Hours</td>
+                                        </tr>
+
+
+                                    }
+                                    <tr id="wtrTotal">
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>Total:</td>
+                                    </tr>
+                                }
+                            </table>
+                        }
+                    }
+                }
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<script>
+    $(function () {
+        $("[id^=ExportWTRToXlsForEMP]").button();
+    })
+</script>
+
+@{
+    using (Html.BeginForm("ExportWTRForEMP", "WTR", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <input type="hidden" value="@ViewBag.UserName" name="searchString">
+        <input type="hidden" value="@ViewBag.fromDate" name="fromDate">
+        <input type="hidden" value="@ViewBag.toDate" name="toDate">
+    <input type="submit" id="ExportWTRToXlsForEMP" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" value="ExportToXls">
+    }
+}
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+            sortTable = $('.wtrWrap').dataTable({
+            "sScrollY": (0.51 * $(window).height()),
+            "sScrollX": "100%",
+            "sScrollXInner": "100%",
+            "bPaginate": false,
+            "bDestroy": true,
+            "bFilter": false,
+            "bScrollCollapse": true,
+            "aaSorting": [],
+            "aoColumns": [{ 'bSortable': false }]
+
+        })
+    })
+</script>

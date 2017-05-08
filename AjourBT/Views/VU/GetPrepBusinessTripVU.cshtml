@@ -1,0 +1,15 @@
+﻿@{
+    Layout = null;
+}
+
+@using (Ajax.BeginForm("GetPrepBusinessTripDataVU", "VU", new AjaxOptions { UpdateTargetId = "prepBTsDataVU", HttpMethod = "GET" }, new { id = "formPrepBTsDataVU" }))
+{
+    <div>
+        <input id="searchPrepBTsDataVU" type="search" name="searchString" value="@ViewBag.SearchString" placeholder="Search...">
+    </div>
+}
+
+
+<div id="prepBTsDataVU">
+    @Html.Action("GetPrepBusinessTripDataVU", "VU", new { searchString = ViewBag.SearchString })
+</div>

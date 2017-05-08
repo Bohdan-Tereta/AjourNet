@@ -1,0 +1,29 @@
+﻿@{
+    Layout = null;
+}
+
+
+@{
+    AjaxOptions ajaxOpts = new AjaxOptions
+    {
+        UpdateTargetId = "tableBodyVisa",
+        Url = Url.Action("GetVisaDataBTM"),
+        HttpMethod = "GET"
+
+    };
+}
+
+
+@using (Ajax.BeginForm(ajaxOpts))
+{
+    <div>
+        <input id ="seachInput" type="search" name="searchString" value="@ViewBag.SearchString" placeholder="Search... "/>
+    </div>
+}
+
+<br />
+<br />
+    <div id="tableBodyVisa">
+        @Html.Action("GetVisaDataBTM", new { searchString = ViewBag.SearchString })
+    </div>
+

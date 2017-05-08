@@ -1,0 +1,168 @@
+﻿@model IEnumerable<AjourBT.Domain.ViewModels.EmployeeViewModel>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        sortTable = $('#employeeViewexampleVU').DataTable({
+            "sScrollY": (0.55 * $(window).height()),
+            "sScrollX": "100%",
+            "sScrollXInner": "100%",
+            "bDestroy": true,
+            "aaSortingFixed": [[8, "desc"]],
+            "bPaginate": false,
+            "bFilter": false,
+            "bScrollCollapse": true,
+            "aoColumns": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                { "sType": "date" },
+                { "bSortable": false },
+                { "sType": "date" }
+            ]
+        });
+        setTimeout(function () {
+            sortTable.fnAdjustColumnSizing();
+        }, 10);
+
+        $("div.dataTables_scrollBody").scrollTop(window.scrollPosition);
+
+    });
+
+</script>
+
+<script>
+    $(function () {
+        $("[id^=ExportToXlsButtonVU]").button();
+    })
+</script>
+
+
+<div id="EmployeeDataVU">
+    <table class="employeeViewVU" id="employeeViewexampleVU">
+        <colgroup>
+            <col class="empColVU01">
+            <col class="empColVU02">
+            <col class="empColVU03">
+            <col class="empColVU04">
+            <col class="empColVU05">
+            <col class="empColVU06">
+            <col class="empColVU07">
+            <col class="empColVU08">
+            <col class="empColVU09">
+
+        </colgroup>
+        <thead>
+            <tr>
+                <th>
+                    EID
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Full Name
+                </th>
+                <th>
+                    Dept
+                </th>
+                <th>
+                    Position
+                </th>
+                <th>
+                    PositionUK
+                </th>
+                <th>
+                    Employeed
+                </th>
+                <th>
+                    Dismissed
+                </th>
+                <th style="display:none"></th>
+            </tr>
+        </thead>
+
+        <tbody id="PUEmployee">
+            @foreach (var item in Model)
+            {
+                <tr class="zebra">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EID)
+                    </td>
+                    @if (item.DateDismissed != null && item.DateDismissed != String.Empty)
+                    {
+                        <td>  <strike> @(item.LastName.ToString() + " " + item.FirstName.ToString())</strike> </td>
+                    }
+                    else
+                    {
+                        if (item.IsManager == true)
+                        {
+                            <td>
+                                <b> @(item.LastName.ToString() + " " + item.FirstName.ToString())</b>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                @(item.LastName.ToString() + " " + item.FirstName.ToString())
+                            </td>
+                        }
+                    }
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FullNameUk)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DepartmentName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TitleEn)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TitleUk)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateEmployed)
+                    </td>
+                    <td>
+                        <i>@Html.DisplayFor(modelItem => item.DateDismissed)</i>
+                    </td>
+                    <td style="display:none">
+                        @{
+                if (item.DateDismissed == "")
+                {
+                    @:31.12.9999
+                            }
+                else
+                {
+                    @item.DateDismissed
+                }
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br />
+    @{
+        using (Html.BeginForm("ExportEmployeesToExcelVU", "VU", new { selectedDepartment = ViewBag.SelectedDepartment }, FormMethod.Post, null))
+        {
+            @Html.AntiForgeryToken()
+            <input type="submit" id="ExportToXlsButtonVU" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" value="ExportToXls">
+        }
+
+    }
+    <br />
+    <div>
+        <b>Employees by positions summary</b>
+        <br />
+        @foreach (KeyValuePair<string, int> empsWithPosition in ViewBag.empsByPositions)
+        {
+            @(empsWithPosition.Key + "s: " + empsWithPosition.Value);
+            <br />
+        }
+    </div>
+    <br />
+
+</div>

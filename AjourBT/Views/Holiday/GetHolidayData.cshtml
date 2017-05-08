@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Holiday>
+
+@{
+    Layout = null;
+}
+
+<div id="HolidayData">
+<table>
+    <thead>
+        <tr>
+            <th>
+                Date
+            </th>
+            <th>
+                Description
+            </th>
+        </tr>
+    </thead>
+    <tbody id="HolidaysList">
+    @foreach (var item in Model)
+    {
+        MvcHtmlString custDate = Html.CustomDisplayDateTime(item.HolidayDate);
+        <tr>
+            <td>
+              @Html.ActionLink(custDate.ToString(), "Edit", new { id = item.HolidayID }, new { @class = "holidayEditDialog" , data_date_format = ViewBag.JSDatePattern})
+            </td>
+            <td>
+                @Html.DisplayFor(modeItem => item.Title)
+            </td>
+        </tr>
+    }
+</tbody>
+</table>
+</div>
+
+<div id="holidayDialog-create" style="display:none">
+
+</div>
+
+<div id="holidayDialog-confirm" style="display: none">
+</div>
+
+<div id="holidayDialog-exception">
+
+</div>
+
+<div id="holidayDialog-edit" style="display: none">
+
+</div>
+
+<div id="holidayDialog-view" style="display: none">
+</div>

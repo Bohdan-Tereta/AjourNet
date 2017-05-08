@@ -1,0 +1,151 @@
+﻿@model AjourBT.Domain.ViewModels.AbsenceViewModelForEMP
+
+@{
+    Layout = null;
+
+}
+
+
+<table id="absenceDataPerEMP">
+
+    @foreach (var absenceDataPair in Model.FactorDetails)
+    {
+        switch (absenceDataPair.Key)
+        {
+            case CalendarItemType.SickAbsence:
+                if (absenceDataPair.Value.Count != 0)
+                {
+                    <tr>
+                        <td id="absenceDataTitle"> @Html.Label("Sickness")</td>
+                        <td>
+                            @foreach (AbsenceFactorData value in absenceDataPair.Value)
+                            {
+                                @Html.CustomDisplayDateTime(value.From)
+                                @: -
+                                @Html.CustomDisplayDateTime(value.To)
+
+                                @: &nbsp; &nbsp; &nbsp;
+                           }
+                        </td>
+                    </tr>
+                }
+                break;
+
+
+            case CalendarItemType.ReclaimedOvertime:
+
+                if (absenceDataPair.Value.Count != 0)
+                {
+                    <tr>
+                        <td id ="absenceDataTitle"> @Html.Label("ReclaimedOvertime")</td>
+                        <td>
+                            @foreach (AbsenceFactorData value in absenceDataPair.Value)
+                            {
+                                @Html.CustomDisplayAbsenceDateForEMP(value)
+
+                                @: &nbsp; &nbsp; &nbsp;
+                           }
+                        </td>
+                    </tr>
+                }
+                break;
+
+            case CalendarItemType.OvertimeForReclaim:
+
+                if (absenceDataPair.Value.Count != 0)
+                {
+                    <tr>
+                        <td id="absenceDataTitle"> @Html.Label("OvertimeForReclaim")</td>
+                        <td>
+                            @foreach (AbsenceFactorData value in absenceDataPair.Value)
+                            {
+                                @Html.CustomDisplayAbsenceDateForEMP(value)
+
+                                @: &nbsp; &nbsp; &nbsp;
+                           }
+                        </td>
+                    </tr>
+                }
+                break;
+
+            case CalendarItemType.PrivateMinus:
+
+                if (absenceDataPair.Value.Count != 0)
+                {
+                    <tr>
+                        <td id="absenceDataTitle"> @Html.Label("PrivateMinus")</td>
+                        <td>
+                            @foreach (AbsenceFactorData value in absenceDataPair.Value)
+                            {
+                                @Html.CustomDisplayAbsenceDateForEMP(value)
+
+                                @: &nbsp; &nbsp; &nbsp;
+                        }
+                        </td>
+                    </tr>
+                }
+                break;
+
+            case CalendarItemType.PaidVacation:
+
+                if (absenceDataPair.Value.Count != 0)
+                {
+                    <tr>
+                        <td id="absenceDataTitle"> @Html.Label("Paid Vacation")</td>
+                        <td>
+                            @foreach (AbsenceFactorData value in absenceDataPair.Value)
+                            {
+                                @Html.CustomDisplayDateTime(value.From)
+
+                                @: -
+                                
+                                @Html.CustomDisplayDateTime(value.To)
+                        }
+                        </td>
+                    </tr>
+                }
+                break;
+
+
+            case CalendarItemType.UnpaidVacation:
+
+                if (absenceDataPair.Value.Count != 0)
+                {
+                    <tr>
+                        <td id="absenceDataTitle"> @Html.Label("Unpaid Vacation")</td>
+                        <td>
+                            @foreach (AbsenceFactorData value in absenceDataPair.Value)
+                            {
+                                @Html.CustomDisplayDateTime(value.From)
+                                
+                                @:-
+
+                                @Html.CustomDisplayDateTime(value.To)
+                        }
+                        </td>
+                    </tr>
+                }
+                break;
+
+
+            case CalendarItemType.Journey:
+
+                if (absenceDataPair.Value.Count != 0)
+                {
+                    <tr>
+                        <td id="absenceDataTitle"> @Html.Label("Journey")</td>
+                        <td>
+                            @foreach (AbsenceFactorData value in absenceDataPair.Value)
+                            {
+                                @Html.CustomDisplayAbsenceDateForEMP(value)
+
+                                @: &nbsp; &nbsp; &nbsp;
+                        }
+                        </td>
+                    </tr>
+                }
+                break;
+        }
+    }
+
+</table>

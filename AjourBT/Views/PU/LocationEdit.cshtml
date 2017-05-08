@@ -1,0 +1,83 @@
+﻿@model AjourBT.Domain.Entities.Location
+
+@{
+    ViewBag.Title = "Update Location";
+    Layout = null;
+}
+
+@using (Ajax.BeginForm("LocationEdit","PU",new AjaxOptions{HttpMethod = "POST", OnSuccess = "LocationEditOnSuccess"}, new {id = "editLocationForm"}))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+    <legend>Location</legend>
+
+    @Html.HiddenFor(model => model.LocationID)
+    @Html.HiddenFor(model => model.RowVersion)
+
+<table>
+    <tr>
+        <td>@Html.Label("Country")</td>
+            <td>
+                @Html.DropDownList("CountryID", new SelectList(ViewBag.CountryList, "CountryID", "CountryName"))
+                <br />  @Html.ValidationMessageFor(model => model.CountryID)
+                </td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(model => model.Title)</td>
+        <td>
+            @Html.EditorFor(model => model.Title)
+        <br />   @Html.ValidationMessageFor(model => model.Title)
+        <div id="LocationCreateModelError" style="max-width: 400px; color: red"></div>
+    </td>
+
+    </tr>
+
+    <tr>
+        <td>@Html.LabelFor(model => model.Address)</td>
+        <td>@Html.EditorFor(model => model.Address)
+            <br />  @Html.ValidationMessageFor(model => model.Address)</td>
+    </tr>
+
+    <tr>
+        <td>@Html.Label("Responsible")</td>
+        <td>
+            @Html.EditorFor(model => model.ResponsibleForLoc)
+        <br />  @Html.ValidationMessageFor(model => model.ResponsibleForLoc)
+            <div id="LocationEditModelError" style="max-width: 400px; color: red"></div>
+    </td>
+</tr>
+
+</table>
+   </fieldset>
+    <div style="float:left">
+        <button type="submit" id="btnSaveLocation" name="Command" value="Save">
+            <span>Save</span>
+        </button>
+    </div>
+
+}
+
+
+
+@*<br/>*@
+@using (Html.BeginForm("LocationDelete", "PU", new { id = Model.LocationID }, FormMethod.Get))
+  {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+     <div style="float:right">
+        <button type="submit" id="btnDeleteLocation" data-href="/PU/LocationDelete/@Model.LocationID" data-title="Delete @Model.Title" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+            <span>Delete</span>
+        </button>
+
+    </div>
+  }
+
+<div id="deleteLocation-Confirm"></div>
+
+
+<script type="text/javascript">
+    clearTimeout(timer);
+    timer = window.setTimeout(function () { location.reload(); }, timeout);
+</script>

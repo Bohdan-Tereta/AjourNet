@@ -1,0 +1,68 @@
+﻿@model AjourBT.Domain.Entities.LoginModel
+
+@{
+    ViewBag.Title = "Log in";
+}
+
+@Scripts.Render("~/bundles/AjourBTScript/ResetPasswordScript")
+
+
+
+@*<script>
+    $(function () {
+        $("input[type=submit]")
+          .button()
+          .click(function (event) {
+              event.preventDefault();
+              submitForm();
+          });
+    });
+
+function submitForm(){
+    document.forms[0].submit();
+    return true;
+  }
+
+</script>*@
+
+
+
+<section class="content-wrapper main-content clear-fix">
+    <hgroup class="title">
+        
+    </hgroup>
+    <section id="loginForm">
+        @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+            <h1>Log In</h1>
+            <fieldset>
+                <legend>Log in Form</legend>
+                <ol>
+                    <li>
+                        @Html.LabelFor(m => m.UserName)
+                        @Html.TextBoxFor(m => m.UserName)
+                        @Html.ValidationMessageFor(m => m.UserName)
+                    </li>
+                    <li>
+                        @Html.LabelFor(m => m.Password) &nbsp
+                        @Html.PasswordFor(m => m.Password)
+                        @Html.ValidationMessageFor(m => m.Password)
+                    </li>
+                </ol>
+                <div class ="LoginButton">
+                    <input type="submit" value="Log in" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"  />
+                </div>
+            </fieldset>
+       
+
+        @Html.ActionLink("Forgot your password?", "ForgotPassword", "Account", new { id = "forgotPassword" })
+       @*<a title="Press to view persons who responsible for password managing" onclick="toggleElement('passParagraph')">Forgot your password ? </a>
+       <p id="passParagraph" style="display:none"> Contact to reset password:  <b>@ViewBag.EmpWithPU </b></p>*@
+
+    }
+    </section>
+</section>
+
+<div id="resetPassword"></div>

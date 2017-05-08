@@ -1,0 +1,33 @@
+﻿@model IEnumerable<AjourBT.Domain.Entities.BusinessTrip>
+
+@{
+    Layout = null;
+    ViewBag.Title = "GetLastBTDataPerEmployee";
+    BusinessTrip businessTrip = ViewBag.BTsGeneralInformation;
+}
+    <table>
+        <tr></tr>
+        <tr>
+            <td>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="~/Images/FinReport.pdf" class="customBlueItalic">
+                    Finance Report Example
+                </a>
+            </td>
+
+            <td>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="~/Images/BTreport.doc" class="customBlueItalic">
+                    BT Report Template
+                </a>
+            </td>
+
+            <td>
+               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="http://www.bank.gov.ua/control/uk/curmetal/detail/currency?period=daily" class="customBlueItalic">
+                    Exchange Rate
+                </a>
+            </td>
+            <td></td>
+        </tr>
+    </table>

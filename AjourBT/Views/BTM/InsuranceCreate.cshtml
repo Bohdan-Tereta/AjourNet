@@ -1,0 +1,52 @@
+﻿@model AjourBT.Domain.ViewModels.InsuranceViewModel
+
+@{
+    Layout = null;
+}
+
+<script type="text/javascript">
+    clearTimeout(timer);
+    timer = window.setTimeout(function () { location.reload(); }, timeout);
+</script>
+
+<div id="InsuranceModelError" style="max-width: 400px; color: red"></div>
+
+<h4>@ViewBag.EmployeeInformation</h4>
+<br>
+@using (Html.BeginForm("InsuranceCreate", "BTM", FormMethod.Post, new { id = "CreateInsuranceForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <input type="hidden" name="searchString" value="@ViewBag.SearchString">
+    <input type="hidden" name="EmployeeID" value="@ViewBag.EmployeeID">
+    <fieldset>
+        <legend>Insurance</legend>
+
+        <table>
+
+    <tr>
+        <td><b>@Html.LabelFor(model => model.StartDate)</b></td>
+        <td>
+            @Html.TextBoxFor(model => model.StartDate, new { id = "StartDateInsuranceCreate", @readonly = true, @class = "editorForCalendar" })
+        <br /> @Html.ValidationMessageFor(model => model.StartDate)
+    </td>
+</tr>
+
+<tr>
+    <td><b>@Html.LabelFor(model => model.EndDate)</b></td>
+    <td>
+        @Html.TextBoxFor(model => model.EndDate, new { id = "EndDateInsuranceCreate", @readonly = true, @class = "editorForCalendar" })
+    <br />  @Html.ValidationMessageFor(model => model.EndDate)
+</td>
+</tr>
+            <tr>
+                <td><b>@Html.LabelFor(model => model.Days)</b></td>
+                <td>
+                    @Html.TextBoxFor(model => model.Days, new { @class = "editorReadOnly" })
+                    <br />  @Html.ValidationMessageFor(model => model.Days)
+                </td>
+            </tr>
+</table>
+
+</fieldset>
+}

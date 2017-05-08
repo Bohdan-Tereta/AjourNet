@@ -1,0 +1,58 @@
+﻿@model AjourBT.Domain.Entities.Unit
+
+@{
+
+    ViewBag.Title = "Add new Unit";
+
+    Layout = null;
+
+}
+
+<h4>Add new Unit</h4>
+
+@using (Ajax.BeginForm("UnitCreate","PU",new AjaxOptions{@*UpdateTargetId = "UnitData",*@HttpMethod = "POST",OnSuccess = "UnitCreateOnSuccess"}, new {id = "createUnitForm"}))
+{
+
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+
+        <legend>Unit</legend>
+
+        <table>
+
+            <tr>
+
+                <td>@Html.LabelFor(model => model.ShortTitle)</td>
+
+                <td>
+
+                    @Html.EditorFor(model => model.ShortTitle)
+
+                    <br /> @Html.ValidationMessageFor(model => model.ShortTitle)
+
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <td>@Html.LabelFor(model => model.Title)</td>
+
+                <td>
+
+                    @Html.EditorFor(model => model.Title)
+
+                    <br /> @Html.ValidationMessageFor(model => model.Title)
+
+                </td>
+
+            </tr>
+
+        </table>
+
+    </fieldset>
+
+}

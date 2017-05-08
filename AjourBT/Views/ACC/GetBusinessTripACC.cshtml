@@ -1,0 +1,12 @@
+﻿@{
+    Layout = null;
+}
+
+@using (Ajax.BeginForm("IndexForAccountableBTs", "ACC", new AjaxOptions { UpdateTargetId = "btsAccountableView", HttpMethod = "GET" }, new { id = "formForAcountableACC" }))
+{
+      <input id="searchInputACC" type="search" name="searchString" value="@ViewBag.SearchString" placeholder="Search..." />
+}
+
+<div id="btsAccountableView">
+    @Html.Action("IndexForAccountableBTs", "ACC", new {searchString = ViewBag.SearchString })
+</div>

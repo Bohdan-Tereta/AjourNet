@@ -1,0 +1,86 @@
+﻿@model int
+@{
+    int SelectedYear = DateTime.Now.ToLocalTimeAzure().Year;
+}
+
+@Scripts.Render("~/bundles/fngantt")
+@Scripts.Render("~/bundles/columnFilter")
+@Scripts.Render("~/bundles/AjourBTScript/ABMDatesValidation") 
+@Scripts.Render("~/bundles/AjourBTScript/CalculateWeek")
+@Scripts.Render("~/bundles/AjourBTScript/VUchangeDateFormat") 
+@Scripts.Render("~/bundles/AjourBTScript/BTsForVU") 
+@Scripts.Render("~/bundles/AjourBTScript/JourneyScript") 
+@Scripts.Render("~/bundles/AjourBTScript/OvertimeScript")
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#tabsVU").tabs({ selected: @Model });
+        $("li#VULink a").css({
+            'color': '#E1701D'
+        })
+    });
+</script>
+
+<div id="tabsVU" style="height: 100%">
+    <ul>
+        <li><a href="@Url.Action("GetBusinessTripByDatesVU", "VU", new { selectedYear = @SelectedYear})">BTs by Dates</a></li>
+        <li><a href="@Url.Action("GetListOfYearsForQuarterVU", "VU", new { selectedKey = @SelectedYear })">BTs by Quarters</a></li>
+        <li><a href="@Url.Action("GetPrepBusinessTripVU", "VU", new { searchString = @ViewBag.SearchString})">BTs in process</a></li>
+        <li><a href="@Url.Action("GetPrivateTripVU","VU")">Private Trips</a></li>
+
+        @{
+            if (WebConfigurationManager.AppSettings["IncludeAbsence"] == "true")
+            {
+                <li><a href="#tabs-22">Calendar</a></li>
+            }
+        }
+
+        <li><a href="@Url.Action("GetBusinessTripByUnitsVU", "VU", new { selectedYear = @SelectedYear})">BTs by Units</a></li>
+        <li><a href="@Url.Action("GetVisaVU","VU")">Visas and Permits</a></li>
+        <li><a href="@Url.Action("GetJourney","Journey")">Days From BT</a></li> 
+        <li><a href="@Url.Action("GetEmployeeReadOnlyVU", "VU")">Employees</a></li>
+    </ul>
+    @{
+        if (WebConfigurationManager.AppSettings["IncludeAbsence"] == "true")
+        {
+            <div id="tabs-22" style="height: 91%"></div>
+        }
+    }
+</div>
+
+<script type="text/javascript"> 
+    $(document).ready(function () {
+        $('[href=#tabs-22]').click(function () {
+            $.ajax({
+                cache: false,
+                url: "/Calendar/GetCalendar",
+                type: "GET",
+                data: { selectedDepartment: "" },
+                success: function (data) {
+                    $("#tabs-22").html($(data));
+                }
+            });
+        })
+    })
+</script> 
+
+<script>
+    //Do not delete, see issue 413 first 
+    $(document).ready(function () {
+        if ($('[href=#tabs-22]').parent().hasClass("ui-state-active")) {
+            $("#tabsVU").css("height", "auto"); 
+        }
+        else {
+            $("#tabsVU").css("height", "100%");
+        }
+        $('[href=#tabs-22]').click(function () {
+            $("#tabsVU").css("height", "100%");
+        });
+        $('[href^=#ui-tabs-]').each(function(){ 
+            $(this).click(function () {
+                $("#tabsVU").css("height", "auto");
+            });
+        }); 
+    })
+</script>

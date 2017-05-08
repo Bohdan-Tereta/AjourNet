@@ -1,0 +1,38 @@
+﻿@model AjourBT.Domain.ViewModels.BusinessTripViewModel
+
+@{
+    ViewBag.Title = "Cancel reported BT for ACC";
+    Layout = null;
+}
+<script type="text/javascript">
+    clearTimeout(timer);
+    timer = window.setTimeout(function () { location.reload(); }, timeout);
+</script>
+<div>
+    <h4>@Model.BTof.LastName @Model.BTof.FirstName (@Model.BTof.Department.DepartmentName)</h4>
+</div>
+<br />
+
+@using (Html.BeginForm("CancelReportedBT", "ACC", new { id = Model.BusinessTripID, cancelComment = Model.CancelComment }, FormMethod.Post, new {id="cancelReportedBTACCForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <input type="hidden" name="selectedDepartment" value="@ViewBag.SelectedDepartment" />
+    <input type="hidden" name="id" value="@Model.BusinessTripID"/>
+
+    <fieldset>
+
+        @{Html.RenderPartial("_CancelBT", Model);}
+
+        @*<p>
+            <input type="submit" id="cancelReportedBTAcc" value="Cancel BT" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" />
+        </p>*@
+        <p>
+        <button id="cancelReportedBTAcc" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+            <span>Cancel BT</span>
+        </button>
+            </p>
+
+
+    </fieldset>
+}

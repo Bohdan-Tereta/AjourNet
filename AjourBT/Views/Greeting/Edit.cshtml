@@ -1,0 +1,58 @@
+﻿@model AjourBT.Domain.Entities.Greeting
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = null;
+}
+
+@using (Html.BeginForm("Edit", "Greeting", FormMethod.Post, new { id = "editGreetingForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div id="ModelError" style="max-width: 400px; color: red"></div>
+
+
+    <fieldset> 
+        @Html.HiddenFor(model => model.GreetingId)
+        @Html.HiddenFor(model => model.RowVersion)
+         
+        <table>
+            <tr>
+                <td>@Html.LabelFor(model => model.GreetingHeader)</td>
+                <td>
+                    @Html.EditorFor(model => model.GreetingHeader)
+                    <br />   @Html.ValidationMessageFor(model => model.GreetingHeader)
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.GreetingBody)</td>
+                <td>
+                    @Html.TextAreaFor(model => model.GreetingBody, new {style = "height: 256px" })
+                    <br />   @Html.ValidationMessageFor(model => model.GreetingBody)
+                </td>
+            </tr>
+        </table>
+
+    </fieldset>
+    <div style="float:left">
+    </div>
+}
+
+<button type="submit" id="btnSaveGreeting" name="Command" value="Save">
+    <span>Save</span>
+</button>
+
+@*<br/>*@
+@using (Html.BeginForm("Delete", "Greeting", new { id = Model.GreetingId }, FormMethod.Get))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div style="float:right">
+        <button type="submit" id="btnDeleteGreeting" data-href="/Greeting/Delete/@Model.GreetingId" data-title="Delete @Model.GreetingHeader" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+            <span>Delete</span>
+        </button>
+
+    </div>
+}
+
+<div id="deleteGreeting-Confirm"></div>

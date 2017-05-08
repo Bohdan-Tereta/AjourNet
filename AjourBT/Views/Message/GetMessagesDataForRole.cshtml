@@ -1,0 +1,61 @@
+﻿@model IEnumerable<AjourBT.Domain.Concrete.Message>
+
+@{
+    Layout = null;
+}
+
+@if (((IPagedList)ViewBag.OnePageOfMessages).TotalItemCount == 0 )
+{
+    <p> Nothing found </p> 
+}
+else
+{
+
+foreach (Message item in ViewBag.OnePageOfMessages)
+{
+    <div>
+        <div style="float:left; width:20%">
+            <b>Who:</b>
+            @Html.DisplayFor(modelItem => item.ReplyTo)
+        </div>
+        <div style="float:left; width:25%">
+            <b>Subject:</b>
+            @Html.DisplayFor(modelItem => item.Subject)
+        </div>
+        <div style="float: left; width:20%">
+            <b>Date:</b>
+            @item.TimeStamp.ToString("dd.MM.yyyy HH:mm:ss")
+        </div>
+        @if(!String.IsNullOrEmpty(item.FullName))
+        {
+        <div style="float: left; width:20%">
+            <b>To:</b>
+            @item.FullName
+        </div>
+        }
+    </div>
+    <div style="clear: left; padding-top: 1em; ">
+        @MvcHtmlString.Create(item.Body.Replace(Environment.NewLine, "<br/>"))
+    </div>
+    <div style="border-bottom:solid; border-bottom-width:thin; padding-bottom: 5px; padding-top: 1em; ">
+        @if (ViewBag.ShowLinks)
+        {
+            @MvcHtmlString.Create(item.Link)
+        }
+    </div>
+
+}
+}
+
+<div align="center" style="text-align:center; position:fixed; bottom: 0px; left:50%">
+    @Html.PagedListPager((IPagedList)ViewBag.OnePageOfMessages, page => Url.Action(ViewBag.ActionNameForPagination, "Home", new { page, tab = ViewBag.TabID,role = @ViewBag.Role,searchString = @ViewBag.SearchString}),
+        new PagedListRenderOptions
+            {
+                MaximumPageNumbersToDisplay = 1,
+                DisplayLinkToFirstPage = PagedListDisplayMode.Never,
+                DisplayLinkToLastPage = PagedListDisplayMode.Never,
+                DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                DisplayLinkToNextPage = PagedListDisplayMode.Always,
+                DisplayEllipsesWhenNotShowingAllPageNumbers = false
+            })
+</div>

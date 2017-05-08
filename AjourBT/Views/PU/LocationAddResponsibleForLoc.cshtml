@@ -1,0 +1,42 @@
+﻿@model AjourBT.Domain.Entities.Location
+
+@{
+    Layout = null;
+}
+
+@using (Html.BeginForm("AddResponsibleForLoc", "Location", FormMethod.Post, new { id = "AddResponsibleForLocForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    
+    <div id="ModelError" style="max-width: 400px; color: red"></div>
+    
+    @Html.HiddenFor(model => model.LocationID)
+    @Html.HiddenFor(model => model.RowVersion)
+    @Html.HiddenFor(model => model.Title)
+    @Html.HiddenFor(model => model.Address)
+    @Html.HiddenFor(model => model.CountryID)
+
+    <fieldset>
+
+        <legend>Location</legend>
+        <table>
+            <tr>
+                @Html.Label("Responsible")
+
+                @Html.EditorFor(model => model.ResponsibleForLoc)
+                <br />  @Html.ValidationMessageFor(model => model.ResponsibleForLoc)
+
+            </tr>
+        </table>
+
+        <br />
+
+        <div style="float: left">
+            <button type="submit" id="btnSaveResponsibleForLoc">
+                Save
+            </button>
+        </div>
+
+    </fieldset>
+}

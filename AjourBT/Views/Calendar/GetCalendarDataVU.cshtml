@@ -1,0 +1,121 @@
+﻿@model IEnumerable<CalendarRowViewModel>
+<div class="calendar" style="height: 100%; overflow-y: scroll; overflow-x: hidden " onscroll="OnScrollDiv()"></div>
+
+<script type="text/javascript">
+    $(function () {
+        var data = @Html.Raw(Json.Encode(Model))
+        var holidays = @Html.Raw(Json.Encode(ViewBag.Holidays))
+        var postponedHolidays = @Html.Raw(Json.Encode(ViewBag.PostponedHolidays))
+        $(".calendar").gantt({
+            source: data,
+            navigate: "scroll",
+            scale: "days",
+            minScale: "days",
+            maxScale: "days",
+            itemsPerPage: '@ViewBag.ItemsPerPage',
+            holidays:holidays,
+            postponedHolidays:postponedHolidays,
+            onItemClick: function (data) {
+            },
+
+            onAddClick: function (dt, rowId) {
+            },
+
+            onRender: function () {
+                //set to 3 if pagination disabled and scroll and frozen header enabled
+                var firstChild = $('div.leftPanel div:nth-child(4)').attr('id');
+                var lastChild = $('div.leftPanel div:last-child').attr('id');
+                var slash = firstChild.search("_");
+                var firstChildIndex = firstChild.substr(slash + 1, firstChild.length - slash);
+                slash = lastChild.search("_");
+                var lastChildIndex = lastChild.substr(slash + 1, lastChild.length - slash);
+
+                res = lastChildIndex - firstChildIndex;
+
+                var dataPanel = document.getElementsByClassName("dataPanel")[0];
+                res++;
+
+                var elem = document.getElementById("daysOfWeekRow");
+                var elemLength = elem.childElementCount;
+
+                var htmlData = [];
+                htmlData.push(
+                  "<div id=\"weekendMarker\" style=\"top: ",
+                  0,
+                  "px; left: ",
+                  0, 
+                  "px;\"></div>"
+                );
+
+                var fragment = document.createDocumentFragment();
+
+                    for(var j = 0; j<elemLength; j++ )
+
+                    {
+
+                        if(elem.childNodes[j].className == "row day sa" ||
+
+                        elem.childNodes[j].className == "row day sn" ||
+
+                            // (elem.childNodes[j].className == "row day holiday" && $(elem.childNodes[j]).find('.fn-label').html() == 'S')||
+
+                        (elem.childNodes[j].className == "row day postponedHoliday")||
+
+                        (elem.childNodes[j].className == "row day postponedHoliday today"))
+
+                        {
+
+                            for (var i = 1; i <= res; i++)
+
+                            {
+
+                                htmlData[1] = elem.childNodes[j].offsetTop + i * 24;
+
+                                htmlData[3] = elem.childNodes[j].offsetLeft + 1;
+
+                                var div = document.createElement("div");
+
+                                div.setAttribute("id", "weekendMarker");
+
+                                div.setAttribute("style", "top:"+(elem.childNodes[j].offsetTop + i * 24) +'px; '+"left:"+(elem.childNodes[j].offsetLeft + 1)+'px');
+
+                                fragment.appendChild(div);
+
+                            }
+
+                        }
+
+                        if((elem.childNodes[j].className == "row day holiday")||(elem.childNodes[j].className == "row day holiday today"))
+
+                        {
+
+                            for (var i = 1; i <= res; i++)
+
+                            {
+
+                                htmlData[1] = elem.childNodes[j].offsetTop + i * 24;
+
+                                htmlData[3] = elem.childNodes[j].offsetLeft + 1;
+
+                                var div = document.createElement("div");
+
+                                div.setAttribute("id", "holidayMarker");
+
+                                div.setAttribute("style", "top:"+(elem.childNodes[j].offsetTop + i * 24) +'px; '+"left:"+(elem.childNodes[j].offsetLeft + 1)+'px');
+
+                                fragment.appendChild(div);
+
+                            }
+
+                        } 
+
+                    }
+
+                dataPanel.appendChild(fragment);
+                $("[data-id='fake_row']").css("display", "none");
+                return false;
+
+            },
+        })
+    })
+</script>

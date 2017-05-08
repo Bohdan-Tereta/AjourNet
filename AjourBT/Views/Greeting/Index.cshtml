@@ -1,0 +1,76 @@
+﻿@model IEnumerable<AjourBT.Domain.Entities.Greeting>
+
+@{
+    Layout = null;
+    ViewBag.Title = "Greetings";
+}
+
+<script>
+    $(function () {
+        $("#CreateGreeting")
+          .button()
+          .click(function (event) {
+              event.preventDefault();
+          });
+    });
+</script>
+
+
+<div id="GreetingData">
+    <p>
+        <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="CreateGreeting" href="/Greeting/Create"><span> Add Greeting</span></a>
+    </p>
+
+    <table>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.GreetingHeader)
+            </th>           
+           
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.GreetingHeader, "Edit", new { id = item.GreetingId }, new { @class = "greetingEditDialog" })
+                </td>
+           
+            </tr>
+        }
+
+    </table>
+</div>
+
+<div align="center" style="text-align:center; position:fixed; bottom: 0px; left:50%">
+    @Html.PagedListPager((IPagedList)Model, page => Url.Action(ViewBag.ActionNameForPagination, "Home", new { page }),
+        new PagedListRenderOptions
+            {
+                MaximumPageNumbersToDisplay = 1,
+                DisplayLinkToFirstPage = PagedListDisplayMode.Never,
+                DisplayLinkToLastPage = PagedListDisplayMode.Never,
+                DisplayLinkToPreviousPage = PagedListDisplayMode.Always,
+                DisplayLinkToNextPage = PagedListDisplayMode.Always,
+                DisplayEllipsesWhenNotShowingAllPageNumbers = false
+            })
+</div>
+
+<div id="GreetingDialog-create" style="display:none">
+
+</div>
+
+<div id="GreetingDialog-confirm" style="display: none">
+</div>
+
+<div id="GreetingDialog-exception">
+
+</div>
+
+<div id="GreetingDialog-edit" style="display: none">
+
+</div>
+
+<div id="GreetingDialog-view" style="display: none">
+</div>
+
+

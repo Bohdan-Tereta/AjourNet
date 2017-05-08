@@ -1,0 +1,35 @@
+﻿@* Duplicated in BusinessTrip *@
+
+@model AjourBT.Domain.ViewModels.BusinessTripViewModel
+
+@{
+    Layout = null;
+}
+
+<script type="text/javascript">
+    clearTimeout(timer);
+    timer = window.setTimeout(function () { location.reload(); }, timeout);
+</script>
+<div id="ModelError" style="max-width: 400px; color: red"></div>
+<legend>BusinessTrip</legend>
+<table>
+    <tr>
+        <td><b>Location </b></td>
+        <td>@Html.DisplayFor(model => model.Title)</td>
+    </tr>
+    <tr>
+        <td><b>From </b></td>
+        <td>@Html.DisplayFor(model => model.StartDate)</td>
+    </tr>
+    <tr>
+        <td><b>To</b></td>
+        <td>@Html.DisplayFor(model => model.EndDate)</td>
+    </tr>
+    <tr>
+        <td><b>@Html.DisplayNameFor(model => model.CancelComment)</b></td>
+        <td>
+            @Html.TextBoxFor(model => model.CancelComment, new { @rows = "1", @class = "textAreaBTM" })
+        <br /> @Html.ValidationMessageFor(model => model.CancelComment)
+        </td>
+    </tr>
+</table>

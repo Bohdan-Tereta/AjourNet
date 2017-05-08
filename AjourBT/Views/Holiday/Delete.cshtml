@@ -1,0 +1,27 @@
+﻿@model AjourBT.Domain.Entities.Holiday
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = null;
+}
+
+<p>
+    Please Confirm
+</p>
+<table>
+    <tr>
+        <td>
+@using (Ajax.BeginForm("Delete", "Holiday", new AjaxOptions { UpdateTargetId = "HolidayData", HttpMethod = "POST" }, new { id = "deleteConfirmedForm" }))
+   
+            {
+                @Html.AntiForgeryToken()
+                @Html.Hidden("id", Model.HolidayID);
+            }
+        </td>
+    </tr>
+</table>
+
+<script type="text/javascript">
+    $('#OKDelete').button();
+    $('#btnCancelDeleteHoliday').button()
+</script>

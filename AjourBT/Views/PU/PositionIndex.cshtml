@@ -1,0 +1,43 @@
+﻿@model IEnumerable<AjourBT.Domain.Entities.Position>
+
+@{
+    Layout = null;
+    ViewBag.Title = "Position";
+}
+
+<div id="PositionData">
+<p>
+    <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="CreatePosition" href="/PU/PositionCreate"> Add Position </a>
+</p>
+
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TitleEn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TitleUk)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.TitleEn, "PositionEdit", new { id = item.PositionID }, new { @class = "posEditDialog" })
+            </td>
+            <td>
+                @Html.ActionLink(item.TitleUk, "PositionEdit", new { id = item.PositionID }, new { @class = "posEditDialog" })
+            </td>
+        </tr>
+    }
+
+</table>
+    </div>
+
+<script>
+    $(function () {
+        $("#CreatePosition").button();
+    })
+</script>

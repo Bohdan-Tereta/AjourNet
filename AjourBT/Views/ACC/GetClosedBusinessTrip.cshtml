@@ -1,0 +1,14 @@
+﻿@{
+    Layout = null;
+}
+
+@using (Ajax.BeginForm("GetClosedBusinessTripData", "ACC", new AjaxOptions { UpdateTargetId = "closedBTsData", HttpMethod = "GET" }, new { id = "formClosedBTs" }))
+{
+    <div>
+        <input id="searchClosedBTs" type="search" name="searchString" value="@ViewBag.SearchString" placeholder="Search..."> 
+    </div>
+}
+
+<div id="closedBTsData">
+    @Html.Action("GetClosedBusinessTripData", "ACC", new { searchString = @ViewBag.SearchString})
+</div>

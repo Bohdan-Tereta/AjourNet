@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "GetOvertime";
+    Layout = null;
+}
+
+@using (Ajax.BeginForm("GetOvertimeData", "Overtime", new AjaxOptions { UpdateTargetId = "overtimeView", HttpMethod = "Post" }, new { id = "formOvertimes" }))
+{
+    <div>
+        <input id="searchInput" type="search" name="searchString" value="@ViewBag.SearchString" placeholder="Search... "/>
+    </div>
+}
+
+<div id="overtimeView">
+    @Html.Action("GetOvertimeData", "Overtime", new { searchString = ViewBag.SearchString })
+</div>

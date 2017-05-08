@@ -1,0 +1,137 @@
+﻿@model List<AjourBT.Domain.ViewModels.BusinessTripViewModel>
+
+@{
+    ViewBag.Title = "GetBusinessTripData by Dates for VU";
+    string style;
+    MvcHtmlString name;
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var vuTable = $('#exampleBtsViewByDates').DataTable({
+            "sScrollY": (0.5 * $(window).height()),
+            "bPaginate": false,
+            "bFilter": true,
+            "bScrollCollapse": true,
+            "bDestroy": true,
+            "aaSorting": [],
+            "aoColumns": [
+                 null,
+                 { "sType": "html" },
+                 null,
+                 { "sType": "date" },
+                 { "sType": "date" },
+                 { "sType": "date" },
+                 { "sType": "date" },
+            ],
+        });
+
+        vuTable.columnFilter({
+            sPlaceHolder: "head:before",
+            "aoColumns": [
+                null,
+                null,
+                { "type": "select"},
+                { "type": "date-range" },
+                { "type": "date-range" },
+                { "type": "date-range" },
+                { "type": "date-range" },
+            ]
+        });
+
+        $.datepicker.regional[""].dateFormat = 'dd.mm.yy'; 
+        $.datepicker.setDefaults($.datepicker.regional[""]);
+    });
+</script>
+
+<table class="btsViewbyDatesVU" id="exampleBtsViewByDates">
+
+    <colgroup>
+        <col class="vu1" />
+        <col class="vu2" />
+        <col class="vu3" />
+        <col class="vu4" />
+        <col class="vu5" />
+        <col class="vu6" />
+        <col class="vu7" />
+        @*<col class="vu8" />*@
+    </colgroup>
+
+
+    <thead>
+
+        <tr id="vuByDatesFirstHeader">
+            <td>            </td>
+            <td>            </td>
+            <td>            </td>
+            <td>            </td>
+            <td>            </td>
+            <td>            </td>
+            <td>            </td>
+        </tr>
+
+        <tr id="vuByDatesSecondHeader">
+            <th>
+                EID
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                Location
+            </th>
+            <th>
+                From
+            </th>
+            <th>
+                To
+            </th>
+            <th>
+                Order From
+            </th>
+            <th>
+                Order To
+            </th>
+        </tr>
+    </thead>
+
+        <tbody>
+            @foreach (AjourBT.Domain.ViewModels.BusinessTripViewModel item in Model)
+            {
+                style = Html.CustomBtModelStyle(item);
+                
+                <tr class="zebra">
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BTof.EID)
+                    </td>
+                    
+                    @{
+                        name = Html.CustomDisplayNameOfEmployee(item.BTof);
+                    }
+
+                    <td id="notUnderlineText">                      
+                        @name
+                    </td>
+
+                    <td style="@style">
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td style ="@style">
+                        @Html.DisplayFor(modelItem => item.StartDate)
+                    </td>
+                    <td style="@style">
+                        @Html.DisplayFor(modelItem => item.EndDate)
+                    </td>
+                    <td style="@style">
+                        @Html.DisplayFor(modelItem => item.OrderStartDate)
+                    </td>
+                    <td style="@style">
+                        @Html.DisplayFor(modelItem => item.OrderEndDate)
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+
+</table>

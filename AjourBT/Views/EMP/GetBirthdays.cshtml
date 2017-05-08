@@ -1,0 +1,23 @@
+﻿@model IEnumerable<AjourBT.Domain.Entities.Employee>
+
+@{
+    Layout = null;
+}
+
+<table id="bdayTable">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+            @foreach (var emp in Model)
+            {
+                <tr>
+                    <td>@emp.LastName @emp.FirstName</td>
+                    <td>@emp.BirthDay.Value.ToString(String.Format("MMMM")), @emp.BirthDay.Value.Day  </td>
+                </tr>
+            }        
+    </tbody>
+</table>

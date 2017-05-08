@@ -1,0 +1,440 @@
+﻿@model IEnumerable<AjourBT.Domain.ViewModels.EmployeeViewModelForVU>
+
+@{
+    Layout = null;
+    string style;
+}
+
+@{
+    int tempSelectedKey = ViewBag.SelectedKey;
+}
+
+<title>GetBusinessTripDataViewer</title>
+
+@{
+    switch(tempSelectedKey){
+
+        case 0:
+<table class="BTsInQuarterForViewer" id="BTsInQuarterForViewerMonthexample">
+
+    <thead>
+        <tr>
+            <th>
+                EID
+            </th>
+            <th>
+                Name
+            </th>
+
+            @foreach (int month in ViewBag.MonthList)
+            {
+                <th>
+                    @Html.CustomDisplayMonthInEnglishHelp(month.ToString())
+                </th>
+            }
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var emp in Model)
+        {
+            <tr class="zebra">
+
+                <td>
+                    @Html.DisplayFor(modelItem => emp.EID)
+                </td>
+
+                <td>
+
+                    @{
+                        var DaysUsedInBtInfo = Html.CustomDisplayNumberOfDaysInBT(emp);
+                    }
+
+                    <a id="NumberDaysInBt" class="DaysInBt" title="@DaysUsedInBtInfo">@emp.LastName @emp.FirstName</a>
+                </td>
+                @foreach (int month in ViewBag.MonthList)
+                {
+                    <td class="VuTableTd">
+                        @foreach (var monthGroupName in emp.BusinessTripsByMonth)
+                        {
+                            if (monthGroupName.Key == month)
+                            {
+                                foreach (var bt in monthGroupName.Value)
+                                {
+                                    var OrderDatesInfo = Html.CustomDisplayOrderDatesForVU(bt);
+                                    style = Html.CustomBtStyle(bt);
+                                    
+                                    <a id="ShowBTInformation" class="BTsForVU" title="@OrderDatesInfo" style ="@style" href="/VU/ShowBTInformation/@bt.BusinessTripID"> @bt.Location.Title:@bt.StartDate.ToString("dd.MM") - @bt.EndDate.ToString("dd.MM")</a>
+                                    <br>
+                                }
+                            }
+                        }
+
+                    </td>
+                }
+              
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script type="text/javascript">
+$(document).ready(function () {
+    $('#BTsInQuarterForViewerMonthexample').DataTable({
+            "bFilter": false,
+            "sScrollY": (0.6 * $(window).height()),            
+            "bPaginate": false,
+            "bScrollCollapse": true,
+            "bDestroy": true,
+            "aaSorting":[],
+            "aoColumns": [
+                null,
+                null,
+                {"sType": "numeric"}
+            ]
+        });
+    });
+</script>
+
+                    break;
+                    case 1:
+<table class="BTsInQuarterForViewer" id="BTsInQuarterForViewerMonthexample">
+
+    <thead>
+        <tr>
+            <th>
+                EID
+            </th>
+            <th>
+                Name
+            </th>
+
+            @foreach (int month in ViewBag.MonthList)
+            {
+                <th>
+                    @Html.CustomDisplayMonthInEnglishHelp(month.ToString())
+                </th>
+            }
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var emp in Model)
+        {
+            <tr class="zebra">
+
+                <td>
+                    @Html.DisplayFor(modelItem => emp.EID)
+                </td>
+
+                <td>
+
+                    @{
+                        var DaysUsedInBtInfo = Html.CustomDisplayNumberOfDaysInBT(emp);
+                    }
+
+                    <a id="NumberDaysInBt" class="DaysInBt" title="@DaysUsedInBtInfo">@emp.LastName @emp.FirstName</a>
+                </td>
+                @foreach (int month in ViewBag.MonthList)
+                {
+                    <td class="VuTableTd">
+                        @foreach (var monthGroupName in emp.BusinessTripsByMonth)
+                        {
+                            if (monthGroupName.Key == month)
+                            {
+                                foreach (var bt in monthGroupName.Value)
+                                {
+                                    var OrderDatesInfo = Html.CustomDisplayOrderDatesForVU(bt);
+                                    style = Html.CustomBtStyle(bt);
+
+                                    <a id="ShowBTInformation" class="BTsForVU" title="@OrderDatesInfo" style="@style" href="/VU/ShowBTInformation/@bt.BusinessTripID"> @bt.Location.Title:@bt.StartDate.ToString("dd.MM") - @bt.EndDate.ToString("dd.MM")</a>
+                                    <br>
+                                }
+                            }
+                        }
+
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script type="text/javascript">
+$(document).ready(function () {
+    $('#BTsInQuarterForViewerMonthexample').DataTable({
+            "bFilter": false,
+            "sScrollY": "395px",            
+            "bPaginate": false,
+            "bScrollCollapse": true,
+            "bDestroy": true,
+            "aaSorting": [],
+            "aoColumns": [
+                null,
+                null,
+                {"sType": "numeric"},
+                {"sType": "numeric"}
+            ]
+        });
+    });
+</script>
+        
+                        break;
+                    case 3:
+<table class="BTsInQuarterForViewer" id="BTsInQuarterForViewerMonthexample">
+
+    <thead>
+        <tr>
+            <th>
+                EID
+            </th>
+            <th>
+                Name
+            </th>
+
+            @foreach (int month in ViewBag.MonthList)
+            {
+                <th>
+                    @Html.CustomDisplayMonthInEnglishHelp(month.ToString())
+                </th>
+            }
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var emp in Model)
+        {
+            <tr class="zebra">
+                <td>
+                    @Html.DisplayFor(modelItem => emp.EID)
+                </td>
+
+                <td>
+                    @{
+                        var DaysUsedInBtInfo = Html.CustomDisplayNumberOfDaysInBT(emp);
+                    }
+                    <a id="NumberDaysInBt" class="DaysInBt" title="@DaysUsedInBtInfo">@emp.LastName @emp.FirstName</a>
+                </td>
+                @foreach (int month in ViewBag.MonthList)
+                {
+                    <td class="VuTableTd">
+                        @foreach (var monthGroupName in emp.BusinessTripsByMonth)
+                        {
+                            if (monthGroupName.Key == month)
+                            {
+                                foreach (var bt in monthGroupName.Value)
+                                {
+                                    var OrderDatesInfo = Html.CustomDisplayOrderDatesForVU(bt);
+                                    style = Html.CustomBtStyle(bt);
+
+                                    <a id="ShowBTInformation" class="BTsForVU" title="@OrderDatesInfo" style="@style" href="/VU/ShowBTInformation/@bt.BusinessTripID"> @bt.Location.Title:@bt.StartDate.ToString("dd.MM") - @bt.EndDate.ToString("dd.MM")</a>
+                                    <br>
+                                }
+                            }
+                        }
+
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script type="text/javascript">
+$(document).ready(function () {
+    sortTable = $('#BTsInQuarterForViewerMonthexample').DataTable({
+            "bFilter": false,
+            "sScrollY": "395px",
+            "bPaginate": false,            
+            "bScrollCollapse": true,
+            "bDestroy": true,
+            "aaSorting": [],
+            "aoColumns": [
+                null,
+                null,
+                {"sType": "numeric"},
+                {"stype": "numeric"},
+                {"sType": "numeric"},
+                {"sType": "numeric"}
+            ]
+    });
+    setTimeout(function () {
+        sortTable.fnAdjustColumnSizing();
+        }, 10);
+    });
+</script>
+        
+        break;
+        case 6:
+<table class="BTsInQuarterForViewer" id="BTsInQuarterForViewerMonthexample">
+
+    <thead>
+        <tr>
+            <th>
+                EID
+            </th>
+            <th>
+                Name
+            </th>
+
+            @foreach (int month in ViewBag.MonthList)
+            {
+                <th>
+                    @Html.CustomDisplayMonthInEnglishHelp(month.ToString())
+                </th>
+            }
+            </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var emp in Model)
+        {
+            <tr class="zebra">
+                <td>
+                    @Html.DisplayFor(modelItem => emp.EID)
+                </td>
+
+                <td>
+                    @{
+                        var DaysUsedInBtInfo = Html.CustomDisplayNumberOfDaysInBT(emp);
+                    }
+                    <a id="NumberDaysInBt" class="DaysInBt" title="@DaysUsedInBtInfo">@emp.LastName @emp.FirstName</a>
+                </td>
+
+                @foreach (int month in ViewBag.MonthList)
+                {
+                    <td class="VuTableTd">
+                        @foreach (var monthGroupName in emp.BusinessTripsByMonth)
+                        {
+                            if (monthGroupName.Key == month)
+                            {
+                                foreach (var bt in monthGroupName.Value)
+                                {
+                                    var OrderDatesInfo = Html.CustomDisplayOrderDatesForVU(bt);
+                                    style = Html.CustomBtStyle(bt);
+
+                                    <a id="ShowBTInformation" class="BTsForVU" title="@OrderDatesInfo" style="@style" href="/VU/ShowBTInformation/@bt.BusinessTripID"> @bt.Location.Title:@bt.StartDate.ToString("dd.MM") - @bt.EndDate.ToString("dd.MM")</a>
+                                    <br>
+                                }
+                            }
+                        }
+
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#BTsInQuarterForViewerMonthexample').DataTable({
+            "bFilter": false,
+            "sScrollY": "395px",            
+            "bPaginate": false,
+            "bScrollCollapse": true,
+            "bDestroy": true,
+            "aaSorting":[],
+            "aoColumns": [
+                null,
+                null,
+                { "sType": "numeric" },
+                { "sType": "numeric" },
+                { "sType": "numeric" },
+                { "sType": "numeric" },
+                { "sType": "numeric" },
+                { "sType": "numeric" },
+                { "sType": "numeric" }
+            ]
+        });
+    });
+</script>
+
+        break;
+        default:
+<table class="BTsInQuarterForViewer" id="BTsInQuarterForViewerMonthexample">
+
+    <thead>
+        <tr>
+            <th>
+                EID
+            </th>
+            <th>
+                Name
+            </th>
+
+            @foreach (int month in ViewBag.MonthList)
+            {
+                <th>
+                    @Html.CustomDisplayMonthInEnglishHelp(month.ToString())
+                </th>
+            }
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var emp in Model)
+        {
+            <tr class="zebra">
+                <td>
+                    @Html.DisplayFor(modelItem => emp.EID)
+                </td>
+
+                <td>
+                    @{
+                        var DaysUsedInBtInfo = Html.CustomDisplayNumberOfDaysInBT(emp);
+                    }
+                    <a id="NumberDaysInBt" class="DaysInBt" title="@DaysUsedInBtInfo">@emp.LastName @emp.FirstName</a>
+                </td>
+                @foreach (int month in ViewBag.MonthList)
+                {
+                    <td class="VuTableTd">
+                        @foreach (var monthGroupName in emp.BusinessTripsByMonth)
+                        {
+                            if (monthGroupName.Key == month)
+                            {
+                                foreach (var bt in monthGroupName.Value)
+                                {
+                                    var OrderDatesInfo = Html.CustomDisplayOrderDatesForVU(bt);
+                                    style = Html.CustomBtStyle(bt);
+
+                                    <a id="ShowBTInformation" class="BTsForVU" title="@OrderDatesInfo" style="@style" href="/VU/ShowBTInformation/@bt.BusinessTripID"> @bt.Location.Title:@bt.StartDate.ToString("dd.MM") - @bt.EndDate.ToString("dd.MM")</a>
+                                    <br>
+                                }
+                            }
+                        }
+
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script type="text/javascript">
+$(document).ready(function () {
+    $('#BTsInQuarterForViewerMonthexample').DataTable({
+            "bFilter": false,
+            "sScrollY": "395px",            
+            "bPaginate": false,
+            "bScrollCollapse": true,
+            "bDestroy": true,
+            "aaSorting": [],
+            "aoColumns": [
+                null,
+                null,
+                { "sType": "numeric" },
+                { "sType": "numeric" },
+                { "sType": "numeric" },
+                { "sType": "numeric" }
+            ]
+        });
+    });
+</script>
+            break;
+    }
+}
+
+<div id="ShowBTInformation-VU" style="display:none"></div>

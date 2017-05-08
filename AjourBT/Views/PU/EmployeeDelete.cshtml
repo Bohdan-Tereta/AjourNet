@@ -1,0 +1,51 @@
+﻿@model AjourBT.Domain.Entities.Employee
+@{
+    ViewBag.Title = "Delete";
+    Layout = null;
+}
+
+<script type="text/javascript">
+    clearTimeout(timer);
+    timer = window.setTimeout(function () { location.reload(); }, timeout);
+
+    $(function () {
+        $("#OKDeleteEmployee, #btnCancelDeleteEmployee").button();
+    })
+</script>
+<p>
+    Please Confirm
+</p>
+<table id="deleteTable">
+    <tr>
+        <td>
+            @using (Html.BeginForm("EmployeeDelete", "PU", FormMethod.Post, new { id = "DeleteEmployeeForm" }))
+            {
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="id" value="@Model.EmployeeID">
+                <input type="hidden" name="searchString" value="@ViewBag.SearchString">
+                <input type="hidden" name="selectedDepartment" value="@ViewBag.SelectedDepartment">
+
+                <div style="float:left">
+
+                    <button type="submit" data-href="/PU/EmployeeDeleteConfirmed/@Model.DepartmentID&selectedDepartment=@ViewBag.SelectedDepartment&searchString=@ViewBag.SearchString" id="OKDeleteEmployee" name="Command" value="OK" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                        <span>OK</span>
+                    </button>
+
+                </div>
+
+            }
+        </td>
+        <td>
+            <div style="float:right">
+
+                <button id="btnCancelDeleteEmployee" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                   Cancel
+                </button>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<script type="text/javascript">
+    $("div.dataTables_scrollBody").scrollTop(window.scrollPosition);
+</script>

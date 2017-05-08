@@ -1,0 +1,224 @@
+﻿<!DOCTYPE html>
+<form id="__AjaxAntiForgeryForm" action="#" method="post"> @Html.AntiForgeryToken()</form>
+<html lang="en" style="height: 100%">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+
+    @Styles.Render("~/Content/css", "~/Content/themes/base/jquery-ui", "~/Content/redmond/jquery-ui")
+
+    @Scripts.Render("~/bundles/modernizr")
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @Scripts.Render("~/bundles/DataTables")
+    @*@Scripts.Render("~/bundles/columnFilter")*@
+
+    @*@Scripts.Render("~/bundles/fngantt")*@
+
+    <script type="text/javascript">
+        $(function () {
+            $("#tabs").tabs();
+        });
+
+        var timeout = 60000000;
+        var timer = window.setTimeout(function () { location.reload(); }, timeout);
+
+        $(document).ready(function () {
+            $("[href^=#tabs]").click(function () {
+                clearTimeout(timer);
+                timer = window.setTimeout(function () { location.reload(); }, timeout);
+            });
+        });
+    </script>
+
+</head>
+
+<body onload="loginDisplay();" style="height: 100%">
+
+    <header style="height: 7%">
+        <div class="content-wrapper">
+            <div class="float-left">
+                <nav>
+                    <ul id="menu">
+                        @if (HttpContext.Current.User.IsInRole("ACC"))
+                        {
+                        <li id="ACCLink">
+                            @Html.ActionLink("ACC", "ACCView", "Home")
+                        </li>
+                        }
+
+                        @if (HttpContext.Current.User.IsInRole("ADM"))
+                        {
+                        <li id="ADMLink">
+                            @Html.ActionLink("ADM", "ADMView", "Home")
+                        </li>
+                        }
+
+                        @if (HttpContext.Current.User.IsInRole("BTM"))
+                        {
+                        <li id="BTMLink">
+                            @Html.ActionLink("BTM", "BTMView", "Home")
+                        </li>
+                        }
+
+                        @if (HttpContext.Current.User.IsInRole("DIR"))
+                        {
+                        <li id="DIRLink">
+                            @Html.ActionLink("DIR", "DIRView", "Home")
+                        </li>
+                        }
+
+                        @if (HttpContext.Current.User.IsInRole("PU"))
+                        {
+                        <li id="PULink">
+                            @Html.ActionLink("PU", "PUView", "Home")
+                        </li>
+                        }
+
+                        @if (HttpContext.Current.User.IsInRole("VU"))
+                        {
+                        <li id="VULink">
+                            @Html.ActionLink("VU", "VUView", "Home")
+                        </li>
+                        }
+
+                        @if (WebConfigurationManager.AppSettings["IncludeAbsence"] == "true")
+                        {
+
+                            if (HttpContext.Current.User.IsInRole("ABM"))
+                            {
+                        <li id="ABMLink">
+                            @Html.ActionLink("ABM", "ABMView", "Home")
+                        </li>
+                            }
+                        }
+
+                        @if (HttpContext.Current.User.IsInRole("EMP"))
+                        {
+                        <li id="EMPLink">
+                            @Html.ActionLink("EMP", "EMPView", "Home")
+                        </li>
+                        }
+
+                        @if (HttpContext.Current.User.IsInRole("BDM"))
+                        {
+                        <li id="BDMLink">
+                            @Html.ActionLink("BDM", "BDMView", "Home")
+                        </li>
+                        }
+                        
+                        @if (HttpContext.Current.User.IsInRole("HR"))
+                        {
+                            <li id="HRLink">
+                                @Html.ActionLink("HR", "HRView", "Home")
+                            </li>
+                        }
+
+                        @if (HttpContext.Current.User.Identity.IsAuthenticated == true)
+                        {
+                        <li id="HelpLink">
+                                @Html.ActionLink("Help", "HelpView", "Home")
+                        </li>
+                        }                      
+
+                    </ul>
+                </nav>
+            </div>
+            <div class="float-right">
+                <section id="login">
+                    @Html.Partial("_LoginPartial")
+                </section>
+            </div>
+        </div>
+    </header>
+
+    <div id="body" style="height: 90%; opacity: 0.99">
+        @RenderSection("featured", required: false)
+        @RenderBody()
+    </div>
+
+    <div id="feedbackTab">
+        <a href="http://sdrv.ms/1a9P2yi" target="_blank">            
+            <p>Feedback</p>
+        </a>
+    </div>
+
+    @RenderSection("scripts", required: false)
+
+    @*@Scripts.Render("~/bundles/AjourBTScript/EmpScript")*@
+    @*@Scripts.Render("~/bundles/AjourBTScript/DepScript")*@
+    @*@Scripts.Render("~/bundles/AjourBTScript/LocScript")*@
+    @*@Scripts.Render("~/bundles/AjourBTScript/PermitScript")*@
+    @*@Scripts.Render("~/bundles/AjourBTScript/VisaScript")*@
+    @*@Scripts.Render("~/bundles/AjourBTScript/BTsForAcc")*@
+    @*@Scripts.Render("~/bundles/AjourBTScript/BTsForBTM")*@
+    @*@Scripts.Render("~/bundles/AjourBTScript/BTsForADM")*@
+    @*@Scripts.Render("~/bundles/AjourBTScript/BusinessTripForDirector")*@
+    @*@Scripts.Render("~/bundles/AjourBTScript/BTsForVU")*@
+    @*@Scripts.Render("~/bundles/AjourBTScript/PTsForBTM")
+    @Scripts.Render("~/bundles/AjourBTScript/PassportScript")*@
+    @*@Scripts.Render("~/bundles/AjourBTScript/PositionScript")
+    @Scripts.Render("~/bundles/AjourBTScript/UnitScript")*@
+    @Scripts.Render("~/bundles/AjourBTScript/OnlineUsers")
+    @*@Scripts.Render("~/bundles/AjourBTScript/BTsForEMP")*@
+    @*@Scripts.Render("~/bundles/AjourBTScript/JourneyScript")*@
+    @*@Scripts.Render("~/bundles/AjourBTScript/CountryScript")*@
+    @*@Scripts.Render("~/bundles/AjourBTScript/HolidayScript")*@
+    @*@Scripts.Render("~/bundles/AjourBTScript/OvertimeScript")*@
+    @*@Scripts.Render("~/bundles/AjourBTScript/CRUD_CalendarItems")*@
+    @*@Scripts.Render("~/bundles/AjourBTScript/GreetingScript")*@
+    @*@Scripts.Render("~/bundles/AjourBTScript/ResetPasswordScript")*@
+    @*@Scripts.Render("~/bundles/AjourBTScript/InsuranceScript")*@
+    @Scripts.Render("~/bundles/AjourBTScript/SaveSortAfterTableRefresh") 
+    @*@Scripts.Render("~/bundles/AjourBTScript/UserScript")*@ 
+
+
+
+    <footer style="height: 3%">
+
+        <script type="text/javascript">
+            $(function () {
+                setInterval(loginDisplay, 300000);
+            });
+
+            function loginDisplay() {
+                $.ajax({
+                    type: "GET",
+                    url: "/Account/GetLoginUser",
+
+                    success: function (response) {
+                        $("#onlineUsers").html(response);
+                    }
+                });
+            }
+        </script>
+
+        <script type="text/javascript">
+            $(function () {
+                $.ajax({
+                    type: 'GET',
+                    url: '/Account/GetProductVersion',
+
+                    success: function (response) {
+                        $('#prodVersion').html(response);
+                    }
+                })
+            })
+        </script>
+
+        <div id="prodVersion">
+        </div>
+
+        @if (HttpContext.Current.User.Identity.Name != "")
+        {
+            <div id="onlineUsers"></div>
+        }
+
+    </footer>
+</body>
+</html>

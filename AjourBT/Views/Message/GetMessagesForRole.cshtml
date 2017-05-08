@@ -1,0 +1,36 @@
+﻿@{
+    Layout = null;
+}
+
+@{
+    AjaxOptions ajaxOpts = new AjaxOptions
+    {
+        UpdateTargetId = "messagesContainer",
+        Url = Url.Action("GetMessagesDataForRole"),
+        HttpMethod = "GET"
+
+    };
+}
+
+    @using (Ajax.BeginForm(null, null, ajaxOpts, new{id = "formForPU"} ))
+    {
+        <div> 
+            <input type="submit" value="Refresh page" id="ReloadMessagesButton" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" />
+            <input id="searchInputMessages" type="search" name="searchString" value="@ViewBag.SearchString" placeholder="Search... " />
+            <input type="hidden" name="role" value="@ViewBag.Role">
+            <input type="hidden" name="actionNameForPagination" value="@ViewBag.ActionNameForPagination">
+            <input type="hidden" name="tab" value="@ViewBag.Tab">
+            <input type="hidden" name="page" value="1">
+        </div>
+    } 
+
+    <div id="messagesContainer">
+        @Html.Action("GetMessagesDataForRole")
+    </div>
+
+<script>
+    $(function () {
+        $("#ReloadMessagesButton").button();
+    })
+</script> 
+

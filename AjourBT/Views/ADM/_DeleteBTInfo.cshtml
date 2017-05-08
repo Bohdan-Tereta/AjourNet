@@ -1,0 +1,74 @@
+﻿@* Duplicated in ADM and BTM*@
+
+@model AjourBT.Domain.Entities.BusinessTrip
+
+@{
+    Layout = null;
+}
+
+<legend>BusinessTrip</legend>
+
+<div>
+    @Html.DisplayNameFor(model => model.StartDate):
+    @Html.CustomDisplayDateTime(Model.StartDate)
+</div>
+
+<div>
+    @Html.DisplayNameFor(model => model.EndDate):
+    @Html.CustomDisplayDateTime(Model.EndDate)
+</div>
+
+<div>
+    @Html.DisplayNameFor(model => model.Location):
+    @Html.DisplayFor(model => model.Location.Title)
+</div>
+
+@if (Model.OldStartDate != null)
+{
+    <div style="padding-left: 200px; font-size: 0.8em">
+        @Html.DisplayNameFor(model => model.OldStartDate):
+        @Html.CustomDisplayDateTime(Model.OldStartDate.Value)
+    </div>
+}
+
+@if (Model.OldEndDate != null)
+{
+    <div style ="padding-left: 200px; font-size: 0.8em; ">
+        @Html.DisplayNameFor(model => model.OldEndDate):
+        @Html.CustomDisplayDateTime(Model.OldEndDate.Value)
+    </div>
+}
+
+@if (Model.OldLocationID != 0)
+{
+    <div style="padding-left: 200px; font-size: 0.8em; ">
+        @Html.DisplayNameFor(model => model.OldLocationTitle):
+        @Html.DisplayFor(model => model.OldLocationTitle)
+    </div>
+}
+
+<br>
+
+@if (Model.Comment != null && Model.Comment != String.Empty)
+{
+    <div>
+        @Html.DisplayNameFor(model => model.Comment):
+        @Html.DisplayFor(model => model.Comment)
+    </div>
+}
+
+@if (Model.CancelComment != null && Model.CancelComment != String.Empty)
+{
+    <div>
+        @Html.DisplayNameFor(model => model.CancelComment):
+        @Html.DisplayFor(model => model.CancelComment)
+    </div>
+}
+
+@if (Model.RejectComment != null && Model.RejectComment != String.Empty)
+{
+    <div>
+        @Html.DisplayNameFor(model => model.RejectComment):
+        @Html.DisplayFor(model => model.RejectComment)
+    </div>
+}

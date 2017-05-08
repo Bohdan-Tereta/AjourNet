@@ -1,0 +1,24 @@
+﻿@{
+    Layout = null;
+}
+
+@{
+    AjaxOptions ajaxOpts = new AjaxOptions
+    {
+        UpdateTargetId = "btsByUnitsVU",
+        Url = Url.Action("GetBusinessTripDataByUnitsVU"),
+        HttpMethod = "GET"
+    };
+}
+
+
+@using (Ajax.BeginForm(ajaxOpts))
+{
+    <div class="destination8">
+        @Html.DropDownList("selectedYear", (SelectList)ViewBag.SelectedYear, new { onchange = "$(this.form).submit();" })
+    </div>
+}
+
+<div id="btsByUnitsVU">
+    @Html.Action("GetBusinessTripDataByUnitsVU", "VU", new { selectedYear = Model })
+</div>

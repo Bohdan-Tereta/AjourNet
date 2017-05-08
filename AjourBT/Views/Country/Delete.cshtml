@@ -1,0 +1,27 @@
+﻿@model AjourBT.Domain.Entities.Country
+@{
+    ViewBag.Title = "Delete";
+    Layout = null;
+}
+
+<h4> Please Confirm</h4>
+
+<table>
+    <tr>
+        <td>
+
+@using (Ajax.BeginForm("Delete", "Country", new AjaxOptions { UpdateTargetId = "CountryData", HttpMethod = "POST" }, new { id = "deleteConfirmedForm" }))
+{
+                @Html.AntiForgeryToken()
+                @Html.Hidden("id", Model.CountryID);
+}
+        </td>
+    </tr>
+</table>
+
+<script type="text/javascript">
+
+    $('#OKDelete').button();
+    $('#btnCancelDeleteCountry').button();
+
+</script>

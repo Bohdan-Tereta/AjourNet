@@ -1,0 +1,19 @@
+﻿@model int
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#tabsBDM").tabs({ selected: @Model });
+        $("li#BDMLink a").css({
+            'color': '#E1701D'
+        })
+    });
+</script>
+
+@Scripts.Render("~/bundles/AjourBTScript/GreetingScript")
+
+<div id="tabsBDM">
+    <ul>
+        <li><a href="#tabs-greetings">Greetings</a></li>
+    </ul>
+    <div id="tabs-6">@{Html.RenderAction("Index", "Greeting", new { actionNameForPagination = ViewContext.RouteData.GetRequiredString("action") });}</div>
+</div>

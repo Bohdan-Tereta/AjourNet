@@ -1,0 +1,193 @@
+﻿@model IEnumerable<AjourBT.Domain.ViewModels.EmployeeViewModelForVU>
+
+@{
+    Layout = null;
+    string style;
+}
+
+<title>GetBusinessTripDataQuarterViewer</title>
+
+<div id="VUBusinessTripDataInQuarter">
+<table class="BTsInQuarterForViewer" id="BTsInQuarterForViewerexample">
+    <colgroup>
+        <col class="ccv1" />
+        <col class="ccv2" />
+        <col class="ccv3" />
+        <col class="ccv4" />
+        <col class="ccv5" />
+        <col class="ccv6" />
+    </colgroup>
+  
+<thead>
+    <tr>
+
+        <th>
+            EID
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Q1
+        </th>
+
+        <th>
+            Q2
+        </th>
+
+        <th>
+            Q3
+        </th>
+
+        <th>
+            Q4
+        </th>
+    </tr>
+</thead>
+<tbody>
+    @foreach (var emp in Model)
+    {
+        <tr class="zebra">
+
+            <td>
+                @Html.DisplayFor(modelItem => emp.EID)
+            </td>
+
+            <td>
+                @{
+                    MvcHtmlString DaysUsedInBtInfo = Html.CustomDisplayNumberOfDaysInBT(emp);
+                    MvcHtmlString employeeNameWithHint = Html.CustomDisplayNameOfEmployeeViewModelForVU(emp, DaysUsedInBtInfo);                 
+                }
+
+                @employeeNameWithHint
+                @*<a id="NumberDaysInBt" class="DaysInBt" title="@DaysUsedInBtInfo">@name</a>*@
+            </td>
+
+            <td class="VuTableTd">
+
+                @foreach (int month in ViewBag.MonthList)
+                {
+                    if (month == 1 || month == 2 || month == 3)
+                    {
+                        foreach (var monthGroupName in emp.BusinessTripsByMonth)
+                        {                          
+                            if (monthGroupName.Key == month)
+                            {
+                                foreach (var bt in monthGroupName.Value)
+                                {
+                                    var OrderDatesInfo = Html.CustomDisplayOrderDatesForVU(bt);
+                                    style = Html.CustomBtStyle(bt);
+     
+                                    <a id="ShowBTInformation" class="BTsForVU" title="@OrderDatesInfo" style="@style" href="/VU/ShowBTInformation/@bt.BusinessTripID"> @bt.Location.Title:@bt.StartDate.ToString("dd.MM") - @bt.EndDate.ToString("dd.MM")</a>
+                                    <br>
+                                }
+                            }
+                        }
+                    }
+                }
+            </td>
+
+            <td class="VuTableTd">
+                @foreach (int month in ViewBag.MonthList)
+                {
+                    if (month == 4 || month == 5 || month == 6)
+                    {
+                        foreach (var monthGroupName in emp.BusinessTripsByMonth)
+                        {
+                            if (monthGroupName.Key == month)
+                            {
+                                foreach (var bt in monthGroupName.Value)
+                                {
+                                    var OrderDatesInfo = Html.CustomDisplayOrderDatesForVU(bt);
+                                    style = Html.CustomBtStyle(bt);
+
+                                    <a id="ShowBTInformation" class="BTsForVU" title="@OrderDatesInfo" style="@style" href="/VU/ShowBTInformation/@bt.BusinessTripID"> @bt.Location.Title:@bt.StartDate.ToString("dd.MM") - @bt.EndDate.ToString("dd.MM")</a>
+                                    <br>
+                                }
+                            }
+                        }
+                    }
+                }
+            </td>
+
+            <td class="VuTableTd">
+                @foreach (int month in ViewBag.MonthList)
+                {
+                    if (month == 7 || month == 8 || month == 9)
+                    {
+                        foreach (var monthGroupName in emp.BusinessTripsByMonth)
+                        {
+                            if (monthGroupName.Key == month)
+                            {
+                                foreach (var bt in monthGroupName.Value)
+                                {
+                                    var OrderDatesInfo = Html.CustomDisplayOrderDatesForVU(bt);
+                                    style = Html.CustomBtStyle(bt);
+
+                                    <a id="ShowBTInformation" class="BTsForVU" title="@OrderDatesInfo" style="@style" href="/VU/ShowBTInformation/@bt.BusinessTripID"> @bt.Location.Title:@bt.StartDate.ToString("dd.MM") - @bt.EndDate.ToString("dd.MM")</a>
+                                    <br>
+                                }
+                            }
+                        }
+                    }
+                }
+
+            </td>
+
+            <td class="VuTableTd">
+                @foreach (int month in ViewBag.MonthList)
+                {
+                    if (month == 10 || month == 11 || month == 12)
+                    {
+
+
+                        foreach (var monthGroupName in emp.BusinessTripsByMonth)
+                        {
+                            if (monthGroupName.Key == month)
+                            {
+                                foreach (var bt in monthGroupName.Value)
+                                {
+                                    var OrderDatesInfo = Html.CustomDisplayOrderDatesForVU(bt);
+                                    style = Html.CustomBtStyle(bt);
+
+                                    <a id="ShowBTInformation" class="BTsForVU" title="@OrderDatesInfo" style="@style" href="/VU/ShowBTInformation/@bt.BusinessTripID"> @bt.Location.Title:@bt.StartDate.ToString("dd.MM") - @bt.EndDate.ToString("dd.MM")</a>
+                                }
+                            }
+                        }
+                    }
+                }
+            </td>
+
+
+        </tr>
+
+    }
+</tbody>
+
+</table>
+    </div>
+
+
+
+<div id="ShowBTInformation-VU" style="display:none"></div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        sortTable = $('#BTsInQuarterForViewerexample').DataTable({
+            "bFilter": false,
+            "sScrollY": (0.6 * $(window).height()),
+            "aaSorting": [],
+            "aoColumns": [
+                null,
+                { "sType": "html" },
+                { "sType": "numeric" },
+                { "sType": "numeric" },
+                { "sType": "numeric" },
+                { "sType": "numeric" }
+            ],
+            "bPaginate": false,
+            "bScrollCollapse": true
+        });
+        $('div.dataTables_scrollBody').scrollTop(window.scrollPositionVUBTsDataInQuarters);
+    });
+</script>

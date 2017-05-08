@@ -1,0 +1,31 @@
+﻿@model AjourBT.Domain.Entities.Greeting
+
+@{
+    ViewBag.Title = "Create";
+    Layout = null;
+}
+
+@using (Html.BeginForm("Create", "Greeting", FormMethod.Post, new { id = "createGreetingForm" }))
+{
+    @Html.AntiForgeryToken()
+    <fieldset>
+
+        <table>
+            <tr>
+                <td>@Html.LabelFor(model => model.GreetingHeader)</td>
+                <td>
+                    @Html.EditorFor(model => model.GreetingHeader)
+                    <br />  @Html.ValidationMessageFor(model => model.GreetingHeader)
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.GreetingBody)</td>
+                <td>
+                    @Html.TextAreaFor(model => model.GreetingBody, new { style = "height: 256px" })
+                    <br />  @Html.ValidationMessageFor(model => model.GreetingBody)
+                </td>
+            </tr>
+
+        </table>
+    </fieldset>
+}

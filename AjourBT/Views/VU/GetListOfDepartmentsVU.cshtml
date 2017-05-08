@@ -1,0 +1,20 @@
+﻿@{
+    Layout = null;
+}
+
+
+@Html.DropDownList("selectedDepartment", (SelectList)ViewBag.DepartmentList, "All Departments", new { onchange = "$(this.form).submit();", id="ListOfDepartments" })
+<script type="text/javascript">
+    $('#ListOfDepartments').change(function () {
+            sortTable = $('#BTsInQuarterForViewerMonthexample').DataTable({
+            "sScrollY": "415px",
+            "bPaginate": false,
+            "bScrollCollapse": true,
+            "bDestroy": true
+      });
+
+      setTimeout(function () {
+          sortTable.fnAdjustColumnSizing();
+      }, 10);
+    });
+    </script>

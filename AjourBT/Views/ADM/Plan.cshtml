@@ -1,0 +1,173 @@
+﻿@model AjourBT.Domain.ViewModels.BusinessTripViewModel
+@Model
+
+@{
+    ViewBag.Title = "Plan";
+    Layout = null;
+    Visa employeeVisa = ViewBag.EmployeeVisa;
+    int visaDays = 0;
+    int visaDaysSpent = 0;
+    if (ViewBag.Days != null)
+    {
+        visaDaysSpent = ViewBag.Days.ToString();
+    }
+    if (employeeVisa != null && employeeVisa.DueDate >= DateTime.Now.ToLocalTimeAzure().Date)
+    {
+        visaDays = employeeVisa.Days;
+
+    }
+}
+
+<script type="text/javascript">
+    clearTimeout(timer);
+    timer = window.setTimeout(function () { location.reload(); }, timeout);
+</script>
+
+@using (Html.BeginForm("Plan", "ADM", FormMethod.Post, new { id = "planBTForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div id="ModelError" style="max-width: 400px; color: red"></div>
+    @Html.Hidden("EmployeeID", @Url.RequestContext.RouteData.Values["id"])
+    @Html.Hidden("Status", BTStatus.Planned)
+    @Html.HiddenFor(m => m.RowVersion)
+    <input type="hidden" name="selectedDepartment" value="@ViewBag.SelectedDepartment" />
+
+    <fieldset>
+        <legend>BusinessTrip</legend>
+
+        <h4>@ViewBag.EmployeeInformation</h4>
+
+        <table class="planBTsADM">
+            <tr>
+                <td>@Html.Label("Visa")</td>
+                <td>
+                    @if (employeeVisa != null)
+                    {
+                        @Html.CustomDisplayVisaStartAndDueDates(employeeVisa) @:(@employeeVisa.VisaType.ToString())
+                    }
+                    else
+                    {
+                        @:No Visa
+                    }
+                </td>
+
+            </tr>
+            <tr>
+                <td>@Html.Label("Days Used")</td>
+                @if (employeeVisa != null && employeeVisa.DueDate >= DateTime.Now.ToLocalTimeAzure().Date)
+                {
+                    <td id="numberOfDays">
+                        @visaDaysSpent
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td>@Html.Label("from")</td>
+                <td id="visaDays">@visaDays</td>
+            </tr>
+
+            <tr>
+                <td></td>
+                <td>
+                    <div style="float: right">
+                        <button type="submit" id="btnCalculateDays" name="Command" value="Save">
+                            Calculate
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("Location")
+                </td>
+                <td>
+                    @Html.DropDownList("LocationID", (SelectList)ViewBag.LocationsList, String.Empty)
+                    <br /> @Html.ValidationMessageFor(model => model.LocationID)
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    @Html.Label("Unit")
+                </td>
+                <td>
+                    @Html.DropDownList("UnitID", (SelectList)ViewBag.UnitsList, String.Empty)
+                    <br /> @Html.ValidationMessageFor(model => model.UnitID)
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    @Html.Label("From")
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.StartDate, new { id = "planStartDateBTs", @readonly = true, @class = "editorForCalendar" })
+                    <br /> @Html.ValidationMessageFor(model => model.StartDate)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("To")
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.EndDate, new { id = "planEndDateBTs", @readonly = true, @class = "editorForCalendar" })
+                    <br />@Html.ValidationMessageFor(model => model.EndDate)
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    @Html.Label("Purpose")
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.Purpose, new { id = "planPurpose", @class = "editorReadOnly" })
+                    <br />     @Html.ValidationMessageFor(model => model.Purpose)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("Manager")
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.Manager, new { @class = "editorReadOnly" })
+                    <br />@Html.ValidationMessageFor(model => model.Purpose)
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    @Html.Label("Responsible")
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.Responsible, new { @class = "editorReadOnly" })
+                    <br />  @Html.ValidationMessageFor(model => model.Responsible)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("Comment")
+                </td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    @Html.TextAreaFor(model => model.Comment, new { @class = "textAreaReadOnly" })
+                    <br />    @Html.ValidationMessageFor(model => model.Comment)
+                </td>
+            </tr>
+
+        </table>
+
+        <div style="float: left">
+            <button type="submit" id="btnPlanBT" name="Command" value="Save">
+                Save
+            </button>
+
+        </div>
+
+
+
+    </fieldset>
+}

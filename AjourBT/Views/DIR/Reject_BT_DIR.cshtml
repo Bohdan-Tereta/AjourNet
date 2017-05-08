@@ -1,0 +1,33 @@
+﻿@model AjourBT.Domain.ViewModels.BusinessTripViewModel
+
+@{
+    ViewBag.Title = "Reject BT for DIR";
+    Layout = null;
+}
+
+<div id="ModelError" style="max-width: 400px; color: red"></div>
+
+<div>
+    <h4>@Model.BTof.LastName @Model.BTof.FirstName (@Model.BTof.Department.DepartmentName)</h4>
+</div>
+<br />
+
+@using (Html.BeginForm("Reject_BT_DIR", "DIR", FormMethod.Post, new { id="RejectBTDIRForm"}))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.BusinessTripID)
+    @Html.HiddenFor(model => model.RowVersion)
+    @Html.Hidden("Status", Model.Status)
+    
+       @*<input type="hidden" id="rejectedBTId" value="@Model.BusinessTripID"/>*@
+    <fieldset>
+
+        @{Html.RenderPartial("_Reject_BT", Model);}
+      
+        <p>
+            <button type="submit" id="RejectBtnDIR"> Reject </button>
+        </p>
+
+    </fieldset>
+}

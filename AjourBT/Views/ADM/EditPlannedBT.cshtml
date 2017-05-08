@@ -1,0 +1,242 @@
+﻿@model AjourBT.Domain.ViewModels.BusinessTripViewModel
+
+@{
+    ViewBag.Title = "EditPlannedBT";
+    Visa employeeVisa = ViewBag.EmployeeVisa;
+    Layout = null;
+    int visaDays = 0;
+    int visaDaysSpent = 0;
+    if (ViewBag.Days != null)
+    {
+        visaDaysSpent = ViewBag.Days.ToString();
+    }
+    if (employeeVisa != null && employeeVisa.DueDate >= DateTime.Now.ToLocalTimeAzure().Date)
+    {
+        visaDays = employeeVisa.Days;
+
+    }
+}
+
+<script type="text/javascript">
+    clearTimeout(timer);
+    timer = window.setTimeout(function () { location.reload(); }, timeout);
+</script>
+@using (Html.BeginForm("Plan", "ADM", new { id = Model.BusinessTripID }, FormMethod.Post, new { id = "editPlanedBTForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div id="ModelError" style="max-width: 400px; color: red"></div>
+    @Html.Hidden("Status", Model.Status)
+    @Html.HiddenFor(model => model.EmployeeID)
+    @Html.HiddenFor(model => model.BusinessTripID)
+    @Html.HiddenFor(model => model.RowVersion)
+    <input type="hidden" name="selectedDepartment" value="@ViewBag.SelectedDepartment" />
+
+
+    <fieldset>
+
+        <legend>BusinessTrip</legend>
+
+        <h4>@ViewBag.EmployeeInformation</h4>
+
+        <table class="editPlannedBTsADM">
+            <tr>
+                <td>@Html.Label("Visa")</td>
+                <td>
+                    @if (employeeVisa != null)
+                    {
+                        @Html.CustomDisplayVisaStartAndDueDates(employeeVisa) @:(@employeeVisa.VisaType.ToString())
+                    }
+                    else
+                    {
+                        @:No Visa
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.Label("Days Used")</td>
+                @if (employeeVisa != null && employeeVisa.DueDate >= DateTime.Now.ToLocalTimeAzure().Date)
+                {
+                    <td id="numberOfDays">
+                        @visaDaysSpent
+                    </td>
+                }
+            </tr>
+            <tr>
+                <td>@Html.Label("from")</td>
+                <td id="visaDays">@visaDays</td>
+            </tr>
+           
+            <tr>
+                <td></td>
+                <td>
+                    <div style="float: right">
+                        <button type="submit" id="btnCalculateDaysEdit" name="Command" value="Save">
+                            Calculate
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("Location")
+                </td>
+                <td>
+                    @Html.DropDownList("LocationID", (SelectList)ViewBag.LocationsList, String.Empty)
+                    <br /> @Html.ValidationMessageFor(model => model.LocationID)
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    @Html.Label("Unit")
+                </td>
+                <td>
+                    @Html.DropDownList("UnitID", (SelectList)ViewBag.UnitsList, String.Empty)
+                    <br /> @Html.ValidationMessageFor(model => model.UnitID)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("From")
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.StartDate, new { id = "editPlannedBTADMStartDate", @readonly = true, @class = "editorForCalendar" })
+                    <br />@Html.ValidationMessageFor(model => model.StartDate)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("To")
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.EndDate, new { id = "editPlannedBTADMEndDate", @readonly = true, @class = "editorForCalendar" })
+                    <br /> @Html.ValidationMessageFor(model => model.EndDate)
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    @Html.Label("Purpose")
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.Purpose, new { @class = "editorReadOnly" })
+                    <br />  @Html.ValidationMessageFor(model => model.Purpose)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.Label("Manager")
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.Manager, new { @class = "editorReadOnly" })
+                    <br />  @Html.ValidationMessageFor(model => model.Purpose)
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    @Html.Label("Responsible")
+                </td>
+                <td>
+                    @Html.TextBoxFor(model => model.Responsible, new { @class = "editorReadOnly" })
+                    <br /> @Html.ValidationMessageFor(model => model.Responsible)
+                </td>
+            </tr>
+        </table>
+
+
+        <table>
+            <tr>
+                <td>
+                    @Html.Label("Comment")
+
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    @Html.TextAreaFor(model => model.Comment, new { @class = "textAreaReadOnly" })
+                    <br /> @Html.ValidationMessageFor(model => model.Comment)
+                </td>
+            </tr>
+
+            @if (Model.BTMComment != null && Model.BTMComment != String.Empty)
+            {
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.BTMComment)
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td>
+                        @Html.TextAreaFor(model => model.BTMComment, new { @readonly = true, @class = "textAreaReadOnly" })
+                        <br />  @Html.ValidationMessageFor(model => model.BTMComment)
+                    </td>
+                </tr>
+
+            }
+
+            @if (Model.RejectComment != null && Model.RejectComment != String.Empty)
+            {
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.RejectComment)
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        @Html.TextAreaFor(model => model.RejectComment, new { @readonly = true, @class = "textAreaReadOnly" })
+                        <br />   @Html.ValidationMessageFor(model => model.RejectComment)
+                    </td>
+                </tr>
+            }
+
+        </table>
+
+
+
+        <p>
+            <button type="submit" id="planEditedBT">Plan</button>
+            @*<button type="submit" name="commandName" value="Register " class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                    <span class="ui-button-text">Register</span>
+                </button>
+                <button type="submit" name="commandName" value="Confirm " class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                    <span class="ui-button-text">Confirm</span>
+                </button>*@
+        </p>
+    </fieldset>
+
+}
+
+@using (Html.BeginForm("DeletePlannedBT", "BusinessTrip", FormMethod.Get))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+}
+<div style="float:right">
+    <button type="submit" id="btnDeletePlannedBT" data-href="/ADM/DeletePlannedBT/@Model.BusinessTripID?selectedDepartment=@ViewBag.SelectedDepartment">
+        <span>Delete</span>
+    </button>
+</div>
+
+<br />
+<br />
+@if (Model.Status.HasFlag(BTStatus.Modified))
+{
+    if (Model.OldLocationTitle != null && Model.OldLocationTitle != "" && Model.OldStartDate != null && Model.OldStartDate != "" && Model.OldEndDate != null && Model.OldEndDate != "")
+    {
+        @:Old Data: @(Model.OldLocationTitle + ": " + Model.OldStartDate + "-" + Model.OldEndDate)
+    	}
+}
+
+
+<br>
+
+<div style="float:right">
+    <em>@Html.DisplayLastCRUD(Model.LastCRUDedBy, Model.LastCRUDTimestamp)</em>
+</div>
+<div id="DeletePlannedBT-ADM"></div>

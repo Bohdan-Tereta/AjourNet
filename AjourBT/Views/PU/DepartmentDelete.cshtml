@@ -1,0 +1,29 @@
+﻿@model AjourBT.Domain.Entities.Department
+@{
+    ViewBag.Title = "Delete";
+    Layout = null;
+}
+<script type="text/javascript">
+
+    clearTimeout(timer);
+    timer = window.setTimeout(function () { location.reload(); }, timeout);
+
+
+    $(function () {
+        $("#OKDeleteDepartment, #btnCancelDeleteDepartment").button();
+    })
+
+</script>
+<h4>Please Confirm</h4>
+
+<table>
+    <tr>
+        <td>
+            @using (Ajax.BeginForm("DepartmentDelete", "PU", new AjaxOptions { UpdateTargetId = "ui-tabs-1", HttpMethod = "POST"}, new { id = "deleteConfirmedForm" } ))
+            {
+                @Html.AntiForgeryToken()
+                @Html.Hidden("id", Model.DepartmentID);
+            }
+        </td>
+    </tr>
+</table>

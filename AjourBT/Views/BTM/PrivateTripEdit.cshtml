@@ -1,0 +1,72 @@
+﻿@model AjourBT.Domain.ViewModels.PrivateTripViewModel
+
+@{
+    Layout = null;
+}
+
+<script type="text/javascript">
+    clearTimeout(timer);
+    timer = window.setTimeout(function () { location.reload(); }, timeout);
+</script>
+<h4>@ViewBag.EmployeeInformation</h4>
+<br>
+
+@using (Html.BeginForm("PrivateTripEdit", "BTM", FormMethod.Post, new { id = "EditPrivateTripForm" }))
+{
+    @Html.AntiForgeryToken()
+    <div id="ModelError" style="max-width: 400px; color: red"></div>
+    @Html.ValidationSummary(true)
+    <input type="hidden" name="searchString" value="@ViewBag.SearchString">
+    <fieldset>
+        <legend>PrivateTrip</legend>
+
+        @Html.HiddenFor(model => model.EmployeeID)
+        @Html.HiddenFor(model => model.PrivateTripID)
+        @Html.HiddenFor(model => model.RowVersion)
+
+        <table>
+            <tr>
+                <td>@Html.LabelFor(model => model.StartDate)</td>
+                <td>
+                    @Html.TextBoxFor(model => model.StartDate, new { id = "editStartDatePT", @readonly = true, @class = "BTMEdit" })
+                    <br />  @Html.ValidationMessageFor(model => model.StartDate)
+                </td>
+            </tr>
+
+            <tr>
+                <td>@Html.LabelFor(model => model.EndDate)</td>
+                <td>
+                    @Html.TextBoxFor(model => model.EndDate, new { id = "editEndDatePT", @readonly = true, @class = "BTMEdit" })
+                    <br />   @Html.ValidationMessageFor(model => model.EndDate)
+                </td>
+            </tr>
+        </table>
+
+        <div style="float:left">
+            <p>
+                <button type="submit" id="btnSavePrivateTrip" name="Command" value="Save" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                    Save
+                </button>
+            </p>
+
+        </div>
+
+    </fieldset>
+}
+
+@using (Html.BeginForm("Delete", "PrivateTrip", new { id = Model.PrivateTripID }, FormMethod.Get))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <input type="hidden" name="searchString" value="@ViewBag.SearchString">
+
+    <div style="float:right">
+        <button type="submit" id="btnDeletePrivateTrip" data-href="/BTM/PrivateTripDelete/@Model.PrivateTripID?searchString=@ViewBag.SearchString" data-title="Deleting Private Trip of @Model.VisaOf.VisaOf.LastName @Model.VisaOf.VisaOf.FirstName" name="Command" value="Delete" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+            Delete
+        </button>
+
+    </div>
+}
+
+<div id="deleteEmployee-Confirm">
+</div>

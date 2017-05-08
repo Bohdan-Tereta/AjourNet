@@ -1,0 +1,191 @@
+﻿@model AjourBT.Domain.ViewModels.BusinessTripViewModel
+
+@{
+    ViewBag.Title = "ShowBTData";
+    Layout = null;
+}
+
+<fieldset>
+    <legend>BusinessTrip</legend>
+
+    <h4>  @(Model.BTof.FirstName + " " + Model.BTof.LastName + " (" + Model.BTof.EID + ")")</h4>
+
+    <table class="orderTableADM">
+
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        <tr>
+
+            <td>
+                @Html.Label("From")
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.StartDate)
+            </td>
+
+            <td colspan="2">
+                @Html.CustomDisplayOrderStartDate(Model.OrderStartDate)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.Label("To")
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.EndDate)
+            </td>
+
+            <td colspan="2">
+                @Html.CustomDisplayOrderEndDate(Model.OrderEndDate)
+            </td>
+        </tr>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Title)
+            </td>
+
+            <td colspan="2">
+                @Html.CustomDisplayOrderDays(Model.DaysInBTForOrder)
+            </td>
+
+        </tr>
+    </table>
+
+    <table>
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Purpose)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Purpose)
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Manager)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Manager)
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Responsible)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Responsible)
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Comment)
+            </td>
+            <td>
+                @Html.TextAreaFor(model => model.Comment, new { @readonly = true, @class = "textAreaReadOnly" })
+            </td>
+        </tr>
+
+        @if (Model.BTMComment != null && Model.BTMComment != String.Empty)
+        {
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.BTMComment)
+                </td>
+                <td>
+                    @Html.TextAreaFor(model => model.BTMComment, new { @readonly = true, @class = "textAreaReadOnly" })
+                </td>
+            </tr>
+        }
+
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Invitation)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Invitation)
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Habitation)
+            </td>
+            <td>
+                @Html.TextAreaFor(model => model.Habitation, new { @readonly = true, @class = "textAreaReadOnly" })
+                @Html.DisplayFor(model => model.HabitationConfirmed)
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                @Html.LabelFor(model => model.Flights)
+            </td>
+            <td>
+                @Html.TextAreaFor(model => model.Flights, new { @readonly = true, @class = "textAreaReadOnly" })
+                @Html.DisplayFor(model => model.FlightsConfirmed)
+            </td>
+        </tr>
+
+        @if (Model.RejectComment != null && Model.RejectComment != String.Empty)
+        {
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.RejectComment)
+                </td>
+                <td>
+                    @Html.TextAreaFor(model => model.RejectComment, new { @readonly = true, @class = "textAreaReadOnly" })
+                </td>
+            </tr>
+        }
+
+        @if (Model.CancelComment != null && Model.CancelComment != String.Empty)
+        {
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.CancelComment)
+                </td>
+                <td>
+                    @Html.TextAreaFor(model => model.CancelComment, new { @readonly = true, @class = "textAreaReadOnly" })
+                </td>
+            </tr>
+        }
+             
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.AccComment)
+                </td>
+                <td>
+                    @Html.TextAreaFor(model => model.AccComment, new { @readonly = true, @class = "textAreaAccCommentReadOnly" })
+                </td>
+            </tr>
+
+    </table>
+
+</fieldset>
+
+
+<p>
+    @if (Model.Status.HasFlag(BTStatus.Modified))
+    {
+        if (Model.OldLocationTitle != null && Model.OldLocationTitle != "" && Model.OldStartDate != null && Model.OldStartDate != "" && Model.OldEndDate != null && Model.OldEndDate != "")
+        {
+            @:Old Data: @(Model.OldLocationTitle + ": " + Model.OldStartDate + "-" + Model.OldEndDate)
+        }
+    }
+</p>
+
+<p style="text-align:right">
+    <em>@Html.DisplayLastCRUD(Model.LastCRUDedBy, Model.LastCRUDTimestamp)</em>
+</p>
+

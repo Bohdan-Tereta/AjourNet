@@ -1,0 +1,44 @@
+﻿@model AjourBT.Domain.Entities.Greeting
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = null;
+}
+
+<p>
+    Please Confirm
+</p>
+<table>
+    <tr>
+        <td>
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <input type="hidden" id="LocId" value="@Model.GreetingId">
+
+                <div style="float:left">
+
+                    <button type="submit" data-href="/Greeting/DeleteConfirmed/@Model.GreetingId" id="OKDelete" name="Command" value="OK" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                        <span>OK</span>
+                    </button>
+
+                </div>
+            }
+        </td>
+        <td>
+            <div style="float:right">
+
+                <button type="submit" id="btnCancelDeleteGreeting" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                    <span>Cancel</span>
+                </button>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<script type="text/javascript">
+
+    $('#OKDelete').button();
+    $('#btnCancelDeleteGreeting').button();
+
+</script>

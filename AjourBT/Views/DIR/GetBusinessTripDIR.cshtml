@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Get Business Trip for DIR";
+    Layout = null;
+}
+
+
+@using (Ajax.BeginForm("GetBusinessTripDataDIR", "DIR", new AjaxOptions { UpdateTargetId = "tableBodyBTs", HttpMethod = "GET" }, new { id = "formDIR"}))
+{
+    <div id="destination5">
+        @Html.DropDownList("selectedDepartment", (SelectList)ViewBag.DepartmentList, "All Departments", new { onchange = "$(this.form).submit();" })        
+        <input id="searchBusinessTripsDIR" type="search" name="searchString" value="@ViewBag.SearchString" placeholder="Search...">
+    </div>
+}
+
+<div id="tableBodyBTs">
+    @Html.Action("GetBusinessTripDataDIR", "DIR", new { selectedDepartment = ViewBag.SelectedDepartment })
+</div>
+

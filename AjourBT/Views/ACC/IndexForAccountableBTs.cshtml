@@ -1,0 +1,114 @@
+﻿@model IEnumerable<AjourBT.Domain.Entities.BusinessTrip>
+
+@{
+    ViewBag.Title = "Index ACC for Accountable BTs";
+    Layout = null;
+}
+
+<script type="text/javascript"> 
+    $(document).ready(function () {
+        sortTable = $("#btsViewExample").dataTable({
+            "bFilter": false,
+            "sScrollY": (0.6 * $(window).height()),
+            "bDestroy": true,
+            "bPaginate": false,
+            "bAutoWidth": true,
+            "bScrollCollapse": true,
+            "aaSorting": [],
+            "aoColumns": [
+                            null,
+                            null,
+                            { "sType": "date" },
+                            null,
+                            null,
+                            null
+            ],
+        });
+
+        $("div.dataTables_scrollBody").scrollTop(window.scrollPositionACC);
+    });
+</script>
+
+<div id= "btsForAccAccountableBTs">
+<table class="btsView" id="btsViewExample">
+    <colgroup>
+        <col class="c001" />
+        <col class="c002" />
+        <col class="c003" />
+        <col class="c004" />
+        <col class="c005" />
+        <col class="c006" />
+        @*<col class="c007" />
+            <col class="c008" />*@
+    </colgroup>
+<thead>
+    <tr>
+        <th id="EID">
+            EID
+        </th>
+        <th id="Name">
+            Name
+        </th>
+        <th id="From">
+            From - To
+        </th>
+        <th id="Location">
+            Location
+        </th>
+        @*<th>
+                Manager
+            </th>
+            <th>
+                Responsible
+            </th>*@
+        <th id="Habitation">
+            Habitation
+        </th>
+        <th id="Flights">
+            Flights
+        </th>
+    </tr>
+</thead>
+<tbody>
+    @foreach (var item in Model)
+    {
+        <tr class="zebra">
+            <td>
+                @Html.DisplayFor(modelItem => item.BTof.EID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BTof.LastName)
+                @Html.DisplayFor(modelItem => item.BTof.FirstName)
+            </td>
+            <td>
+                @{
+                    string selectedDepartment = @ViewBag.SelectedDepartment;
+                    var actionLinkForDates = @Html.CustomDisplayAccountableBTsDatesActionLink(item, selectedDepartment);
+                }
+
+                @actionLinkForDates
+                
+                @*<a id="ShowBTDataACC" href="/BusinessTrip/ShowBTData/@item.BusinessTripID"> @item.StartDate.ToShortDateString() - @item.EndDate.ToShortDateString() </a>*@
+                @*@Html.ActionLink(item.StartDate.ToShortDateString() + " - " + item.EndDate.ToShortDateString(), "ShowBTData", new { id = item.BusinessTripID })*@
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location.Title)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.Manager)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Responsible)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Habitation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Flights)
+            </td>
+        </tr>
+    }
+</tbody>
+</table>
+    </div>
+<div id="ShowBTDataACC-ACC" style="display:none"></div>

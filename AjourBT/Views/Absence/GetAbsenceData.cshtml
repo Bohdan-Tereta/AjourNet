@@ -1,0 +1,164 @@
+@model IEnumerable<AjourBT.Domain.ViewModels.AbsenceViewModel>
+
+@{
+    Layout = null;
+    //string textBoxFromValue = ViewBag.FromValue.ToString("dd.MM.yyyy");
+    //string textBoxToValue = ViewBag.ToValue.ToString("dd.MM.yyyy");
+    string searchString = ViewBag.SearchString;
+}
+
+
+<table class="absenceABM" id="absenceViewABM">
+    <colgroup>
+        <col class="absDep" />
+        <col class="absName" />
+        <col class="absEID" />
+        <col class="absJourney" />
+        <col class="absBusinessTrip" />
+        <col class="absOvertime" />
+        <col class="absSickness" />
+        <col class="absVacation" />
+    </colgroup>
+    <thead>
+        <tr>
+            <th>
+                Department
+            </th>
+            <th>
+                Name
+            </th>
+            <th>
+                EID
+            </th>
+            <th>
+                Journeys
+            </th>
+            <th>
+                BusinessTrips 
+            </th>
+            <th>
+                Overtimes
+            </th>
+            <th>
+                Sicknesses
+            </th>
+            <th>
+                Vacations
+            </th>
+        </tr>
+    </thead>
+    <tbody id="absenceView">
+
+        @foreach (var employee in Model)
+        {
+            if (employee.Journeys.Count != 0 || employee.Overtimes.Count != 0 || employee.Sickness.Count != 0 || employee.Vacations.Count != 0 || 
+                employee.BusinessTrips.Count != 0)
+            {
+        <tr>
+            <td>
+                @employee.Department
+            </td>
+                    @if (employee.DateDismissed != null && employee.DateDismissed != String.Empty)
+                    {
+            <td>
+                            <strike> @employee.LastName @employee.FirstName</strike> <br><span id='i2'> @employee.DateDismissed.ToString() </span>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                @employee.LastName @employee.FirstName
+            </td>
+                    }
+            <td>
+                @employee.EID
+            </td>
+
+            <td>
+                @if (employee.Journeys != null)
+                        {
+                            foreach (CalendarItem journey in employee.Journeys)
+                            {
+                        @Html.CustomDisplayDateTime(journey.From) @:- @Html.CustomDisplayDateTime(journey.To) <br>
+                            }
+                        }
+            </td>
+            <td>
+                @if (employee.BusinessTrips != null)
+                {
+                    foreach (CalendarItem bt in employee.BusinessTrips)
+                    {
+                        @Html.CustomDisplayDateTime(bt.From) @:- @Html.CustomDisplayDateTime(bt.To) (@bt.Location) <br>
+                            }
+                }
+            </td>
+            <td>
+
+                @if (employee.Overtimes != null)
+                {
+                    foreach (CalendarItem overtime in employee.Overtimes)
+                    {
+                        @Html.CustomDisplayDateTime(overtime.From) @:- @Html.CustomDisplayDateTime(overtime.To) <br>
+                            }
+                }
+               
+            </td>
+            <td>
+                @if (employee.Sickness != null)
+                        {
+                            foreach (CalendarItem sickness in employee.Sickness)
+                            {
+                        @Html.CustomDisplayDateTime(sickness.From) @:- @Html.CustomDisplayDateTime(sickness.To) <br>
+                            }
+                        }
+            </td>
+            <td>
+                @if (employee.Vacations != null)
+                        {
+                            foreach (CalendarItem vacation in employee.Vacations)
+                            {
+                        @Html.CustomDisplayDateTime(vacation.From) @:- @Html.CustomDisplayDateTime(vacation.To) <br>
+                            }
+                        }
+            </td>
+        </tr>
+            }
+
+        }
+    </tbody>
+</table>
+
+@using (Html.BeginForm("ExportAbsenceToExcel", "Absence", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    {
+        <input type="hidden" value="@ViewBag.FromDate" name="from">
+        <input type="hidden" value="@ViewBag.ToDate" name="to">
+        <input type="hidden" value="@ViewBag.SearchString" name="searchString">
+        <input type="submit" id="ExportAbsenceToXls" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" value="ExportToXls">
+    }
+}
+
+
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#absenceViewABM').DataTable({
+                    "sScrollY": (0.65 * $(window).height()),
+                    "sScrollX": "100%",
+                    "sScrollXInner": "100%",
+                    "bPaginate": false,
+                    "bDestroy": true,
+                    "bFilter": false,
+                    "bScrollCollapse": true,
+                    "aoColumns": [
+                        null,
+                    null,
+                    null,
+                    { "sType": "date" },
+                    { "sType": "date" },
+                    { "sType": "date" },
+                    { "sType": "date" },
+                    { "sType": "date" }]
+                })
+            })
+        </script>

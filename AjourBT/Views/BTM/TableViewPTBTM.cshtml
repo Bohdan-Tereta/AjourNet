@@ -1,0 +1,112 @@
+﻿@model IEnumerable<AjourBT.Domain.Entities.Employee>
+@{
+    Layout = null;
+    string searchString = ViewBag.SearchString;
+}
+
+<tbody id="PTViewBody">
+    @foreach (var item in Model)
+    {
+        <tr class="zebra">
+
+            <td>
+                @Html.DisplayFor(model => item.EID)
+            </td>
+
+            <td>
+                @if (item.IsManager == true)
+                {
+                    <b>
+                        @Html.DisplayFor(model => item.LastName)
+                        @Html.DisplayFor(model => item.FirstName)
+                    </b>
+                }
+                else
+                {
+                    @Html.DisplayFor(model => item.LastName)
+                    @:
+                    @Html.DisplayFor(model => item.FirstName)
+                }
+            </td>
+            <td>
+                @Html.CheckVisaToBeValid(item, searchString)
+            </td>
+
+            @*@{
+                    bool IsValidVisa = Html.CheckVisaToBeValid(item.Visa);
+                }
+
+                @if (item.Visa != null)
+                {
+                    <td>
+                        <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="AddPrivateTrip" href="/BTM/PrivateTripCreate/@item.EmployeeID?searchString=@ViewBag.SearchString" data-date-format="@ViewBag.JSDatePattern"> Add </a>
+                    </td>
+                }
+                else
+                {
+                    <td></td>
+                }*@
+
+            @if (item.Visa != null)
+            {
+                if (item.Visa.PrivateTrips != null)
+                {
+                    if (item.Visa.PrivateTrips.Count > 1)
+                    {
+                        item.Visa.PrivateTrips = Html.CustomSortingPrivateTripsByStartdate(item.Visa.PrivateTrips).ToList();
+                    }
+
+                    <td>
+                        @if (item.Visa.DaysUsedInPrivateTrips != 0)
+                        {
+                            <margin30>@Html.DisplayFor(model => item.Visa.DaysUsedInPrivateTrips)</margin30>
+                        }
+                        else
+                        {
+
+                        }
+                    </td>
+
+
+
+                    <td>
+                        @foreach (var privateTrip in item.Visa.PrivateTrips)
+                        {
+                            int daysUsed = (privateTrip.EndDate - privateTrip.StartDate).Days + 1;
+
+                            <a id="editPrivateTrip" href="/PrivateTrip/Edit/@privateTrip.PrivateTripID?searchString=@ViewBag.SearchString" data-date-format="@ViewBag.JSDatePattern">@privateTrip.StartDate.ToString("dd.MM.yyyy")-@privateTrip.EndDate.ToString("dd.MM.yyyy") <orange>(@daysUsed)</orange> </a>
+                            @: &nbsp &nbsp &nbsp
+                        }
+                    </td>
+                }
+            }
+            else
+            {
+                <td></td>
+                <td></td>
+            }
+        </tr>
+    }
+</tbody>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#privateTripsBTMexample').DataTable({
+            "sScrollY": (0.6 * $(window).height()),
+            "aaSorting": [],
+            "bPaginate": false,
+            "bFilter": false,
+            "bScrollCollapse": true,
+            "bDestroy": true
+
+        });
+        $("div.dataTables_scrollBody").scrollTop(window.scrollPositionPT);
+
+    });
+
+    $(function () {
+        $("[id^=AddPrivateTrip]").button();
+    })
+</script>

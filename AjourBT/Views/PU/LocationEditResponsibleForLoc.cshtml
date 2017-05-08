@@ -1,0 +1,44 @@
+﻿@model AjourBT.Domain.Entities.Location
+
+@{
+    Layout = null;
+    ViewBag.Title = "Edit Responsible For Location";
+}
+
+@using (Html.BeginForm("EditResponsibleForLoc", "Location", FormMethod.Post, new { id = "editResponsibleForLocForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div id="ModelError" style="max-width: 400px; color: red"></div>
+
+
+    <fieldset>
+        <legend>Location</legend>
+
+        @Html.HiddenFor(model => model.LocationID)
+        @Html.HiddenFor(model => model.RowVersion)
+        @Html.HiddenFor(model => model.Title)
+        @Html.HiddenFor(model => model.Address)
+        @Html.HiddenFor(model => model.CountryID)
+
+        <table>
+            <tr>
+                @Html.Label("Responsible")
+
+                @Html.EditorFor(model => model.ResponsibleForLoc)
+                <br />  @Html.ValidationMessageFor(model => model.Address)
+
+            </tr>
+        </table>
+
+        <br />
+
+        <div style="float:left">
+            <button type="submit" id="btnSaveEditedResponsibleForLoc">
+                Save
+            </button>
+        </div>
+    </fieldset>
+
+}
+    

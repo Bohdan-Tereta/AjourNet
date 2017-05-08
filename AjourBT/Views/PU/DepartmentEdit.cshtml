@@ -1,0 +1,60 @@
+﻿@model AjourBT.Domain.Entities.Department
+@{
+    Layout = null;
+    ViewBag.Title = "Edit";
+}
+
+<script type="text/javascript">
+    clearTimeout(timer);
+    timer = window.setTimeout(function () { location.reload(); }, timeout);
+</script>
+
+@using (Ajax.BeginForm("DepartmentEdit","PU",new AjaxOptions{HttpMethod = "POST",OnSuccess = "DepartmentEditOnSuccess"}, new {id = "editDepartmentForm"}))
+{
+    @Html.AntiForgeryToken()
+    <div id="DepartmentModelError" style="max-width: 400px; color: red"></div>
+    @Html.ValidationSummary(true)
+    <input type="hidden" id="DepId" value="@Model.DepartmentID"> 
+    <fieldset>
+        <legend>Department</legend>
+
+        @Html.HiddenFor(model => model.DepartmentID)
+        @Html.HiddenFor(model => model.RowVersion)
+
+<table>
+        <tr>
+            <td>@Html.LabelFor(model => model.DepartmentName)</td>
+            <td>
+                @Html.EditorFor(model => model.DepartmentName)
+                <br />  
+                @Html.ValidationMessageFor(model => model.DepartmentName)
+            </td>
+        </tr>
+</table>
+    </fieldset>
+    <div style="float:left">
+        <button type="submit" id="btnSaveDepartment" name="Command" value="Save">
+            <span>Save</span>
+        </button>
+    </div>
+}
+
+
+@using (Html.BeginForm("DepartmentDelete", "PU", FormMethod.Post, new { id = "deleteDepartmentForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+      <input type="hidden" id="DepId" value="@Model.DepartmentID"> 
+
+    <div style="float:right">
+        <button type="submit" id="btnDeleteDepartment" data-href="/PU/DepartmentDelete/@Model.DepartmentID" data-title="Delete @Model.DepartmentName" name="Command" value="Delete" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+            <span>Delete</span>
+        </button>
+
+      
+
+    </div>
+}
+    <div id="deleteDepartment-Confirm">
+    </div>
+

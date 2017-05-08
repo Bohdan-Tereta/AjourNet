@@ -1,0 +1,63 @@
+﻿@model AjourBT.Domain.Entities.Holiday
+
+@{
+    ViewBag.Title = "Create";
+    Layout = null;
+}
+
+@using (Ajax.BeginForm("Create", "Holiday", new AjaxOptions { HttpMethod = "POST", OnSuccess = "HolidayCreateOnSuccess"}, new { id = "createHolidayForm" }))
+{
+     @Html.AntiForgeryToken()
+     @Html.ValidationSummary(true)
+    
+    <fieldset>
+        <legend>Holiday</legend>
+        <table>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Country)
+                </td>
+                <td>
+                    @Html.DropDownList("CountryID", (SelectList)ViewBag.CountryList, "<Choose country>", new { id = "dropDownCountry"})
+                    <br>@Html.ValidationMessageFor(model => model.CountryID)
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.Title)</td>
+                <td>
+                    @Html.EditorFor(model => model.Title)
+                    <br>@Html.ValidationMessageFor(model => model.Title)
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                   @Html.LabelFor(model => model.HolidayDate)
+                </td>
+                <td>
+                    @Html.EditorFor(model => model.HolidayDate)
+                    <br>@Html.ValidationMessageFor(model => model.HolidayDate)
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.IsPostponed)
+                </td>
+                <td>
+                    @Html.CheckBoxFor(model => model.IsPostponed)
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.HolidayComment)</td>
+                <td>
+                    @Html.EditorFor(model => model.HolidayComment)
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+}

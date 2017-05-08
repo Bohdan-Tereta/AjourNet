@@ -1,0 +1,30 @@
+﻿@{
+    Layout = null;
+    var year = @ViewBag.SelectedYear;
+    var reportedBTs = @ViewBag.ReportedBTs;
+    var name = @ViewBag.UserName;
+}
+
+@{
+    AjaxOptions ajaxOpts = new AjaxOptions
+    {
+        UpdateTargetId = "btsByDatesEMP",
+        Url = Url.Action("GetReportedBTs"),
+        HttpMethod = "GET"
+    };
+}
+
+@using (Ajax.BeginForm("GetReportedBTs", "EMP", ajaxOpts, new { id = "formEMP" }))
+{
+    <div class="destination9">
+            @Html.DropDownList("selectedYear", (SelectList)ViewBag.SelectedYearEMP, new { onchange = "$(formEMP).submit();" })
+    </div>
+      @Html.Hidden("userName", (string)name);
+}
+
+<div id="btsByDatesEMP">
+  @{Html.RenderAction("GetReportedBTs", "EMP", new { selectedYear = year, userName = name});}
+</div>
+
+
+

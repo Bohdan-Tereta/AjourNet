@@ -1,0 +1,29 @@
+﻿@{
+    Layout = null;
+}
+
+@{
+    AjaxOptions ajaxOpts = new AjaxOptions
+    {
+        UpdateTargetId = "tableBodyBTs",
+        Url = Url.Action("GetBusinessTripDataBTM"),
+        HttpMethod = "GET"
+
+    };
+}
+
+
+@using (Ajax.BeginForm(ajaxOpts))
+{    
+    <input id="seachInputBT" type="search" name="searchString" value="@ViewBag.SearchString" placeholder="Search... " />  
+}
+<br />
+<br />
+
+<div id="tableBodyBTs">
+    @Html.Action("GetBusinessTripDataBTM", new { searchString = ViewBag.SearchString })
+</div>
+
+
+
+

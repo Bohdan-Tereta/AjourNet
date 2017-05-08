@@ -1,0 +1,44 @@
+﻿@model AjourBT.Domain.ViewModels.PrivateTripViewModel
+
+@{
+    Layout = null;
+}
+
+<script type="text/javascript">
+    clearTimeout(timer);
+    timer = window.setTimeout(function () { location.reload(); }, timeout);
+</script>
+<h4>@ViewBag.EmployeeInformation</h4>
+
+<br>
+@using (Html.BeginForm("PrivateTripCreate", "BTM", FormMethod.Post, new { id = "CreatePrivateTripForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.Hidden("EmployeeID", @Url.RequestContext.RouteData.Values["id"])
+    <input type="hidden" value="@ViewBag.SearchString" name="searchString">
+        <fieldset>
+        <legend>PrivateTrip</legend>
+
+<table>
+    <tr >
+            <td>@Html.LabelFor(model => model.StartDate)</td>
+            <td>@Html.TextBoxFor(model => model.StartDate, new { id = "createStartDatePTBTM", @readonly = true, @class = "BTMEdit" })
+                <br />   @Html.ValidationMessageFor(model => model.StartDate)</td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(model => model.EndDate)</td>
+            <td>@Html.TextBoxFor(model => model.EndDate, new { id = "createEndDatePTBTM", @readonly = true, @class = "BTMEdit" })
+                <br />  @Html.ValidationMessageFor(model => model.EndDate)</td>
+        </tr>
+
+</table>
+        <div style="float: left">
+            <button type="submit" id="btnSavePrivateTrip"
+                    name="Command" value="Save" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+               Save
+            </button>
+        </div>
+    </fieldset>
+}

@@ -1,0 +1,75 @@
+﻿@model int
+@{
+    string UserName = HttpContext.Current.User.Identity.Name.ToString();
+    int SelectedYear = DateTime.Now.ToLocalTimeAzure().Year;
+}
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#tabsEMP").tabs({ selected: @Model })
+        $("li#EMPLink a").css({
+            'color': '#E1701D'
+        })    })
+</script>
+
+@Scripts.Render("~/bundles/AjourBTScript/ABMDatesValidation") 
+@Scripts.Render("~/bundles/AjourBTScript/BTsForEMP") 
+@Scripts.Render("~/bundles/AjourBTScript/JourneyScript") 
+@Scripts.Render("~/bundles/AjourBTScript/OvertimeScript")
+
+
+<div id="tabsEMP" class="EMPTab">
+    <ul>
+        <li><a title="Information about Your BTs. Usefull for reporting" href="#tabs1">Your BTs</a></li>
+        <li><a title="Information on Your passport, visa and permit status" href="@Url.Action("GetVisaDataPerEmployee", "EMP", new { userName = @UserName})">Visa</a></li>
+
+        @if (WebConfigurationManager.AppSettings["IncludeAbsence"] == "true")
+        {
+            <li><a title="Your absence data for selected period" href="@Url.Action("GetWTRPerEMP","WTR")"> Absence</a></li>
+        }
+
+        <li><a title="Your overtime days, which may be reclaimed later" href="@Url.Action("GetJourneyDataEMP", "Journey", new { userName = @UserName})">Days From BTs</a></li>
+        <li><a title="The nearest birthdays of Your coworkers" href="@Url.Action("GetBirthdays","EMP")">Birthdays</a></li>
+    </ul>
+    <div id="tabs1">
+        @{Html.RenderAction("GetLastBTDataPerEmployee", "EMP", new { userName = HttpContext.Current.User.Identity.Name.ToString() });}
+        @{Html.RenderAction("GetBusinessTripByYearsEMP", "EMP", new { selectedYear = DateTime.Now.ToLocalTimeAzure().Year, userName = HttpContext.Current.User.Identity.Name.ToString() });}
+</div>
+
+</div>
+
+    <script>
+    $('[href=#tabs3]').click(function (e) {
+        e.preventDefault();
+        $('#formWTR').submit();
+    });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('[href=#tabs-31]').click(function () {
+                $.ajax({
+                    cache: false,
+                    url: "/Journey/GetJourneyDataEMP",
+                    type: "GET",
+                    data: { userName: "" },
+                    success: function (data) {
+                        $("#tabs-31").html($(data));
+                    }
+                });
+            })
+        })
+    </script> 
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#tabs1 .noDataMessage').eq(1).remove();
+    })
+</script>
+
+
+
+
+

@@ -1,0 +1,50 @@
+﻿@model AjourBT.Domain.ViewModels.PassportViewModel
+
+@{
+    Layout = null;
+    ViewBag.Title = "Edit Passport";
+}
+
+<script type="text/javascript">
+    clearTimeout(timer);
+    timer = window.setTimeout(function () { location.reload(); }, timeout);
+</script>
+
+<div id="PassportModelError" style="max-width: 400px; color: red"></div>
+
+<h4>@ViewBag.EmployeeInformation</h4>
+<br>
+@using (Html.BeginForm("PassportEditDate", "BTM", FormMethod.Post, new { id = "EditPassportForm"}))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <input type="hidden" name="searchString" value="@ViewBag.SearchString">
+    
+    <fieldset>
+        <legend>Passport</legend>
+
+        @Html.HiddenFor(model => model.EmployeeID)
+        @Html.HiddenFor(model => model.RowVersion)
+
+        <table>
+
+            <tr>
+                <b>@Html.Label("EndDate")</b>
+
+                @Html.TextBoxFor(model => model.EndDate, new { id = "editPassport", @class = "editorForCalendar" })
+                <br /> @Html.ValidationMessageFor(model => model.EndDate)
+
+            </tr>
+
+        </table>
+    </fieldset>
+
+    <div style="float:left">
+
+        <button type="submit" id="btnSaveEditedPassport" name="Command" value="Save">
+           Save
+        </button>
+
+    </div>
+}
+<br>

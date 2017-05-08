@@ -1,0 +1,17 @@
+﻿@model List<Employee>
+ 
+@{
+    Layout = null;
+    ViewBag.Title = "GetMailAliasEMails";
+    string user = ViewBag.User;
+    string action = ViewContext.RouteData.GetRequiredString("action");
+}
+
+@if (action == "GetMailAliasEMails" || action == "GetMailToLinkWithBcc")
+{
+@Html.GetMailAliasEMailsHelper(Model, user)
+}
+@if (action == "GetSecondMailAliasEMails" || action == "GetSecondMailToLinkWithBcc")
+{
+    @Html.GetSecondMailAliasEMailsHelper(Model, user)
+}

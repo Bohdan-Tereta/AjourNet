@@ -1,0 +1,108 @@
+﻿@model IEnumerable<AjourBT.Domain.Entities.BusinessTrip>
+
+@{
+    ViewBag.Title = "GetBusinessTripData ACC for BTs";
+}
+
+<div id="tableViewBTsACC">
+    <table class="btsView" id="exampleBtsView">
+
+        <colgroup>
+            <col class="c001" />
+            <col class="c002" />
+            <col class="c003" />
+            <col class="c004" />
+            <col class="c005" />
+            <col class="c006" />
+
+        </colgroup>
+        <thead>
+            <tr>
+                <th>
+                    EID
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    From - To
+                </th>
+                <th>
+                    Location
+                </th>
+                <th>
+                    Habitation
+                </th>
+                <th>
+                    Flights
+                </th>
+
+            </tr>
+        </thead>
+        <tbody id="tbodyBTACC">
+            @foreach (var item in Model)
+            {
+                <tr class="zebra">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BTof.EID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BTof.LastName)
+                        @Html.DisplayFor(modelItem => item.BTof.FirstName)
+                    </td>
+                    <td>
+                        @{
+                string selectedDepartment = @ViewBag.SelectedDepartment;
+                var actionLinkForDates = @Html.CustomDisplayBTsDatesActionLink(item, selectedDepartment);
+                        }
+
+                        @*@Html.ActionLink(item.StartDate.ToShortDateString() + " - " + item.EndDate.ToShortDateString(), "EditReportedBT", new { id = item.BusinessTripID })*@
+                        @*<a id="EditReportedBTACC" href="/BTM/EditReportedBT/@item.BusinessTripID?selectedDepartment=@ViewBag.SelectedDepartment" data-date-format="@ViewBag.JSDatePattern">@item.StartDate.ToShortDateString() - @item.EndDate.ToShortDateString() </a>*@
+                        @*<a id="EditReportedBTACC" href="/BTM/EditReportedBT/@item.BusinessTripID?selectedDepartment=@ViewBag.SelectedDepartment" data-date-format="@ViewBag.JSDatePattern"> @actionLinkForDates </a>*@
+                        @actionLinkForDates
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Location.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Habitation)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Flights)
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+
+
+
+    </table>
+</div>
+
+<div id="EditReportedBT-ACC" style="display:none"></div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        sortTable = $('#exampleBtsView').DataTable({
+            "sScrollY": "415px",
+            "bPaginate": false,
+            "bDestroy": true,
+            "bFilter": false,
+            "bStateSave": false,
+            "bScrollCollapse": true,
+            "aaSorting": [],
+            "aoColumns": [
+                null,
+                null,
+                { "sType": "date" },
+                null,
+                null,
+                null
+            ],
+        })
+        $("div.dataTables_scrollBody").scrollTop(window.scrollPositionACC);
+    });
+</script>

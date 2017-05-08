@@ -1,0 +1,162 @@
+﻿@model IEnumerable<AjourBT.Domain.Entities.BusinessTrip>
+
+@{
+    Layout = null;
+
+}
+<script>
+
+    $(function () {
+        $("[id^=RejectBTbyDIR]").button();
+    })
+</script>
+
+<script>
+    $(function () {
+        $("#RejectBTbyDIR")
+          .button()
+          .click(function (event) {
+              event.preventDefault();
+          });
+    });
+
+</script>
+
+<div id="BTsDataForDirector">
+<table class="indexDIR" id="indexDIRexample">
+
+    <colgroup>
+        <col class="c01" />
+        <col class="c02" />
+        <col class="c03" />
+        <col class="c04" />
+        <col class="c05" />
+        <col class="c06" />
+        <col class="c07" />
+        <col class="c08" />
+        <col class="c09" />
+    </colgroup>
+<thead>
+    <tr>
+        <th>
+            EID
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            From - To
+        </th>
+        <th>
+            Location
+        </th>
+        <th>
+            Purpose
+        </th>
+        <th>
+            Manager
+        </th>
+        @*<th>
+                Responsible
+            </th>*@
+        <th>
+            Habitation
+        </th>
+        <th>
+            Flights
+        </th>
+        <th>
+        </th>
+
+    </tr>
+</thead>
+
+<tbody>
+    @foreach (var item in Model)
+    {
+        <tr class="zebra">
+            <td>
+                @Html.DisplayFor(modelItem => item.BTof.EID)
+            </td>
+            <td>
+                @if (item.BTof.IsManager == true)
+                {
+                    <b>
+                        @Html.DisplayFor(modelItem => item.BTof.LastName)
+                        @Html.DisplayFor(modelItem => item.BTof.FirstName)
+                    </b>
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => item.BTof.LastName)
+                    @:
+                    @Html.DisplayFor(modelItem => item.BTof.FirstName)
+                }
+            </td>
+            <td>
+                @Html.CustomDisplayDateTime(item.StartDate)
+                -
+                @Html.CustomDisplayDateTime(item.EndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Purpose)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Manager)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.Responsible)
+                </td>*@
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Habitation)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Flights)
+            </td>
+            <td>
+                @{
+                    string jsonRowVersion = JsonConvert.SerializeObject(item.RowVersion);
+                }
+                <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="RejectBTbyDIR" href="/DIR/Reject_BT_DIR/@item.BusinessTripID?jsonRowVersionData=@jsonRowVersion&selectedDepartment=@ViewBag.SelectedDepartment">Reject</a>
+            </td>
+        </tr>
+    }
+</tbody>
+</table>
+ </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        sortTable = $('#indexDIRexample').DataTable({
+            "bFilter": false,
+            "sScrollY": (0.6 * $(window).height()),
+            "sScrollX": "100%",
+            "sScrollXInner": "100%",
+            "aaSorting": [],
+            "bPaginate": false,
+            "bScrollCollapse": true,
+            "bDestroy": true,
+            "aoColumns": [
+                null,
+                null,
+                { "sType": "date" },
+                null,
+                null,
+                null,
+                null,
+                null,
+                { "bSortable": false }
+            ]
+        });
+        setTimeout(function () {
+            sortTable.fnAdjustColumnSizing();
+        }, 10);
+    });
+</script>
+
+<div id="RejectBT-dialog" style="display:none"></div>

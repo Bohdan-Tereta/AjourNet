@@ -1,0 +1,112 @@
+﻿@model IEnumerable<AjourBT.Domain.ViewModels.EmployeeViewModel>
+
+@{
+    Layout = null;
+}
+<div id="UsersData">
+    <a class="buttonStyle" id="CreateUser" href="/PU/UserCreate/?selectedDepartment=@ViewBag.SelectedDepartment&searchString=@ViewBag.SearchString" data-date-format="@ViewBag.JSDatePattern"><span>Add User</span></a>
+    <br />
+    <br />
+        <table id="PuUsersTable" class="UsersOnlyTable">
+            <colgroup>
+                <col class="empCol01">
+                <col class="empCol02">
+                <col class="empCol03">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>
+                        EID
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Email
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="userTableBody">
+                @foreach (EmployeeViewModel user in Model)
+                {
+                    <tr class="zebra">
+                        <td>
+                            @Html.DisplayFor(modelItem => user.EID)
+                        </td>
+
+                        @if (user.IsManager == true)
+                        {
+                            <td>
+                                <b> @Html.ActionLink(user.LastName.ToString() + " " + user.FirstName.ToString(), "EmployeeEdit", new { id = user.EmployeeID, selectedDepartment = ViewBag.SelectedDepartment, searchString = ViewBag.SearchString }, new { @class = "UserEditDialog", data_date_format = ViewBag.JSDatePattern })</b>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                @Html.ActionLink(user.LastName.ToString() + " " + user.FirstName.ToString(), "EmployeeEdit", new { id = user.EmployeeID, selectedDepartment = ViewBag.SelectedDepartment, searchString = ViewBag.SearchString }, new { @class = "UserEditDialog", data_date_format = ViewBag.JSDatePattern })
+                            </td>
+                        }
+                        @if (!String.IsNullOrEmpty(user.EMail))
+                        {
+                            <td><a id="ADMSendMail" href="mailto:@user.EMail">Send</a> </td>
+                        }
+                        else
+                        {
+                            <td></td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        sortTable = $('.UsersOnlyTable').DataTable({
+            "sScrollY": (0.55 * $(window).height()),
+            "sScrollX": "100%",
+            "sScrollXInner": "100%",
+            "bDestroy": true,
+            "bPaginate": false,
+            "bFilter": false,
+            "bScrollCollapse": true,
+            "aoColumns": [
+null,
+{ "sType": "innerHtml" },
+{ "bSortable": false },
+            ]
+        });
+
+        setTimeout(function () {
+            sortTable.fnAdjustColumnSizing();
+        }, 10);
+    })
+
+    jQuery.fn.dataTableExt.oSort['innerHtml-pre'] = function (a) {
+        var AtagPos = a.search("<");
+        if (AtagPos != -1) {
+            var AtagEndPos = a.search("</");
+            var text = a.substr(AtagPos + 1, AtagEndPos - 1);
+            var AtagClosePos = text.search(">");
+            var txt = text.substr(AtagClosePos + 1, AtagEndPos - 1); 
+            if (txt == null) {
+                return "";
+            }
+            return txt; 
+        }
+        return "";
+    }
+
+    jQuery.fn.dataTableExt.oSort['innerHtml-asc'] = function (x, y) {
+        return x.localeCompare(y); 
+    }
+
+    jQuery.fn.dataTableExt.oSort['innerHtml-desc'] = function (x, y) {
+        return y.localeCompare(x);
+    }
+
+    $(function () {
+        $("#CreateUser").button();
+    })
+</script>

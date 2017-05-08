@@ -1,0 +1,239 @@
+﻿@model AjourBT.Domain.ViewModels.BusinessTripViewModel
+
+@{
+    ViewBag.Title = "BTM Arrange BT";
+    Layout = null;
+}
+
+<script>
+    clearTimeout(timer);
+    timer = window.setTimeout(function () { location.reload(); }, timeout);
+</script>
+@using (Html.BeginForm("SaveArrangedBT", "BTM", FormMethod.Post, new { id = "ArrangeBTForm" }))
+{
+    @Html.AntiForgeryToken()
+    <div id="ModelError" style="max-width: 400px; color: red"></div>
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.EmployeeID)
+    @Html.Hidden("Status", Model.Status)
+    @Html.HiddenFor(model => model.BusinessTripID)
+    @Html.HiddenFor(model => model.RowVersion)
+    <input type="hidden" name="searchString" value="@ViewBag.SearchString">
+    <fieldset>
+        <legend>BusinessTrip</legend>
+
+
+        <h4>@((Model.BTof.FirstName + " " + Model.BTof.LastName + " (" + Model.BTof.EID + ")"))</h4>
+
+        <table id="orderTable">
+            <tr>
+                <td id="col1">@Html.Label("From")</td>
+                <td id="col11 ">@Html.DisplayFor(model => model.StartDate)</td>
+                @if (!(Model.Status.HasFlag(BTStatus.Cancelled))
+                             && Model.Status.HasFlag(BTStatus.Confirmed)
+                             && !Model.Status.HasFlag(BTStatus.Reported))
+                //&& ( (DateTime.Parse(Model.EndDate) >= DateTime.Now.ToLocalTimeAzure().Date)
+                //|| (DateTime.Parse(Model.StartDate) >= DateTime.Now.ToLocalTimeAzure().Date) )
+                {
+                    <td id="col2">@Html.Label("Order From")</td>
+                    if (DateTime.Parse(Model.StartDate) <= DateTime.Now.ToLocalTimeAzure().Date)
+                    {
+                        <td id="col22">@Html.TextBoxFor(model => model.OrderStartDate, new { id = "OrderStartDate", @class = "editorForCalendar" })</td>
+                    }
+                    else
+                    {
+                        <td id="col22">@Html.TextBoxFor(model => model.OrderStartDate, new { id = "OrderStartDate", @class = "editorForCalendar" })</td>
+                    }
+                }
+
+            </tr>
+
+            <tr>
+                <td id="col1">@Html.Label("To")</td>
+                <td id="col11">@Html.DisplayFor(model => model.EndDate)</td>
+
+                @if (!(Model.Status.HasFlag(BTStatus.Cancelled))
+                             && Model.Status.HasFlag(BTStatus.Confirmed)
+                             && !Model.Status.HasFlag(BTStatus.Reported))
+                //&& ( (DateTime.Parse(Model.EndDate) >= DateTime.Now.ToLocalTimeAzure().Date)
+                //|| (DateTime.Parse(Model.StartDate) >= DateTime.Now.ToLocalTimeAzure().Date) )
+                {
+                    <td id="col2">@Html.Label("Order To")</td>
+                    if (DateTime.Parse(Model.EndDate) <= DateTime.Now.ToLocalTimeAzure().Date)
+                    {
+                        <td id="col22">@Html.TextBoxFor(model => model.OrderEndDate, new { id = "OrderEndDate", @class = "editorForCalendar" })</td>
+                    }
+                    else
+                    {
+                        <td id="col22">@Html.TextBoxFor(model => model.OrderEndDate, new { id = "OrderEndDate", @class = "editorForCalendar" })</td>
+                    }
+                }
+
+            </tr>
+            <tr>
+                <td colspan="4">
+                    @Html.ValidationMessageFor(model => model.OrderEndDate)
+                </td>
+            </tr>
+
+            <tr>
+                <td id="col1">@Html.Label("Location")</td>
+                <td id="col11">@Html.DisplayFor(model => model.Title)</td>
+
+                @if ((!Model.Status.HasFlag(BTStatus.Cancelled))
+                             && Model.Status.HasFlag(BTStatus.Confirmed)
+                             && !Model.Status.HasFlag(BTStatus.Reported))
+                //&& ((DateTime.Parse(Model.EndDate)) >= DateTime.Now.ToLocalTimeAzure().Date)
+                {
+                    <td id="col2">@Html.Label("Number Of Days")</td>
+                    <td id="col22">@Html.TextBoxFor(model => model.DaysInBTForOrder, new { @class = "editorForCalendar" })</td>
+                }
+                else
+                {
+                    <td id="col2"></td>
+                    <td id="col22"></td>
+                }
+
+            </tr>
+
+            <tr>
+                <td>@Html.LabelFor(model => model.Purpose)</td>
+                <td colspan="4">@Html.DisplayFor(model => model.Purpose)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Manager)</td>
+                <td colspan="4">@Html.DisplayFor(model => model.Manager)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.Responsible)</td>
+                <td colspan="4">@Html.DisplayFor(model => model.Responsible)
+                <td>
+            </tr>
+        </table>
+        <table>
+            @if (Model.Comment != null && Model.Comment != String.Empty)
+            {
+                <tr>
+                    <td>@Html.LabelFor(model => model.Comment)<br>@Html.TextAreaFor(model => model.Comment, new { @readonly = true, @class = "textAreaBTM" })</td>
+                </tr>
+            }
+
+            <tr>
+                @if (Model.Status.HasFlag(BTStatus.Confirmed) && !(Model.Status.HasFlag(BTStatus.Cancelled)))
+                {
+                    <td>
+                        @Html.LabelFor(model => model.Invitation)
+                        @Html.EditorFor(model => model.Invitation)
+                        @Html.ValidationMessageFor(model => model.Invitation)
+                    </td>
+                }
+            </tr>
+
+            @if (Model.Status.HasFlag(BTStatus.Cancelled))
+            {
+                <tr>
+                    <td>@Html.LabelFor(model => model.Habitation)<br>@Html.TextAreaFor(model => model.Habitation, new { @readonly = true, @class = "textAreaBTM" })</td>
+                </tr>
+
+                <tr>
+                    <td>@Html.LabelFor(model => model.Flights)<br>@Html.TextAreaFor(model => model.Flights, new { @readonly = true, @class = "textAreaBTM" })</td>
+                </tr>
+
+                <tr>
+                    <td>@Html.LabelFor(model => model.BTMComment)<br>@Html.TextAreaFor(model => model.BTMComment, new { @readonly = true, @class = "textAreaBTM" })</td>
+                </tr>
+
+            }
+            else
+            {
+
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.Habitation)<br>
+                        @Html.TextAreaFor(model => model.Habitation, new { @class = "textAreaBTM" })
+                        @Html.ValidationMessageFor(model => model.Habitation)
+                        @if (Model.Status.HasFlag(BTStatus.Confirmed))
+                        {
+                            @Html.EditorFor(model => model.HabitationConfirmed)
+                        }
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.Flights)<br>
+                        @Html.TextAreaFor(model => model.Flights, new { @class = "textAreaBTM" })
+                        @Html.ValidationMessageFor(model => model.FlightsConfirmed)
+                        @if (Model.Status.HasFlag(BTStatus.Confirmed))
+                        {
+                            @Html.EditorFor(model => model.FlightsConfirmed)
+                        }
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        @Html.LabelFor(model => model.BTMComment)<br>
+                        @Html.TextAreaFor(model => model.BTMComment, new { @class = "textAreaBTM" })
+                        <br />  @Html.ValidationMessageFor(model => model.BTMComment)
+                    </td>
+                </tr>
+
+            }
+
+            @if (Model.RejectComment != null && Model.RejectComment != String.Empty)
+            {
+                <tr>
+                    <td>@Html.LabelFor(model => model.RejectComment)<br>@Html.TextAreaFor(model => model.RejectComment, new { @readonly = true, @class = "textAreaBTM" })</td>
+                </tr>
+            }
+            @if (Model.CancelComment != null && Model.CancelComment != String.Empty)
+            {
+                <tr>
+                    <td>@Html.LabelFor(model => model.CancelComment)<br>@Html.TextAreaFor(model => model.CancelComment, new { @readonly = true, @class = "textAreaBTM" })</td>
+                </tr>
+            }
+
+        </table>
+
+        @if (!Model.Status.HasFlag(BTStatus.Cancelled))
+        {
+            <button id="btnSave" type="submit">Save</button>
+        }
+
+        <br>
+        <div style="float:right">
+            @if (Model.Status.HasFlag(BTStatus.Cancelled))
+            {
+                <a id="DeleteBTBTM" href="/BTM/DeleteBTBTM/@Model.BusinessTripID?searchString=@ViewBag.SearchString" data-updateid="Data-@Model.EmployeeID">Delete</a>
+            }
+
+            @if (((Model.Status.HasFlag(BTStatus.Registered)) || (Model.Status.HasFlag(BTStatus.Confirmed))) && (!Model.Status.HasFlag(BTStatus.Cancelled)))
+            {
+                string jsonRowVersion = JsonConvert.SerializeObject(Model.RowVersion);
+
+                <a id="RejectBTBTM" href="/BTM/Reject_BT_BTM/@Model.BusinessTripID?jsonRowVersionData=@jsonRowVersion&searchString=@ViewBag.SearchString" data-updateid="Data-@Model.EmployeeID">Reject</a>
+            }﻿
+        </div>
+    </fieldset>
+}
+
+
+@if (Model.Status.HasFlag(BTStatus.Modified))
+{
+    if (Model.OldLocationTitle != null && Model.OldLocationTitle != "" && Model.OldStartDate != null && Model.OldStartDate != "" && Model.OldEndDate != null && Model.OldEndDate != "")
+    {
+        @:Old Data: @(Model.OldLocationTitle + ": " + Model.OldStartDate + "-" + Model.OldEndDate)
+    }
+}
+<br />
+
+@*<p>
+        @Html.DisplayLastCRUD(Model.LastCRUDedBy, Model.LastCRUDTimestamp)
+    </p>*@
+
+<div style="text-align:right">
+    <em>@Html.DisplayLastCRUD(Model.LastCRUDedBy, Model.LastCRUDTimestamp)</em>
+</div>
+<div id="DeleteBTBTM-BTM"></div>

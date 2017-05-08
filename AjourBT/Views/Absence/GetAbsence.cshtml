@@ -1,0 +1,67 @@
+﻿@{
+    Layout = null;
+    string textBoxFromValue = ViewBag.FromValue.ToString("dd.MM.yyyy");
+    string textBoxToValue = ViewBag.ToValue.ToString("dd.MM.yyyy");
+
+    string search = @ViewBag.SearchString;
+}
+
+<script>
+    $(function () {
+        $("[id^=ExportAbsenceToXls]").button();
+        $("#absenceButton").button();
+    })
+</script>
+
+@using (Ajax.BeginForm("GetAbsenceData", "Absence", new AjaxOptions { UpdateTargetId = "absenceView", HttpMethod = "GET" }, new { id = "formAbsence" }))
+{
+   <table class="wtrContainer">
+        <tr id="wtrInput">
+            <td>@Html.Label("From")</td>
+            <td>@Html.TextBox("fromDate", textBoxFromValue, new {@readonly = "readonly" })</td>
+            <td>@Html.Label("To")</td>
+            <td>@Html.TextBox("toDate", textBoxToValue, new {@readonly = "readonly" })</td>
+            <td><a id="absenceButton">Submit</a></td>           
+        </tr>
+        <tr id="wtrInput2">
+            <td colspan="5">
+                <p id="errorMessageAbs"></p>
+            </td>           
+        </tr>
+    </table>
+    <div id="InputABM">
+        <input id="absenceSearchInput" type="search" name="searchString" value="@search" placeholder="Search... " />
+    </div>
+
+
+
+}
+<div id="absenceView">
+  @*  Html.Action("GetAbsenceData", "Absence", new { searchString = ViewBag.SearchString })*@
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#fromDate').datepicker({
+            firstDay: 1,
+            dateFormat: "dd.mm.yy",
+            showWeek: true,
+            calculateWeek: myWeekCalc,
+            showOn: 'button',
+            buttonImage: '/Content/themes/base/images/calendar2.gif',
+            buttonImageOnly: true
+        
+        });
+
+        $('#toDate').datepicker({
+            firstDay: 1,
+            dateFormat: "dd.mm.yy",
+            calculateWeek: myWeekCalc,
+            showWeek: true,
+            showOn: 'button',
+            buttonImage: '/Content/themes/base/images/calendar2.gif',
+            buttonImageOnly: true
+        });
+    })    
+</script>
+

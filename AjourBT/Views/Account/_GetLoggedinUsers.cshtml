@@ -1,0 +1,10 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "Online users string";   
+}
+
+<div class="onlineUsersString">
+    <b>Online: @ViewBag.UsersToDisplay </b>
+
+    @Html.ActionLink("...See full list", "FullOnlineUsersList", "Account", new { loggedInUsersIDs = ViewBag.FullListOfOnlineUsers }, new { id = "onlineUsersDialog", @class = "onlineUsersClass" })
+</div>

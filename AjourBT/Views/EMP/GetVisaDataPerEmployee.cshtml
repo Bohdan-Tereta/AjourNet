@@ -1,0 +1,45 @@
+﻿@model AjourBT.Domain.Entities.Employee
+
+@{
+    Layout = null;
+    ViewBag.Title = "GetVisaDataPerEmployee";
+}
+
+<table id="visaDataPerEmp">
+    <tr>
+        <td>
+            @Html.Label("Passport")
+        </td>
+        <td>
+            @{
+
+                var passportDetails = @Html.CustomDisplayPassportDataForEMP(Model.Passport);
+            }
+            @passportDetails
+
+
+        </td>
+    </tr>
+    <tr>
+        <td><br/></td>
+    </tr>
+
+        @Html.CustomDisplayVisaRegistrationDateForEMP(Model.VisaRegistrationDate)
+    
+        @Html.CustomDisplayVisaForEMP(Model.Visa, (int)ViewBag.VisaDays)
+    
+    <tr>
+        <td>
+            @Html.Label("Permit")
+        </td>
+        <td>
+            @{
+                var permitDetails = @Html.CustomDisplayPermitDataForEMP(Model.Permit);
+            }
+            @permitDetails
+
+
+        </td>
+    </tr>
+
+</table>

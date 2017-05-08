@@ -1,0 +1,216 @@
+﻿@model AjourBT.Domain.ViewModels.EmployeeViewModel
+
+@{
+    Layout = null;
+    ViewBag.Title = "Edit Employee";
+}
+
+<script type="text/javascript">
+    clearTimeout(timer);
+    timer = window.setTimeout(function () { location.reload(); }, timeout);
+</script>
+
+@using (Html.BeginForm("EmployeeEdit", "PU", FormMethod.Post, new { id = "editEmployeeForm" }))
+{
+    <div id="ModelError" style="max-width: 400px; color: red"></div>
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <input type="hidden" name="selectedDepartment" value="@ViewBag.SelectedDepartment">
+    <input type="hidden" name="searchString" value="@ViewBag.SearchString">
+    <fieldset>
+        <legend>Employee</legend>
+
+        @Html.HiddenFor(model => model.EmployeeID)
+        @Html.HiddenFor(model => model.EID)
+        @Html.HiddenFor(model => model.RowVersion)
+
+<table>
+        <tr>
+            <td>@Html.LabelFor(model => model.FirstName)</td>
+            <td>@Html.EditorFor(model => model.FirstName, new { style = "width:100px" })
+                <br /> @Html.ValidationMessageFor(model => model.FirstName)</td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(model => model.LastName)</td>
+            <td>@Html.EditorFor(model => model.LastName)
+                <br /> @Html.ValidationMessageFor(model => model.LastName)</td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(model => model.EID)</td>
+            <td>@Html.DisplayFor(model => model.EID)
+                <button style="float:right" type="submit" id="btnResetPassword"  value="Reset Password" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">Reset Password</button>
+                <br />  @Html.ValidationMessageFor(model => model.EID)</td>
+        </tr>
+
+        <tr>
+            <td>@Html.Label("Department")</td>
+            <td>@Html.DropDownList("DepartmentID", new SelectList(ViewBag.DepartmentList, "DepartmentID", "DepartmentName"))
+                <br />  @Html.ValidationMessageFor(model => model.DepartmentID)</td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(model => model.DateEmployed)</td>
+            <td>@Html.TextBoxFor(model => model.DateEmployed, new { id = "editDateEmployed", @readonly = true, @class = "editorForCalendar" })
+                <br /> @Html.ValidationMessageFor(model => model.DateEmployed)</td>
+
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(model => model.DateDismissed)</td>
+            <td>@Html.TextBoxFor(model => model.DateDismissed, new { id = "editDateDismissed", @readonly = true, @class = "editorForCalendar" })
+                <br /> @Html.ValidationMessageFor(model => model.DateDismissed)</td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(model => model.IsManager)</td>
+            <td>@Html.EditorFor(model => model.IsManager)
+                 @Html.ValidationMessageFor(model => model.IsManager)</td>
+        </tr>
+        <tr>
+            <td>@Html.Label("HasPassport")</td>
+            <td>@Html.CheckBox("HasPassportEmp", Model.Passport != null ? true : false, new { id = "HasPassportEmp", value = Model.EmployeeID })</td>
+                </tr>
+        <tr>
+            <td>@Html.Label("Role")</td>
+
+            <td>@foreach (var role in System.Web.Security.Roles.GetAllRoles())
+                {
+                    if (System.Web.Security.Membership.GetUser(Model.EID) != null)
+                    {
+                       @Html.CreateCustomCheckBox("Roles", System.Web.Security.Roles.IsUserInRole(Model.EID, role), role)
+                    }
+                    else
+                    {
+                        @Html.CreateCustomCheckBox("Roles", false, role)
+                    }
+
+                    @Html.Label(role);
+                }</td>
+        </tr>
+   
+        <tr>
+            <td>@Html.LabelFor(model => model.Position)</td>
+            <td>
+                @Html.DropDownList("PositionID", new SelectList(ViewBag.PositionList, "PositionID", "TitleEn"))
+                <br /> @Html.ValidationMessageFor(model => model.PositionID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(model => model.FullNameUk)</td>
+            <td>
+                @Html.EditorFor(model => model.FullNameUk)
+                @Html.ValidationMessageFor(model => model.FullNameUk)
+            </td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(model => model.BirthDay)</td>
+            <td>
+                @Html.TextBoxFor(model => model.BirthDay, new { id = "editDateBirthDay", @readonly = true, @class = "editorForCalendar" })
+                @Html.ValidationMessageFor(model => model.BirthDay)
+            </td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(model => model.Comment)</td>
+            <td>
+                @Html.EditorFor(model => model.Comment)
+                @Html.ValidationMessageFor(model => model.Comment)
+            </td>
+        </tr>
+        
+        <tr>
+            <td>@Html.LabelFor(model => model.IsUserOnly)</td>
+            <td>
+                @Html.EditorFor(model => model.IsUserOnly)
+                <br />@Html.ValidationMessageFor(model => model.IsUserOnly)
+            </td>
+        </tr>
+    <tr>
+        <td>@Html.Label("Allow Greetings")</td>
+        <td>@Html.CheckBox("IsGreetingMessageAllow", Model.IsGreetingMessageAllow)</td>
+    </tr> 
+
+    <tr>
+        <td>@Html.LabelFor(model => model.EMail)</td>
+        <td>
+            @Html.EditorFor(model => model.EMail)
+            <br />@Html.ValidationMessageFor(model => model.EMail)
+        </td>
+    </tr> 
+
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.EducationAcquiredType)
+        </td>
+        <td>
+            @Html.DropDownListFor(model => model.EducationAcquiredType, (SelectList)ViewBag.EducationDropDownList, "<Choose education>")
+            <br /> @Html.ValidationMessageFor(model => model.EducationAcquiredType)
+            <div id="ModelError" class="field-validation-error"></div>
+
+        </td>
+    </tr>
+
+    <tr>
+        <td>@Html.LabelFor(model => model.EducationAcquiredDate)</td>
+        <td>
+            @Html.TextBoxFor(model => model.EducationAcquiredDate, new { id = "editEducationAcquired", @readonly = true })
+            @Html.ValidationMessageFor(model => model.EducationAcquiredDate)
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            @Html.LabelFor(model => model.EducationInProgressType)
+        </td>
+        <td>
+            @Html.DropDownListFor(model => model.EducationInProgressType, (SelectList)ViewBag.EducationDropDownList, "<Choose education>")
+            <br /> @Html.ValidationMessageFor(model => model.EducationInProgressType)
+            <div id="ModelError" class="field-validation-error"></div>
+
+        </td>
+    </tr>
+
+    <tr>
+        <td>@Html.LabelFor(model => model.EducationInProgressDate)</td>
+        <td>
+            @Html.TextBoxFor(model => model.EducationInProgressDate, new { id = "editEducationInProgress", @readonly = true })
+            @Html.ValidationMessageFor(model => model.EducationInProgressDate)
+        </td>
+    </tr>
+
+    <tr>
+        <td>@Html.LabelFor(model => model.EducationComment)</td>
+        <td>
+            @Html.TextBoxFor(model => model.EducationComment, new { id = "editEducationComment" })
+            @Html.ValidationMessageFor(model => model.EducationComment)
+        </td>
+    </tr>
+
+</table>
+    </fieldset>
+    <div style="float:left">
+
+        <button type="submit" id="btnSaveEmployee" name="Command" value="Save" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+            <span>Save</span>
+        </button>
+
+
+    </div>
+}
+<br>
+
+<div style="float:right">
+    <button type="submit" id="btnDeleteEmployee" data-href="/PU/EmployeeDelete/@Model.EmployeeID?selectedDepartment=@ViewBag.SelectedDepartment&searchString=@ViewBag.SearchString" data-title="Delete @Model.FirstName @Model.LastName" name="Command" value="Delete" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+        <span>Delete</span>
+    </button>
+
+</div>
+
+<div id="deleteEmployee-Confirm"></div>
+
+<div id="resetPassword-Confirm"></div>

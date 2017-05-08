@@ -1,0 +1,25 @@
+﻿@model int
+
+@{
+    Layout = null;
+}
+
+@using (Ajax.BeginForm("GetBusinessTripDataInQuarterVU", "VU", new AjaxOptions { UpdateTargetId = "tableBodyVUForQuarter", HttpMethod = "GET" }, new { id = "formBTsDataInQuarterVU" }))
+{
+    <div id="destination7">
+        @Html.DropDownList("selectedKey", (SelectList)ViewBag.SelectedValues, new { onchange = "$(this.form).submit()" })
+
+        @Html.Action("GetListOfDepartmentsVU", new { selectedKey = Model })
+        <input id="searchForQuarterVU" type="search" name="searchString" value="@ViewBag.SearchString" placeholder="Search...">
+    </div>
+}
+<div id="tableBodyVUForQuarter">
+    @Html.Action("GetBusinessTripDataInQuarterVU", new { selectedKey = Model, selectedDepartment = ViewBag.SelectedDepartment, searchString = ViewBag.SearchString })
+</div>
+
+
+
+<script type="text/javascript">
+    
+
+</script>

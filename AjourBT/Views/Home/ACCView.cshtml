@@ -1,0 +1,26 @@
+﻿@model int
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#tabsACC").tabs({ selected: @Model });
+        $("li#ACCLink a").css({
+            'color': '#E1701D'
+        })
+    });
+</script>
+
+
+
+@Scripts.Render("~/bundles/AjourBTScript/DatesValidation")  
+@Scripts.Render("~/bundles/AjourBTScript/BTsForAcc")
+
+
+<div id="tabsACC">
+    <ul>
+        <li><a href="@Url.Action("GetBusinessTrip", "ACC", new { selectedDepartment = @ViewBag.SelectedDepartment, searchString = @ViewBag.SearchString})">Current/Future BTs</a></li>
+        <li><a href="@Url.Action("GetBusinessTripACC", "ACC", new { searchString = @ViewBag.SearchString})">Accountable BTs</a></li>
+        <li><a href="@Url.Action("GetMessagesForRole", "Message", new { page = Request.Params["page"], role = "ACC", tab = Tabs.ACC.Messages, searchString = @ViewBag.SearchString, actionNameForPagination = ViewContext.RouteData.GetRequiredString("action") })">Messages</a></li>
+        <li><a href="@Url.Action("GetClosedBusinessTrip", "ACC", new { searchString = @ViewBag.SearchString})">Closed BTs</a></li>
+    </ul>
+</div>

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<AjourBT.Domain.Entities.BusinessTrip>
+
+@{
+    Layout = null;
+    
+}
+<br>
+ <br>
+    <table id="reportedBTs">
+        <colgroup>
+            <col class="fromCol">
+            <col class="locCol">
+            <col class="orderCol">
+            <col class="managerCol">
+            <col class="respCol">
+            <col class="habitationCol">
+            <col class="flightsCol">
+        </colgroup>
+        <thead>
+            <tr>
+                <th>BT Dates</th>
+                <th>Location</th>
+                <th>Order Dates</th>
+                <th>Manager</th>
+                <th>Responsible</th>
+                <th>Habitation</th>
+                <th>Flights</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (BusinessTrip bt in Model)
+            {
+                <tr>
+                    <td>@Html.CustomDisplayDateTime(@bt.StartDate) - @Html.CustomDisplayDateTime(@bt.EndDate)</td>
+                    <td>@bt.Location.Title.ToString()</td>
+                    @if (@bt.OrderStartDate != null && @bt.OrderEndDate != null)
+                    {
+                        <td>@Html.CustomDisplayDateTime(@bt.OrderStartDate.Value) - @Html.CustomDisplayDateTime(@bt.OrderEndDate.Value)</td>
+                    }
+                    else
+                    {
+                        <td> - </td>
+                    }
+                    <td>@bt.Manager</td>
+                    <td>@bt.Responsible</td>
+                    <td>@bt.Habitation</td>
+                    <td>@bt.Flights</td>
+                </tr>
+
+            }
+        </tbody>
+    </table>

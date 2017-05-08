@@ -1,0 +1,50 @@
+﻿@model IEnumerable<AjourBT.Domain.Entities.Department>
+@{
+    Layout = null;
+    ViewBag.Title = "Index Departments";
+}
+
+<div id="DepartmentData">
+    <p>
+        <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="CreateDepartment" href="/PU/DepartmentCreate"> Add Department </a>
+    </p>
+
+    <table id="depView">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.DepartmentName)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td id="@item.DepartmentName">
+                    @Html.ActionLink(item.DepartmentName.ToString(), "DepartmentEdit", new { id = item.DepartmentID }, new { @class = "depEditDialog" })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+<div id="depDialog-create" style="display:none">
+
+</div>
+<div id="depDialog-confirm" style="display: none">
+
+</div>
+
+<div id="depDialog-edit" style="display: none">
+
+</div>
+<div id="depDialog-view" style="display: none">
+
+</div>
+
+<script>
+    $(function () {
+        $("[id^=CreateDepartment]").button();
+    });
+</script>

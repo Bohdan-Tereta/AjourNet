@@ -1,0 +1,714 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8877AAC1-0AA8-49EB-BFBA-0972F5416C75}</ProjectGuid>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AjourBT</RootNamespace>
+    <AssemblyName>AjourBT</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>true</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime">
+      <HintPath>..\packages\Antlr3.Runtime.PCL.3.5.0.3\lib\portable-win+net40+sl40+wp\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="ExcelLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Resources\ExcelLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Threading.Tasks">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.165\lib\net45\Microsoft.Threading.Tasks.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.165\lib\net45\Microsoft.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Common">
+      <HintPath>..\packages\Ninject.Web.Common.3.2.2.0\lib\net45-full\Ninject.Web.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Mvc">
+      <HintPath>..\packages\Ninject.MVC4.3.2.1.0\lib\net45-full\Ninject.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="PDFjet, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Resources\PDFjet.dll</HintPath>
+    </Reference>
+    <Reference Include="SendGridMail">
+      <HintPath>..\packages\SendGrid.1.2.1\lib\SendGridMail.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http.Extensions">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.18\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.18\lib\net45\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Mvc.FixedDisplayModes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.FixedDisplayModes.1.0.0\lib\net40\Microsoft.Web.Mvc.FixedDisplayModes.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.30506.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.30506.0\lib\net40\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.30506.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.30506.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.30506.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivatorEx">
+      <HintPath>..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.Data.2.0.30506.0\lib\net40\WebMatrix.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebPages.OAuth, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.OAuth.2.0.30506.0\lib\net40\Microsoft.Web.WebPages.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.WebData, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.WebData.2.0.30506.0\lib\net40\WebMatrix.WebData.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.AspNet, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.AspNet.4.1.4.12333\lib\net45-full\DotNetOpenAuth.AspNet.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.Core, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.Core.4.1.4.12333\lib\net45-full\DotNetOpenAuth.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth.Consumer, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Consumer.4.1.4.12333\lib\net45-full\DotNetOpenAuth.OAuth.Consumer.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Core.4.1.4.12333\lib\net45-full\DotNetOpenAuth.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.Core.4.1.4.12333\lib\net45-full\DotNetOpenAuth.OpenId.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId.RelyingParty, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.RelyingParty.4.1.4.12333\lib\net45-full\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.OData, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.OData.4.0.30506\lib\net40\System.Web.Http.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.Edm, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Data.Edm.5.2.0\lib\net40\Microsoft.Data.Edm.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.OData, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Data.OData.5.2.0\lib\net40\Microsoft.Data.OData.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Spatial, Version=5.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\System.Spatial.5.2.0\lib\net40\System.Spatial.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.3.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\AuthConfig.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\NinjectWebCommon.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AbsenceController.cs" />
+    <Compile Include="Controllers\ACCController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ADMController.cs" />
+    <Compile Include="Controllers\BTMController.cs" />
+    <Compile Include="Controllers\DIRController.cs" />
+    <Compile Include="Controllers\BusinessTripController.cs" />
+    <Compile Include="Controllers\CalendarController.cs" />
+    <Compile Include="Controllers\CountryController.cs" />
+    <Compile Include="Controllers\EMPController.cs" />
+    <Compile Include="Controllers\HRController.cs" />
+    <Compile Include="Controllers\VUController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\GreetingController.cs" />
+    <Compile Include="Controllers\HelpController.cs" />
+    <Compile Include="Controllers\HolidayController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JourneyController.cs" />
+    <Compile Include="Controllers\MessageController.cs" />
+    <Compile Include="Controllers\OvertimeController.cs" />
+    <Compile Include="Controllers\PUController.cs" />
+    <Compile Include="Controllers\SickController.cs" />
+    <Compile Include="Controllers\VacationController.cs" />
+    <Compile Include="Controllers\WTRController.cs" />
+    <Compile Include="Exeptions\BTDuplication.cs" />
+    <Compile Include="Filters\DisableCache.cs" />
+    <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\CustomCheckBox.cs" />
+    <Compile Include="Helpers\CustomCheckVisaToBeValid.cs" />
+    <Compile Include="Helpers\CustomDropdownList.cs" />
+    <Compile Include="Helpers\DisplayInsuranceEndDate.cs" />
+    <Compile Include="Helpers\DisplayCityOfVisaRegistration.cs" />
+    <Compile Include="Helpers\DisplayPassportDataForEMP.cs" />
+    <Compile Include="Helpers\DisplayPermitDataForEMP.cs" />
+    <Compile Include="Helpers\DisplayResponsibleForLocActionLink.cs" />
+    <Compile Include="Helpers\DisplayBTsDatesActionLink.cs" />
+    <Compile Include="Helpers\DisplayBtStyleForVU.cs" />
+    <Compile Include="Helpers\DisplayDateTimeHelper.cs" />
+    <Compile Include="Helpers\DisplayDaysInBTHelper.cs" />
+    <Compile Include="Helpers\DisplayLastCRUDHelper.cs" />
+    <Compile Include="Helpers\DisplayMontheHelper.cs" />
+    <Compile Include="Helpers\DisplayNameOfEmployee.cs" />
+    <Compile Include="Helpers\DisplayOrderDatesForVU.cs" />
+    <Compile Include="Helpers\DisplayOrderDataForView.cs" />
+    <Compile Include="Helpers\DisplayOvertimeDates.cs" />
+    <Compile Include="Helpers\DisplayPassportsActionLink.cs" />
+    <Compile Include="Helpers\DisplayVisaDataForEMP.cs" />
+    <Compile Include="Helpers\DisplayVisaRegistrationDate.cs" />
+    <Compile Include="Helpers\DisplayVisaStartAndDueDates.cs" />
+    <Compile Include="Helpers\DisplayPassportDataForADM.cs" />
+    <Compile Include="Helpers\GetMailsHelper.cs" />
+    <Compile Include="Helpers\JourneyDate.cs" />
+    <Compile Include="Helpers\LastBTGetter.cs" />
+    <Compile Include="Helpers\PopupVisaAndPermitInfoHelper.cs" />
+    <Compile Include="Helpers\SelectEmployeeByWeek.cs" />
+    <Compile Include="Helpers\SortingFactorDates.cs" />
+    <Compile Include="Helpers\SortingPrivateTrips.cs" />
+    <Compile Include="Helpers\StatusHintHelper.cs" />
+    <Compile Include="Helpers\StatusHintHelperForVUPreps.cs" />
+    <Compile Include="Helpers\WeekIntervalHelper.cs" />
+    <Compile Include="Infrastructure\CalendarToPdfExporter.cs" />
+    <Compile Include="Infrastructure\IXLSExporter.cs" />
+    <Compile Include="Infrastructure\JourneyBydateComparer.cs" />
+    <Compile Include="Infrastructure\OvertimeByDateComparer.cs" />
+    <Compile Include="Infrastructure\QuestionnairePreviewModelExtension.cs" />
+    <Compile Include="Infrastructure\XLSExporter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\PagedList.css" />
+    <Content Include="Content\redmond\images\animated-overlay.gif" />
+    <Content Include="Content\redmond\images\calendar_blank.png" />
+    <Content Include="Content\redmond\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\redmond\images\ui-bg_flat_55_fbec88_40x100.png" />
+    <Content Include="Content\redmond\images\ui-bg_glass_75_d0e5f5_1x400.png" />
+    <Content Include="Content\redmond\images\ui-bg_glass_85_dfeffc_1x400.png" />
+    <Content Include="Content\redmond\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\redmond\images\ui-bg_gloss-wave_55_5c9ccc_500x100.png" />
+    <Content Include="Content\redmond\images\ui-bg_inset-hard_100_f5f8f9_1x100.png" />
+    <Content Include="Content\redmond\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
+    <Content Include="Content\redmond\images\ui-icons_217bc0_256x240.png" />
+    <Content Include="Content\redmond\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\redmond\images\ui-icons_469bdd_256x240.png" />
+    <Content Include="Content\redmond\images\ui-icons_6da8d5_256x240.png" />
+    <Content Include="Content\redmond\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\redmond\images\ui-icons_d8e7f3_256x240.png" />
+    <Content Include="Content\redmond\images\ui-icons_f9bd01_256x240.png" />
+    <Content Include="Content\redmond\jquery-ui.css" />
+    <Content Include="Content\redmond\jquery.ui.theme.css" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Content\style.css" />
+    <Content Include="Content\themes\base\images\calendar2.gif" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="Global.asax" />
+    <Content Include="Resources\DejaVuLGCSerif.ttf.deflated">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Images\AjourBTProcessMap.png" />
+    <Content Include="Images\AjourSystems.png" />
+    <Content Include="Images\feedback.png" />
+    <Content Include="Images\grid.png" />
+    <Content Include="Images\icon_sprite.png" />
+    <Content Include="Images\slider_handle.png" />
+    <Content Include="Images\sort_asc.png" />
+    <Content Include="Images\sort_both.png" />
+    <Content Include="Images\sort_desc.png" />
+    <Content Include="Resources\ExcelLibrary.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\PDFjet.dll" />
+    <Content Include="Scripts\AjourBTScript\BTsForPU.js" />
+    <Content Include="Scripts\AjourBTScript\GreetingScript.js" />
+    <Content Include="Scripts\AjourBTScript\HRScript.js" />
+    <Content Include="Scripts\AjourBTScript\InsuranceScript.js" />
+    <Content Include="Scripts\AjourBTScript\ResetPasswordScript.js" />
+    <Content Include="Scripts\AjourBTScript\SaveSortAfterTableRefresh.js" />
+    <Content Include="Scripts\AjourBTScript\ShowOnlineUsers.js" />
+    <Content Include="Scripts\AjourBTScript\UserScript.js" />
+    <Content Include="Scripts\AjourBTScript\VUchangeDateFormat.js" />
+    <Content Include="Scripts\knockout-3.2.0.debug.js" />
+    <Content Include="Scripts\knockout-3.2.0.js" />
+    <Content Include="Views\Shared\NoAbsenceData.cshtml" />
+    <Content Include="Views\Greeting\Create.cshtml" />
+    <Content Include="Views\Greeting\Delete.cshtml" />
+    <Content Include="Views\Greeting\Edit.cshtml" />
+    <Content Include="Views\Greeting\Index.cshtml" />
+    <Content Include="Views\Home\BDMView.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\ADM\GetEmployeeReadOnly.cshtml" />
+    <Content Include="Views\ADM\GetEmployeeDataReadOnly.cshtml" />
+    <Content Include="Views\ADM\EmployeeDetails.cshtml" />
+    <Content Include="Views\VU\GetEmployeeDataReadOnlyVU.cshtml" />
+    <Content Include="Views\VU\GetEmployeeReadOnlyVU.cshtml" />
+    <Content Include="Views\ACC\GetBusinessTrip.cshtml" />
+    <Content Include="Views\ACC\IndexForAccountableBTs.cshtml" />
+    <Content Include="Views\ACC\GetBusinessTripDataACC.cshtml" />
+    <Content Include="Views\ACC\EditReportedCurrentBT.cshtml" />
+    <Content Include="Views\ACC\EditReportedFinishedBT.cshtml" />
+    <Content Include="Views\ACC\EditReportedFutureBT.cshtml" />
+    <Content Include="Views\ACC\ShowAccountableBTData.cshtml" />
+    <Content Include="Views\ACC\CancelReportedBT.cshtml" />
+    <Content Include="Views\ACC\_CancelBT.cshtml" />
+    <Content Include="Views\ADM\_DeleteBTInfo.cshtml" />
+    <Content Include="Views\BTM\_DeleteBTInfo.cshtml" />
+    <Content Include="Views\BTM\_Reject_BT.cshtml" />
+    <Content Include="Views\BTM\BTMArrangeBT.cshtml" />
+    <Content Include="Views\BTM\DeleteBTBTM.cshtml" />
+    <Content Include="Views\BTM\GetBusinessTripBTM.cshtml" />
+    <Content Include="Views\BTM\GetBusinessTripDataBTM.cshtml" />
+    <Content Include="Views\BTM\Reject_BT_BTM.cshtml" />
+    <Content Include="Views\DIR\_Reject_BT.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\HelpView.cshtml" />
+    <Content Include="Views\Help\Map.cshtml" />
+    <Content Include="Views\Account\_ProductVersion.cshtml" />
+    <Content Include="Views\BTM\InsuranceCreate.cshtml" />
+    <Content Include="Views\BTM\InsuranceEdit.cshtml" />
+    <Content Include="Views\BTM\InsuranceDelete.cshtml" />
+    <Content Include="Views\PU\GetUsersOnly.cshtml" />
+    <Content Include="Views\PU\GetUsersOnlyData.cshtml" />
+    <Content Include="Views\PU\UserCreate.cshtml" />
+    <Content Include="Views\PU\GetBusinessTripByDatesPU.cshtml" />
+    <Content Include="Views\PU\GetBusinessTripDataByDatesPU.cshtml" />
+    <Content Include="Views\PU\EditFinishedBT.cshtml" />
+    <Content Include="Views\ACC\GetBusinessTripACC.cshtml" />
+    <Content Include="Views\VU\GetPrepBusinessTripVU.cshtml" />
+    <Content Include="Views\ACC\GetClosedBusinessTrip.cshtml" />
+    <Content Include="Views\ACC\GetClosedBusinessTripData.cshtml" />
+    <Content Include="Views\ACC\ShowClosedBT.cshtml" />
+    <Content Include="Views\Shared\GetMailAliasEMails.cshtml" />
+    <Content Include="Views\Home\HRView.cshtml" />
+    <Content Include="Views\HR\GetQuestionSets.cshtml" />
+    <Content Include="Views\HR\CreateQuestionSet.cshtml" />
+    <Content Include="Views\HR\GetQuestionnaire.cshtml" />
+    <Content Include="Views\HR\GetQuestWindow.cshtml" />
+    <Content Include="Views\HR\CreateQuestionnaire.cshtml" />
+    <Content Include="Views\HR\GenerateQuestionnaire.cshtml" />
+    <Content Include="Scripts\AjourBTScript\ABMDatesValidation.js" />
+    <Content Include="Scripts\AjourBTScript\BTsForAcc.js" />
+    <Content Include="Scripts\AjourBTScript\BTsForADM.js" />
+    <Content Include="Scripts\AjourBTScript\BTsForBTM.js" />
+    <Content Include="Scripts\AjourBTScript\BTsForEMP.js" />
+    <Content Include="Scripts\AjourBTScript\BTsForVU.js" />
+    <Content Include="Scripts\AjourBTScript\BusinessTripForDirector.js" />
+    <Content Include="Scripts\AjourBTScript\CalculateWeek.js" />
+    <Content Include="Scripts\AjourBTScript\CountryScript.js" />
+    <Content Include="Scripts\AjourBTScript\CRUD_CalendarItems.js" />
+    <Content Include="Scripts\DataTables.min.js" />
+    <Content Include="Scripts\AjourBTScript\DatesValidation.js" />
+    <Content Include="Scripts\AjourBTScript\DepScript.js" />
+    <Content Include="Scripts\AjourBTScript\EmpScript.js" />
+    <Content Include="Scripts\AjourBTScript\helpLink.js" />
+    <Content Include="Scripts\AjourBTScript\HolidayScript.js" />
+    <Content Include="Scripts\AjourBTScript\JourneyScript.js" />
+    <Content Include="Scripts\AjourBTScript\LocScript.js" />
+    <Content Include="Scripts\AjourBTScript\OnlineUsers.js" />
+    <Content Include="Scripts\AjourBTScript\OvertimeScript.js" />
+    <Content Include="Scripts\AjourBTScript\PassportScript.js" />
+    <Content Include="Scripts\AjourBTScript\PermitScript.js" />
+    <Content Include="Scripts\AjourBTScript\PositionScript.js" />
+    <Content Include="Scripts\AjourBTScript\PTsForBTM.js" />
+    <Content Include="Scripts\AjourBTScript\RequiredIfValidation.js" />
+    <Content Include="Scripts\AjourBTScript\UnitScript.js" />
+    <Content Include="Scripts\AjourBTScript\VisaScript.js" />
+    <Content Include="Scripts\columnFilter.js" />
+    <Content Include="Scripts\dataDaysEnh.js" />
+    <Content Include="Scripts\DataTables.js" />
+    <Content Include="Scripts\jquery-1.8.2.js" />
+    <Content Include="Scripts\jquery-1.8.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.8.24.js" />
+    <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
+    <Content Include="Scripts\jquery.fn.gantt.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Views\WTR\GetWTRDataEmpty.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Images\accent.png" />
+    <Content Include="Images\bullet.png" />
+    <Content Include="Images\heroAccent.png" />
+    <Content Include="Images\orderedList0.png" />
+    <Content Include="Images\orderedList1.png" />
+    <Content Include="Images\orderedList2.png" />
+    <Content Include="Images\orderedList3.png" />
+    <Content Include="Images\orderedList4.png" />
+    <Content Include="Images\orderedList5.png" />
+    <Content Include="Images\orderedList6.png" />
+    <Content Include="Images\orderedList7.png" />
+    <Content Include="Images\orderedList8.png" />
+    <Content Include="Images\orderedList9.png" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\_RemoveExternalLoginsPartial.cshtml" />
+    <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Manage.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\PU\LocationIndex.cshtml" />
+    <Content Include="Views\PU\LocationCreate.cshtml" />
+    <Content Include="Views\PU\LocationEdit.cshtml" />
+    <Content Include="Views\PU\LocationDelete.cshtml" />
+    <Content Include="Views\PU\LocationCannotDelete.cshtml" />
+    <Content Include="Views\PU\DepartmentCannotDelete.cshtml" />
+    <Content Include="Views\PU\DepartmentCreate.cshtml" />
+    <Content Include="Views\PU\DepartmentDelete.cshtml" />
+    <Content Include="Views\PU\DepartmentEdit.cshtml" />
+    <Content Include="Views\PU\EmployeeDelete.cshtml" />
+    <Content Include="Views\PU\EmployeeCannotDelete.cshtml" />
+    <Content Include="Views\Error\ShowErrorPage.cshtml" />
+    <Content Include="Views\BTM\PermitCreate.cshtml" />
+    <Content Include="Views\BTM\PermitEdit.cshtml" />
+    <Content Include="Views\BTM\PermitDelete.cshtml" />
+    <Content Include="Views\ADM\EditPlannedBT.cshtml" />
+    <Content Include="Views\DIR\Reject_BT_DIR.cshtml" />
+    <Content Include="Views\BTM\VisaDelete.cshtml" />
+    <Content Include="Views\Home\PUView.cshtml" />
+    <Content Include="Views\Home\BTMView.cshtml" />
+    <Content Include="Views\Home\ADMView.cshtml" />
+    <Content Include="Views\PU\DepartmentIndex.cshtml" />
+    <Content Include="Views\PU\GetEmployeeData.cshtml" />
+    <Content Include="Views\PU\GetEmployee.cshtml" />
+    <Content Include="Views\BTM\GetVisaDataBTM.cshtml" />
+    <Content Include="Views\BTM\GetVisaBTM.cshtml" />
+    <Content Include="Views\PU\EmployeeEdit.cshtml" />
+    <Content Include="Views\BTM\VisaEdit.cshtml" />
+    <Content Include="Views\PU\EmployeeCreate.cshtml" />
+    <Content Include="Views\BTM\VisaCreate.cshtml" />
+    <Content Include="Views\BTM\VisaRegEdit.cshtml" />
+    <Content Include="Views\ADM\Plan.cshtml" />
+    <Content Include="Views\ADM\GetVisaADM.cshtml" />
+    <Content Include="Views\ADM\GetVisaDataADM.cshtml" />
+    <Content Include="Views\BusinessTrip\NoLastBTs.cshtml" />
+    <Content Include="Views\ADM\GetBusinessTripADM.cshtml" />
+    <Content Include="Views\ADM\GetBusinessTripDataADM.cshtml" />
+    <Content Include="Views\BTM\VisaRegCreate.cshtml" />
+    <Content Include="Views\Home\ACCView.cshtml" />
+    <Content Include="Views\Home\DIRView.cshtml" />
+    <Content Include="Views\DIR\GetBusinessTripDataDIR.cshtml" />
+    <Content Include="Views\DIR\GetBusinessTripDIR.cshtml" />
+    <Content Include="Views\Home\DataBaseDeleteError.cshtml" />
+    <Content Include="Views\Message\GetMessagesDataForRole.cshtml" />
+    <Content Include="Views\ADM\DeletePlannedBT.cshtml" />
+    <Content Include="Views\Home\VUView.cshtml" />
+    <Content Include="Views\VU\ShowBTInformation.cshtml" />
+    <Content Include="Views\VU\GetListOfDepartmentsVU.cshtml" />
+    <Content Include="Views\BTM\GetPrivateTripBTM.cshtml" />
+    <Content Include="Views\BTM\GetPrivateTripDataBTM.cshtml" />
+    <Content Include="Views\BTM\PrivateTripCreate.cshtml" />
+    <Content Include="Views\VU\GetBusinessTripDataInQuarterVU.cshtml" />
+    <Content Include="Views\VU\GetListOfYearsForQuarterVU.cshtml" />
+    <Content Include="Views\BTM\PrivateTripEdit.cshtml" />
+    <Content Include="Views\BTM\PrivateTripDelete.cshtml" />
+    <Content Include="Views\VU\GetPrivateTripVU.cshtml" />
+    <Content Include="Views\VU\GetPrivateTripDataVU.cshtml" />
+    <Content Include="Views\BusinessTrip\ShowBTData.cshtml" />
+    <Content Include="Views\BTM\PassportEditDate.cshtml" />
+    <Content Include="Views\BTM\PassportAddDate.cshtml" />
+    <Content Include="Views\Message\GetMessagesForRole.cshtml" />
+    <Content Include="Views\VU\GetBusinessTripDataInMonthesVU.cshtml" />
+    <Content Include="Views\VU\GetPrepBusinessTripDataVU.cshtml" />
+    <Content Include="Views\PU\PositionIndex.cshtml" />
+    <Content Include="Views\PU\PositionCreate.cshtml" />
+    <Content Include="Views\PU\PositionEdit.cshtml" />
+    <Content Include="Views\PU\PositionDelete.cshtml" />
+    <Content Include="Views\VU\GetBusinessTripByDatesVU.cshtml" />
+    <Content Include="Views\VU\GetBusinessTripDataByDatesVU.cshtml" />
+    <Content Include="Views\PU\PositionCannotDelete.cshtml" />
+    <Content Include="Views\Account\_GetLoggedinUsers.cshtml" />
+    <Content Include="Views\Account\_GetOnlineUsersShort.cshtml" />
+    <Content Include="Views\Account\FullOnlineUsersList.cshtml" />
+    <Content Include="Views\Account\_NoOnlineUsers.cshtml" />
+    <Content Include="Views\BTM\TableViewVisasAndPermitsBTM.cshtml" />
+    <Content Include="Views\Shared\OneRowPU.cshtml" />
+    <Content Include="Views\BTM\TableViewBTM.cshtml" />
+    <Content Include="Views\BTM\TableViewPTBTM.cshtml" />
+    <Content Include="Views\ADM\TableViewBTADM.cshtml" />
+    <Content Include="Views\PU\ResetPassword.cshtml" />
+    <Content Include="Views\Help\Index.cshtml" />
+    <Content Include="Views\Home\ABMView.cshtml" />
+    <Content Include="Views\Calendar\GetCalendar.cshtml" />
+    <Content Include="Views\Country\Index.cshtml" />
+    <Content Include="Views\Holiday\GetHoliday.cshtml" />
+    <Content Include="Views\Holiday\GetHolidayData.cshtml" />
+    <Content Include="Views\Journey\GetJourneyData.cshtml" />
+    <Content Include="Views\Calendar\GetCalendarData.cshtml" />
+    <Content Include="Views\WTR\GetWTR.cshtml" />
+    <Content Include="Views\WTR\GetWTRData.cshtml" />
+    <Content Include="Views\Journey\GetJourney.cshtml" />
+    <Content Include="Views\Home\EMPView.cshtml" />
+    <Content Include="Views\EMP\GetLastBTDataPerEmployee.cshtml" />
+    <Content Include="Views\EMP\Index.cshtml" />
+    <Content Include="Views\VU\GetBusinessTripByUnitsVU.cshtml" />
+    <Content Include="Views\VU\GetBusinessTripDataByUnitsVU.cshtml" />
+    <Content Include="Views\PU\UnitIndex.cshtml" />
+    <Content Include="Views\PU\UnitCannotDelete.cshtml" />
+    <Content Include="Views\PU\UnitDelete.cshtml" />
+    <Content Include="Views\PU\UnitCreate.cshtml" />
+    <Content Include="Views\PU\UnitEdit.cshtml" />
+    <Content Include="Views\Journey\EditJourney.cshtml" />
+    <Content Include="Views\Shared\TableViewJourneyAndOvertimeData.cshtml" />
+    <Content Include="Views\Shared\NoData.cshtml" />
+    <Content Include="Views\Country\Create.cshtml" />
+    <Content Include="Views\Country\Edit.cshtml" />
+    <Content Include="Views\Country\CannotDelete.cshtml" />
+    <Content Include="Views\Country\Delete.cshtml" />
+    <Content Include="Views\Holiday\Create.cshtml" />
+    <Content Include="Views\Holiday\Delete.cshtml" />
+    <Content Include="Views\Holiday\Edit.cshtml" />
+    <Content Include="Views\Overtime\GetOvertime.cshtml" />
+    <Content Include="Views\Overtime\GetOvertimeData.cshtml" />
+    <Content Include="Views\Overtime\EditOvertime.cshtml" />
+    <Content Include="Views\Calendar\GetCalendarDataVU.cshtml" />
+    <Content Include="Views\PU\LocationAddResponsibleForLoc.cshtml" />
+    <Content Include="Views\PU\LocationEditResponsibleForLoc.cshtml" />
+    <Content Include="Views\VU\GetVisaVU.cshtml" />
+    <Content Include="Views\VU\GetVisaDataVU.cshtml" />
+    <Content Include="Views\EMP\GetVisaDataPerEmployee.cshtml" />
+    <Content Include="Views\WTR\GetWTRPerEMP.cshtml" />
+    <Content Include="Views\EMP\GetAbsencePerEMP.cshtml" />
+    <Content Include="Views\EMP\GetAbsenceDataPerEMP.cshtml" />
+    <Content Include="Views\EMP\GetBirthdays.cshtml" />
+    <Content Include="Views\EMP\GetReportedBTs.cshtml" />
+    <Content Include="Views\Absence\GetAbsence.cshtml" />
+    <Content Include="Views\Absence\GetAbsenceData.cshtml" />
+    <Content Include="Views\Journey\GetJourneyDataForVU.cshtml" />
+    <Content Include="Views\Journey\GetJourneyDataForEmp.cshtml" />
+    <Content Include="Views\WTR\GetWTRDataPerEMP.cshtml" />
+    <Content Include="Views\EMP\NoBtsInThisYear.cshtml" />
+    <Content Include="Views\EMP\NoBirthdays.cshtml" />
+    <Content Include="Views\EMP\GetListofYearsEMP.cshtml" />
+    <Content Include="Views\EMP\Empty.cshtml" />
+    <Content Include="Views\EMP\GetBusinessTripByYearsEMP.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AjourBT.Domain\AjourBT.Domain.csproj">
+      <Project>{c1d1adaa-6806-4e56-ba97-4f65b60750b7}</Project>
+      <Name>AjourBT.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>50616</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:50616/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
+    <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.13\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

@@ -1,0 +1,29 @@
+﻿@model int
+
+@{
+    string UserName = HttpContext.Current.User.Identity.Name.ToString();
+    string SearchString = @ViewBag.SearchString;
+    string SelectedDepartment = @ViewBag.SelectedDepartment;
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#tabsADM").tabs({ selected: @Model });
+        $("li#ADMLink a").css({
+            'color': '#E1701D'
+        })
+    });
+</script>
+
+@Scripts.Render("~/bundles/AjourBTScript/RequiredIfValidation")
+@Scripts.Render("~/bundles/AjourBTScript/DatesValidation")
+@Scripts.Render("~/bundles/AjourBTScript/EmpScript") 
+@Scripts.Render("~/bundles/AjourBTScript/BTsForADM")
+
+<div id="tabsADM">
+    <ul>
+        <li><a href="@Url.Action("GetVisaADM", "ADM", new { userName = @UserName})">Visas and Permits</a></li>
+        <li><a href="@Url.Action("GetBusinessTripADM", "ADM", new { userName = @UserName, selectedDepartment = @SelectedDepartment})">BTs</a></li>
+        <li><a href="@Url.Action("GetEmployeeReadOnly", "ADM", new { selectedDepartment = @SelectedDepartment, searchString = @SearchString })">Employees</a></li>
+        <li><a href="@Url.Action("GetMessagesForRole", "Message", new { page = Request.Params["page"], role = "ADM", tab = Tabs.ADM.Messages, searchString = @SearchString, actionNameForPagination = ViewContext.RouteData.GetRequiredString("action") })">Messages</a></li> 
+    </ul>    
+</div>

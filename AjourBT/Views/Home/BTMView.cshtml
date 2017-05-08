@@ -1,0 +1,35 @@
+﻿@model int
+
+@{
+    string SearchString = @ViewBag.SearchString;
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#tabsBTM").tabs({ selected: @Model });
+        $("li#BTMLink a").css({
+            'color': '#E1701D'
+        })
+
+    });
+    
+</script>
+
+
+@Scripts.Render("~/bundles/AjourBTScript/RequiredIfValidation")
+@Scripts.Render("~/bundles/AjourBTScript/DatesValidation") 
+@Scripts.Render("~/bundles/AjourBTScript/PermitScript") 
+@Scripts.Render("~/bundles/AjourBTScript/VisaScript")
+@Scripts.Render("~/bundles/AjourBTScript/BTsForBTM") 
+@Scripts.Render("~/bundles/AjourBTScript/PTsForBTM") 
+@Scripts.Render("~/bundles/AjourBTScript/PassportScript") 
+@Scripts.Render("~/bundles/AjourBTScript/InsuranceScript")
+
+<div id="tabsBTM">
+    <ul>
+        <li><a href="@Url.Action("GetVisaBTM", "BTM", new { searchString = @SearchString})">Visas and Permits</a></li>
+        <li><a href="@Url.Action("GetBusinessTripBTM", "BTM", new { searchString = @SearchString})">BTs in process</a></li>
+        <li><a href="@Url.Action("GetPrivateTripBTM", "BTM", new { searchString = @SearchString})">Private Trips</a></li>
+        <li><a href="@Url.Action("GetMessagesForRole", "Message", new { page = Request.Params["page"], role = "BTM", tab = Tabs.BTM.Messages, searchString = @SearchString, actionNameForPagination = ViewContext.RouteData.GetRequiredString("action") })">Messages</a></li>
+    </ul> 
+</div>

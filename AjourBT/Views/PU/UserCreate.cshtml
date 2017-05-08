@@ -1,0 +1,171 @@
+﻿@model AjourBT.Domain.ViewModels.EmployeeViewModel
+
+@{
+    Layout = null;
+    ViewBag.Title = "Create Employee";
+    var selected = ViewBag.SelectedDepartment;
+}
+
+<script type="text/javascript">
+    clearTimeout(timer);
+    timer = window.setTimeout(function () { location.reload(); }, timeout);
+</script>
+
+@using (Html.BeginForm("EmployeeCreate", "PU", FormMethod.Post, new { id = "createEmployeeForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <input type="hidden" name="selectedDepartment" value="@ViewBag.SelectedDepartment" />
+    <input type="hidden" name="searchString" value="@ViewBag.SearchString" />
+
+    <fieldset>
+        <legend>Employee</legend>
+        <table>
+
+
+            <tr>
+                <td>@Html.LabelFor(model => model.FirstName)</td>
+                <td>
+                    @Html.EditorFor(model => model.FirstName)
+                <br />@Html.ValidationMessageFor(model => model.FirstName)
+            </td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(model => model.LastName)</td>
+            <td>
+                @Html.EditorFor(model => model.LastName)
+            <br />  @Html.ValidationMessageFor(model => model.LastName)
+        </td>
+    </tr>
+
+    <tr>
+        <td>@Html.LabelFor(model => model.EID)</td>
+        <td>
+            @Html.EditorFor(model => model.EID)
+        <br /> @Html.ValidationMessageFor(model => model.EID)
+        <div id="ModelError" class="field-validation-error"></div>
+    </td>
+</tr>
+@*
+<tr>
+    <td>@Html.Label("Department")</td>
+    <td>
+        @if (selected == "")
+        {
+            @Html.DropDownList("DepartmentID", (SelectList)ViewBag.DepartmentsList, "<Choose department>", new { id = "depDropList" })
+        }
+
+        else
+        {
+            @Html.DropDownList("DepartmentID", (SelectList)ViewBag.DepartmentsList)
+        }
+        <br />   @Html.ValidationMessageFor(model => model.DepartmentID)
+    </td>
+</tr>
+
+<tr>
+    <td>@Html.LabelFor(model => model.DateEmployed)</td>
+    <td>
+        @Html.TextBoxFor(model => model.DateEmployed, new { id = "createDateEmployed", @readonly = true })
+    <br />   @Html.ValidationMessageFor(model => model.DateEmployed)
+    <div id="ModelError" class="field-validation-error"></div>
+</td>
+</tr>
+
+<tr>
+    <td>@Html.LabelFor(model => model.DateDismissed)</td>
+    <td>
+        @Html.TextBoxFor(model => model.DateDismissed, new { id = "createDateDismissed", @readonly = true })
+    <br /> @Html.ValidationMessageFor(model => model.DateDismissed)
+</td>
+</tr>
+
+<tr>
+    <td>@Html.LabelFor(model => model.IsManager)</td>
+    <td>
+        @Html.EditorFor(model => model.IsManager)
+    @Html.ValidationMessageFor(model => model.IsManager)
+</td>
+</tr>
+
+<tr>
+    <td>@Html.Label("HasPassport")</td>
+    <td>@Html.CheckBox("HasPassportEmp", false, new { id = "HasPassportEmp", value = 0 })</td>
+</tr>*@
+
+<tr>
+    <td>@Html.Label("Role")</td>
+    <td>
+        @foreach (var role in System.Web.Security.Roles.GetAllRoles())
+        {
+            @Html.CreateCustomCheckBox("Roles", false, role);
+        @Html.Label(role);
+        }
+</td>
+</tr>
+<tr>
+    <td>@Html.LabelFor(model => model.Position)</td>
+    <td>
+        @Html.DropDownList("PositionID", (SelectList)ViewBag.PositionsList, "<Choose position>")
+        <br /> @Html.ValidationMessageFor(model => model.PositionID)
+        <div id="ModelError" class="field-validation-error"></div>
+
+    </td>
+</tr>
+
+<tr>
+    <td>@Html.LabelFor(model => model.FullNameUk)</td>
+    <td>
+        @Html.EditorFor(model => model.FullNameUk)
+        @Html.ValidationMessageFor(model => model.FullNameUk)
+    </td>
+</tr>
+
+@*<tr>
+    <td>@Html.LabelFor(model => model.BirthDay)</td>
+    <td>
+        @Html.TextBoxFor(model => model.BirthDay, new { id = "createDateBirthDay", @readonly = true })
+        @Html.ValidationMessageFor(model => model.BirthDay)
+    </td>
+</tr>*@
+
+<tr>
+    <td>@Html.LabelFor(model => model.Comment)</td>
+    <td>
+        @Html.EditorFor(model => model.Comment)
+        @Html.ValidationMessageFor(model => model.Comment)
+    </td>
+</tr>
+
+<tr>
+    <td style ="display:none">@Html.LabelFor(model => model.IsUserOnly)</td>
+    <td style="display:none">@Html.CheckBox("IsUserOnly", true)</td>
+</tr>
+
+@*<tr>
+    <td>@Html.LabelFor(model => model.IsGreetingMessageAllow)</td>
+    <td>@Html.CheckBox("IsGreetingMessageAllow", true)</td>
+</tr>
+
+<tr>
+    <td>@Html.LabelFor(model => model.EMail)</td>
+    <td>
+        @Html.EditorFor(model => model.EMail)
+        <br />@Html.ValidationMessageFor(model => model.EMail)
+    </td>
+</tr>*@
+</table>
+
+</fieldset>
+
+    <div style="float:right">
+
+        <button type="submit" id="btnSaveOnCreateEmployee" name="Command" value="Save" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+            <span>Save</span>
+        </button>
+
+
+    </div>
+}

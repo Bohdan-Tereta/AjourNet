@@ -1,0 +1,99 @@
+﻿@model AjourBT.Domain.ViewModels.VisaViewModel
+
+@{
+    Layout = null;
+}
+
+<script type="text/javascript">
+    clearTimeout(timer);
+    timer = window.setTimeout(function () { location.reload(); }, timeout);
+</script>
+
+<div id="ModelError" style="max-width: 400px; color: red"></div>
+
+<h4>@ViewBag.EmployeeInformation</h4>
+<br>
+
+@using (Html.BeginForm("VisaEdit", "BTM", FormMethod.Post, new { id = "EditVisaForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    
+    <input type="hidden" name="searchString" value="@ViewBag.SearchString">
+    <input type="hidden" name="EmployeeID" value="@ViewBag.EmployeeID">
+    <fieldset>
+        <legend>Visa</legend>
+
+        @Html.HiddenFor(model => model.EmployeeID)
+        @Html.HiddenFor(model => model.EntriesUsedInBT)
+        @Html.HiddenFor(model => model.DaysUsedInBT)
+        @Html.HiddenFor(model => model.EntriesUsedInPrivateTrips)
+        @Html.HiddenFor(model => model.DaysUsedInPrivateTrips)
+        @Html.HiddenFor(model => model.RowVersion)
+
+<table class="BTMVisa">
+        <tr>
+            <td><b>@Html.LabelFor(model => model.VisaType)</b></td>
+            <td>@Html.TextBoxFor(model => model.VisaType, new { @class = "editorReadOnly" })
+                <br />  @Html.ValidationMessageFor(model => model.VisaType)</td>
+        </tr>
+        <tr>
+            <td><b>@Html.LabelFor(model => model.StartDate)</b></td>
+            <td>@Html.TextBoxFor(model => model.StartDate, new { id = "editStartDate", @readonly = true, @class = "editorForCalendar" })
+                <br /> @Html.ValidationMessageFor(model => model.StartDate)</td>
+        </tr>
+        <tr>
+            <td><b>@Html.LabelFor(model => model.DueDate)</b></td>
+            <td>@Html.TextBoxFor(model => model.DueDate, new { id = "editDueDate", @readonly = true, @class = "editorForCalendar" })
+                <br /> @Html.ValidationMessageFor(model => model.DueDate)</td>
+        </tr>
+        <tr>
+            <td><b>@Html.LabelFor(model => model.Entries)</b></td>
+            <td>@Html.TextBoxFor(model => model.Entries, new { @class = "editorReadOnly" })
+                <br />@Html.ValidationMessageFor(model => model.Entries)</td>
+        </tr>
+        <tr>
+           <td><b> @Html.LabelFor(model => model.CorrectionForVisaEntries)</b></td>
+            <td>@Html.TextBoxFor(model => model.CorrectionForVisaEntries, new { @class = "editorReadOnly" })
+                <br /> @Html.ValidationMessageFor(model => model.CorrectionForVisaEntries)</td>
+        </tr>
+        <tr>
+            <td><b>@Html.LabelFor(model => model.Days)</b></td>
+            <td>@Html.TextBoxFor(model => model.Days, new { @class = "editorReadOnly" })
+                <br />  @Html.ValidationMessageFor(model => model.Days)</td>
+        </tr>
+        <tr>
+            <td><b>@Html.LabelFor(model => model.CorrectionForVisaDays)</b></td>
+
+            <td>@Html.TextBoxFor(model => model.CorrectionForVisaDays, new { @class = "editorReadOnly" })
+                <br /> @Html.ValidationMessageFor(model => model.CorrectionForVisaDays)</td>
+        </tr>
+
+</table>
+
+        <div style="float:left">
+
+            <button type="submit" id="btnSaveVisa" name="Command" value="Save">                
+                Save
+            </button>
+
+        </div>
+
+    </fieldset>
+}
+
+@using (Html.BeginForm("VisaDelete", "BTM", new { id = Model.EmployeeID }, FormMethod.Get))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <div style="float:right">
+        <button type="submit" id="btnDeleteVisa" data-href="/BTM/VisaDelete/@Model.EmployeeID?searchString=@ViewBag.SearchString" name="Command" value="Delete" data-updateid="Data-@Model.EmployeeID">
+            Delete
+        </button>
+
+    </div>
+}
+
+<div id="deleteEmployee-Confirm">
+</div>

@@ -1,0 +1,100 @@
+﻿@model IEnumerable<AjourBT.Domain.Entities.BusinessTrip>
+
+@{
+    ViewBag.Title = "GetBusinessTripData ACC for BTs";
+}
+
+<div id="tableClosedBTsACC">
+    <table class="btsView" id="closedBTsView">
+
+        <colgroup>
+            <col class="c001" />
+            <col class="c002" />
+            <col class="c003" />
+            <col class="c004" />
+            <col class="c005" />
+            <col class="c006" />
+
+        </colgroup>
+        <thead>
+            <tr>
+                <th>
+                    EID
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    From - To
+                </th>
+                <th>
+                    Location
+                </th>
+                <th>
+                    Habitation
+                </th>
+                <th>
+                    Flights
+                </th>
+
+            </tr>
+        </thead>
+        <tbody id="tbodyBTACC">
+            @foreach (var item in Model)
+            {
+                <tr class="zebra">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BTof.EID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BTof.LastName)
+                        @Html.DisplayFor(modelItem => item.BTof.FirstName)
+                    </td>
+                    <td>
+                        @{
+                            var actionLinkForDates = @Html.CustomDisplayClosedBTsDatesActionLink(item, (string)ViewBag.SearchString);
+                        }
+
+                        @actionLinkForDates
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Location.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Habitation)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Flights)
+                    </td>
+
+                </tr>
+            }
+        </tbody>
+
+
+
+    </table>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        sortTable = $('#closedBTsView').DataTable({
+            "sScrollY": "415px",
+            "bPaginate": false,
+            "bDestroy": true,
+            "bFilter": false,
+            "bStateSave": false,
+            "bScrollCollapse": true,
+            "aaSorting": [],
+            "aoColumns": [
+                null,
+                null,
+                { "sType": "date" },
+                null,
+                null,
+                null
+            ],
+        })
+    });
+</script>

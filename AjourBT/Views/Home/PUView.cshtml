@@ -1,0 +1,44 @@
+﻿@model int
+@{
+    ViewBag.Title = "PUView";
+    string SelectedDepartment = ViewBag.SelectedDepartment;
+    string SearchString = ViewBag.SearchString;
+    int SelectedYear = DateTime.Now.ToLocalTimeAzure().Year;
+}
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#tabsPU").tabs({ selected: @Model })
+        $("li#PULink a").css({
+            'color': '#E1701D'
+        })
+    });
+</script>
+
+
+@Scripts.Render("~/bundles/columnFilter")
+@Scripts.Render("~/bundles/AjourBTScript/RequiredIfValidation")
+@Scripts.Render("~/bundles/AjourBTScript/DatesValidation")
+@Scripts.Render("~/bundles/AjourBTScript/EmpScript") 
+@Scripts.Render("~/bundles/AjourBTScript/DepScript")
+@Scripts.Render("~/bundles/AjourBTScript/LocScript") 
+@Scripts.Render("~/bundles/AjourBTScript/PositionScript")    
+@Scripts.Render("~/bundles/AjourBTScript/UnitScript") 
+@Scripts.Render("~/bundles/AjourBTScript/UserScript")
+@Scripts.Render("~/bundles/AjourBTScript/BTsForPU") 
+
+<div id="tabsPU" class="PuTab">
+    <ul>
+        <li><a href="@Url.Action("DepartmentIndex", "PU")">Departments</a></li>
+        <li><a href="@Url.Action("GetEmployee", "PU", new { selectedDepartment = @SelectedDepartment, searchString = @SearchString})">Employees</a></li>
+        <li><a href="@Url.Action("LocationIndex", "PU")">Locations</a></li>
+        <li><a href="@Url.Action("PositionIndex", "PU")">Positions</a></li>
+        <li><a href="@Url.Action("GetUsersOnly", "PU", new { selectedDepartment = @SelectedDepartment, searchstring = @SearchString})">Users</a></li>
+        <li><a href="@Url.Action("UnitIndex", "PU")">Units</a></li> 
+        <li><a href="@Url.Action("GetBusinessTripByDatesPU", "PU", new { selectedYear = @SelectedYear})">Finished BTs</a></li> 
+        <li><a href="@Url.Action("GetMessagesForRole", "Message", new { page = Request.Params["page"], role = "PU", tab = Tabs.PU.Log, searchString = @SearchString, actionNameForPagination = ViewContext.RouteData.GetRequiredString("action") })">Log</a></li> 
+    </ul>
+</div>

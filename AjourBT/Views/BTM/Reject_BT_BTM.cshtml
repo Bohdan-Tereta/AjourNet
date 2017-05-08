@@ -1,0 +1,34 @@
+﻿@model AjourBT.Domain.ViewModels.BusinessTripViewModel
+@{
+    ViewBag.Title = "Reject BT for BTM";
+    Layout = null;
+}
+
+<div id="RejectByBTMModelError" style="max-width: 400px; color: red"></div>
+
+<div>
+    <h4>Rejection BT for @Model.BTof.LastName @Model.BTof.FirstName (@Model.BTof.Department.DepartmentName)</h4>
+</div>
+<br />
+
+@*@using (Html.BeginForm("Reject_BT_BTM", "BusinessTrip", new { id = Model.BusinessTripID, rejectComment = Model.RejectComment }, FormMethod.Post, new  { id= "RejectFormForBTM"}))*@
+@using (Html.BeginForm("Reject_BT_BTM", "BTM", FormMethod.Post, new { id = "RejectFormForBTM" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)   
+    @Html.Hidden("Status", Model.Status)
+    @Html.HiddenFor(model => model.BusinessTripID)
+    @Html.HiddenFor(model => model.RowVersion)
+    <input type="hidden" name="searchString" value="@ViewBag.SearchString">
+    @*<input type="hidden" name="id" value="@Model.BusinessTripID">*@
+    
+    <fieldset>
+
+        @{Html.RenderPartial("_Reject_BT", Model);}
+
+        <p>
+            <button type="submit" id="RejectBTButton"> Reject </button>
+        </p>
+
+    </fieldset>
+}

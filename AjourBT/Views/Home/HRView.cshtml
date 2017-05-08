@@ -1,0 +1,38 @@
+﻿@model int
+@{
+    string UserName = HttpContext.Current.User.Identity.Name.ToString();
+    int SelectedYear = DateTime.Now.ToLocalTimeAzure().Year;
+}
+
+@Scripts.Render("~/bundles/knockout") 
+@Scripts.Render("~/bundles/AjourBTScript/HRScript")
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("#tabsHR").tabs({ selected: 1 })
+        $("li#HRLink a").css({
+            'color': '#E1701D'
+        })
+        getAllItems();
+        ko.applyBindings(getQuestionSetsModel, document.getElementById("getQuestionSets"));
+    });
+    $("#createQuestionSetButton").button();
+</script>
+
+<div id="tabsHR" class="HRTab">
+    
+    <ul>           
+        <li><a href="@Url.Action("GetQuestionSets", "HR")">QuestionSets</a></li>     
+        <li><a href="@Url.Action("GetQuestionnaire", "HR")">Questionnaires</a></li>
+    </ul>
+</div>
+
+
+
+
+
+
+
+

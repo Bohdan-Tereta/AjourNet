@@ -1,0 +1,74 @@
+﻿@model AjourBT.Domain.Entities.Holiday
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = null;
+    MvcHtmlString date = Html.CustomDisplayDateTime(Model.HolidayDate);
+}
+
+@using (Ajax.BeginForm("Edit", "Holiday", new AjaxOptions { HttpMethod = "POST", OnSuccess = "HolidayEditOnSuccess" }, new { id = "editHolidayForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true);
+    
+    <div id="ModelError" style="max-width: 400px; color: red"></div>
+
+
+    <fieldset>
+        <legend>Holiday</legend>
+
+        @Html.HiddenFor(model => model.HolidayID)
+        @Html.HiddenFor(model => model.CountryID)
+        @Html.HiddenFor(model => model.RowVersion)
+        <table>
+            <tr>
+                <td>@Html.LabelFor(model => model.HolidayDate)</td>
+                <td>
+                    @Html.EditorFor(model => model.HolidayDate) 
+                    <br>@Html.ValidationMessageFor(model => model.HolidayDate)
+                </td>
+            </tr>
+
+            <tr>
+                <td>@Html.LabelFor(model => model.Title)</td>
+                <td>
+                    @Html.EditorFor(model => model.Title)
+                    <br>@Html.ValidationMessageFor(model => model.Title)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(model => model.IsPostponed)
+                </td>
+                <td>
+                    @Html.CheckBoxFor(model => model.IsPostponed)
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(model => model.HolidayComment)</td>
+                <td>@Html.EditorFor(model => model.HolidayComment)</td>                
+            </tr>
+        </table>
+    </fieldset>
+    <div style="float:left">
+    </div>
+    
+<button type="submit" id="btnSaveHoliday" name="Command" value="Save">
+    <span>Save</span>
+</button>
+}
+
+@*<br/>*@
+@using (Html.BeginForm("Delete", "Holiday", new { id = Model.CountryID }, FormMethod.Get))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div style="float:right">
+        <button type="submit" id="btnDeleteHoliday" data-href="/Holiday/Delete/@Model.HolidayID" data-title="Delete @Model.Title" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+            <span>Delete</span>
+        </button>
+
+    </div>
+}
+
+<div id="deleteHoliday-Confirm"></div>

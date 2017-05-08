@@ -1,0 +1,24 @@
+﻿@model AjourBT.Domain.Entities.Position
+
+@{
+    Layout = null;
+    ViewBag.Title = "Delete";
+}
+
+<script>
+    $("#OKDelete, #btnCancelDeletePosition").button();
+</script>
+<p>
+    Please Confirm
+</p>
+<table>
+    <tr>
+        <td>
+            @using (Ajax.BeginForm("PositionDelete", "PU", new AjaxOptions { UpdateTargetId = "PositionData" }, new { id = "positionDeleteForm" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.Hidden("id", Model.PositionID);
+            }
+        </td>
+    </tr>
+</table>

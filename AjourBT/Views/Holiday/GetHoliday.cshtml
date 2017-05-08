@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "GetHoliday";
+    Layout = null;
+}
+
+@{
+    AjaxOptions AjaxOpts = new AjaxOptions
+    {
+        UpdateTargetId = "holidayABM",
+        Url = Url.Action("GetHolidayData"),
+        HttpMethod = "GET"
+
+    };
+
+}
+
+    @using (Ajax.BeginForm(null, null, AjaxOpts, new { id = "HolidayDataForm" }))
+    {
+        @Html.DropDownList("selectedCountryID", (SelectList)ViewBag.CountryDropdownList, new { onchange = "$(HolidayDataForm).submit();" })
+        
+        @Html.DropDownList("selectedYear", (SelectList)ViewBag.YearDropdownList, new { onchange = "$(HolidayDataForm).submit();" })
+
+    }
+
+
+<div id="holidayABM">
+    @Html.Action("GetHolidayData", "Holiday", new { selectedYear = ViewBag.DefaultYear, selectedCountryID = ViewBag.DefaultCountry, @class = "holidayEditDialog"})
+</div>
+
+<p>
+    <a id="CreateHoliday" href="/Holiday/Create" data-date-format="@ViewBag.JSDatePattern">Add Holiday</a>
+</p>
+
+<script>
+    $(function () {
+        $("[id^=CreateHoliday]").button();
+    })
+</script>

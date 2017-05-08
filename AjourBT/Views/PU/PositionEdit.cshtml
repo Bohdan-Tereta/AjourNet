@@ -1,0 +1,63 @@
+﻿@model AjourBT.Domain.Entities.Position
+
+@{
+    ViewBag.Title = "Update Position";
+    Layout = null;
+}
+
+
+@using (Ajax.BeginForm("PositionEdit", "PU", new AjaxOptions { HttpMethod = "POST" , OnSuccess = "PositionEditOnSuccess"}, new { id = "editPositionForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div id="PositionModelError" style="max-width: 400px; color: red"></div>
+
+    <fieldset>
+        <legend>Position</legend>
+
+        @Html.HiddenFor(model => model.PositionID)
+        @Html.HiddenFor(model => model.RowVersion)
+
+        <table>
+        <tr>
+            <td>@Html.LabelFor(model => model.TitleEn)</td>
+            <td>
+                @Html.EditorFor(model => model.TitleEn)
+            <br />  @Html.ValidationMessageFor(model => model.TitleEn)
+        </td>
+    </tr>
+
+            <tr>
+                <td>@Html.LabelFor(model => model.TitleUk)</td>
+                <td>
+                    @Html.EditorFor(model => model.TitleUk)
+                    <br />   @Html.ValidationMessageFor(model => model.TitleUk)
+                </td>
+            </tr>
+
+</table>
+</fieldset>
+    <div style="float:left">
+
+        <button type="submit" id="btnSavePosition" name="Command" value="Save" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+            <span>Save</span>
+        </button>
+
+    </div>
+
+}
+
+<br />
+@using (Html.BeginForm("PositionDelete", "PU", new { id = Model.PositionID }, FormMethod.Get))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <div style="float:right">
+        <button type="submit" id="btnDeletePosition" data-href="/PU/PositionDelete/@Model.PositionID" data-title="Delete @Model.TitleEn" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+            <span>Delete</span>
+        </button>
+
+    </div>
+}
+
+<div id="deletePosition-Confirm"> </div>

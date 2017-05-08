@@ -1,0 +1,35 @@
+﻿@model AjourBT.Domain.Entities.Visa
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = null;
+
+}
+
+<p>Delete visa of @Model.VisaOf.FirstName @Model.VisaOf.LastName</p>
+
+<p>Please confirm</p>
+
+<table>
+    <tr>
+        <td>
+            @using (Html.BeginForm("VisaDelete", "BTM", FormMethod.Post, new { id = "DeleteVisaForm"}))
+            {
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="id" value="@Model.EmployeeID">
+                <input type="hidden" name="searchString" value="@ViewBag.SearchString">
+
+                 <button type="submit" data-href="/BTM/VisaDeleteConfirmed/@Model.EmployeeID?searchString=@ViewBag.SearchString" id="OKDeleteVisa" name="Command" value="OK">
+                       OK
+                 </button>
+            }
+        </td>
+
+        <td>
+            <button type="submit" id="btnCancelDeleteVisa" name="Command" value="Cancel" >
+                Cancel
+            </button>
+
+        </td>
+    </tr>
+</table>

@@ -1,0 +1,51 @@
+﻿@model AjourBT.Domain.ViewModels.PassportViewModel
+
+@{
+    Layout = null;
+    ViewBag.Title = "Add Date to Passport";
+}
+
+<script type="text/javascript">
+    clearTimeout(timer);
+    timer = window.setTimeout(function () { location.reload(); }, timeout);
+</script>
+
+
+
+<div id="PassportModellError" style="max-width: 400px; color: red"></div>
+
+<h4>@ViewBag.EmployeeInformation</h4>
+<br>
+
+@using (Html.BeginForm("PassportAddDate", "BTM", FormMethod.Post, new { id = "AddDatePassportForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.Hidden("EmployeeID", @Url.RequestContext.RouteData.Values["id"])
+    @Html.HiddenFor(model => model.RowVersion)
+
+    <input type="hidden" name="searchString" value="@ViewBag.SearchString">
+
+    <fieldset>
+
+        <legend>Passport</legend>
+        <table>
+            <tr>
+                <b>@Html.LabelFor(model => model.EndDate)</b>
+                
+                    @Html.TextBoxFor(model => model.EndDate, new { id = "CreatePassportDate", @readonly = true, @class = "editorForCalendar" })
+                <br />  @Html.ValidationMessageFor(model => model.EndDate)
+                
+            </tr>
+        </table>
+    
+        <br />
+
+        <div style="float: left">
+            <button type="submit" id="btnSavePassport">
+                Save
+            </button>
+        </div>
+
+    </fieldset>
+}

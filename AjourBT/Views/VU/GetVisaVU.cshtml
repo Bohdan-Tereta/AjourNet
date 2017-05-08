@@ -1,0 +1,33 @@
+﻿@{
+    Layout = null;
+}
+
+@{
+    AjaxOptions ajaxOpts = new AjaxOptions
+    {
+        UpdateTargetId = "tableBodyVisaVU",
+        Url = Url.Action("GetVisaDataVU"),
+        HttpMethod = "GET"
+
+    };
+}
+
+<div id="visaVUSearch">
+    @using (Ajax.BeginForm(ajaxOpts))
+    {
+        <input id="seachInput" type="search" name="searchString" value="@ViewBag.SearchString" placeholder="Search... " />
+    }
+</div>
+
+<div id="tableBodyVisaVU">
+    @Html.Action("GetVisaDataVU", new { searchString = ViewBag.SearchString })
+</div>
+
+@{
+    using (Html.BeginForm("ExportVisasAndPermits", "VU", FormMethod.Post, new { id = "formExportToXlsVU"}))
+    {
+        @Html.AntiForgeryToken()
+        <input type="hidden" value="" name="searchString" id="searchStringForVisasAndPermitsVU">
+        <input type="button" id="ExportVisasAndPermitsToXlsVU" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" value="ExportToXls">
+    }
+}

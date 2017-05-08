@@ -1,0 +1,59 @@
+﻿@{
+    Layout = null;
+    string textBoxFromText = ViewBag.FromText.ToString("dd.MM.yyyy");
+    string textBoxToText = ViewBag.ToText.ToString("dd.MM.yyyy");
+
+    AjaxOptions ajaxOpts = new AjaxOptions
+    {
+        UpdateTargetId = "wtrData",
+        Url = Url.Action("GetWTRData"),
+        HttpMethod = "GET"
+    };
+}
+
+@using (Ajax.BeginForm(null, null, ajaxOpts, new { id = "formWTR" }))
+{
+    <table class="wtrContainer">
+        <tr id="wtrInput">
+            <td>@Html.Label("From")</td>
+            <td>@Html.TextBox("From", textBoxFromText, new  {@readonly = "readonly" })</td>
+            <td>@Html.Label("To")</td>
+            <td>@Html.TextBox("To", textBoxToText, new {@readonly = "readonly" })</td>
+            <td><a id="buttonSubmit">Submit</a></td>           
+        </tr>
+        <tr id="wtrInput2">
+            <td colspan="5"><p id="errorFrom"></p></td>
+        </tr>
+    </table>
+    <div id="InputABM">
+        <input id="searchInputABM" type="search" name="searchString" value="@ViewBag.SearchString" placeholder="Search... "/>
+    </div>
+}
+<div id="wtrData">
+    @{Html.RenderAction("GetWTRData", "WTR");}
+</div>
+
+<script type="text/javascript"> 
+    $('#buttonSubmit').button();
+    $(document).ready(function () {
+        $('#From').datepicker({
+            firstDay: 1,
+            dateFormat: "dd.mm.yy",
+            showWeek: true,
+            calculateWeek: myWeekCalc,
+            showOn: 'button',
+            buttonImage: '/Content/themes/base/images/calendar2.gif',
+            buttonImageOnly: true
+        });
+
+        $('#To').datepicker({
+            firstDay: 1,
+            dateFormat: "dd.mm.yy",
+            calculateWeek: myWeekCalc,
+            showWeek: true,
+            showOn: 'button',
+            buttonImage: '/Content/themes/base/images/calendar2.gif',
+            buttonImageOnly: true
+        });
+    })
+</script>

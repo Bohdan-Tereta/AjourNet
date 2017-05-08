@@ -1,0 +1,56 @@
+﻿@using AjourBT.Domain.Entities
+@model IEnumerable<BusinessTrip>
+
+@{
+    Layout = null;
+}
+
+<script src="~/Scripts/AjourBTScript/BTsForADM.js"></script>
+
+<h4>BT's Data Of Employee: @ViewBag.EmployeeInformation</h4>
+
+<table class="btsDetailsView">
+    <thead>
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Location)
+            </th>
+            <th>
+                From - To
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (BusinessTrip bt in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(model => bt.Location.Title)
+                </td>
+                <td>
+                    @*@if ((bt.Status & BTStatus.Cancelled) == BTStatus.Cancelled)
+                    {
+                        <strike style="color:red">
+                            <a id="ShowBTData2" style="color:red" href="/BusinessTrip/ShowBTData/@bt.BusinessTripID"> @bt.StartDate.ToShortDateString() - @bt.EndDate.ToShortDateString()</a>
+                            //@Html.ActionLink(bt.StartDate.ToShortDateString() + " - " + bt.EndDate.ToShortDateString(), "ShowBTData", new { id = bt.BusinessTripID }, new { @class = "displayActionLink", style = "color: red;" })
+                        </strike>
+                    }
+                    else
+                    {*@
+                        <p>
+                            <a id="ShowBTData2" href="/BusinessTrip/ShowBTData/@bt.BusinessTripID"> @bt.StartDate.ToShortDateString() - @bt.EndDate.ToShortDateString()</a>
+
+                            @*@Html.ActionLink(bt.StartDate.ToShortDateString() + " - " + bt.EndDate.ToShortDateString(), "ShowBTData", new { id = bt.BusinessTripID })*@
+                        </p>
+                    @*}*@
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div id="ShowBTData2-ADM" style="display:none"></div>

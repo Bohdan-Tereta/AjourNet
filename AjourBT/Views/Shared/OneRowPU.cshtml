@@ -1,0 +1,101 @@
+﻿@model IEnumerable<AjourBT.Domain.ViewModels.EmployeeViewModel>
+
+@{
+    Layout = null;
+    string searchString = ViewBag.SearchString;
+    string selectedDepaerment = ViewBag.SelectedDepartment;
+ }
+<tbody id="PUEmployee">
+    @foreach (var item in Model)
+    {
+        <tr class="zebra">
+            <td>
+                @Html.DisplayFor(modelItem => item.EID)
+            </td>
+
+
+            @if (item.IsManager == true)
+            {
+                <td>
+                    <b> @Html.ActionLink(item.LastName.ToString() + " " + item.FirstName.ToString(), "Edit", new { id = item.EmployeeID, selectedDepartment = selectedDepaerment, searchString = searchString }, new { @class = "empEditDialog", data_date_format = ViewBag.JSDatePattern })</b>
+                </td>
+            }
+            else
+            {
+                <td>
+                    @Html.ActionLink(item.LastName.ToString() + " " + item.FirstName.ToString(), "Edit", new { id = item.EmployeeID, selectedDepartment = selectedDepaerment, searchString = searchString }, new { @class = "empEditDialog", data_date_format = ViewBag.JSDatePattern })
+                </td>
+            }
+
+            <td>
+                @if (System.Web.Security.Membership.GetUser(item.EID) != null)
+                {
+                    @String.Join(", ", System.Web.Security.Roles.GetRolesForUser(item.EID));
+                }
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartmentName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.TitleEn)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.DateEmployed)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.FullNameUk)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.BirthDay)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Comment)
+            </td>
+
+            <td>
+                <i>@Html.DisplayFor(modelItem => item.DateDismissed)</i>
+            </td>
+
+        </tr>
+    }
+</tbody>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#employeeViewexample').DataTable({
+            "sScrollY": (0.55 * $(window).height()),
+            "bDestroy": true,
+            "aaSorting": [[1, "asc"]],
+            "bPaginate": false,
+            "bFilter": false,
+            "bScrollCollapse": true,
+            "aoColumns": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    { "sType": "date" },
+    null,
+    { "sType": "date" },
+    null,
+    { "sType": "date" }
+            ]
+        });
+        $("div.dataTables_scrollBody").scrollTop(window.scrollPosition);
+
+    });
+
+    $(function () {
+        $("#CreateEmployee")
+            .button();
+
+    })
+
+</script>

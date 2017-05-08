@@ -1,0 +1,24 @@
+﻿@model AjourBT.Domain.Entities.Department
+
+@{
+    Layout = null;
+    ViewBag.Title = "Create";
+}
+
+@using (Ajax.BeginForm("DepartmentCreate","PU",new AjaxOptions{ HttpMethod = "POST", OnSuccess = "DepartmentCreateOnSuccess"}, new {id = "createDepartmentForm"}))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Department</legend>
+<table>
+        <tr>
+            <td>@Html.LabelFor(model => model.DepartmentName)</td>
+            <td>@Html.EditorFor(model => model.DepartmentName)
+                <br /> @Html.ValidationMessageFor(model => model.DepartmentName)</td>
+        </tr>
+</table>
+
+    </fieldset>
+}

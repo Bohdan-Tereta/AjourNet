@@ -1,0 +1,37 @@
+﻿@model AjourBT.Domain.Entities.PrivateTrip
+
+@{
+    Layout = null;
+    ViewBag.Title = "Delete";
+}
+<script type="text/javascript">
+    clearTimeout(timer);
+    timer = window.setTimeout(function () { location.reload(); }, timeout);
+</script>
+
+<p>@ViewBag.EmployeeInformation</p>
+
+<p>Please confirm</p>
+
+<table>
+    <tr>
+        <td>
+            @using (Html.BeginForm("PrivateTripDelete", "BTM", FormMethod.Post, new { id = "DeletePrivateTripForm" }))
+            {
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="searchString" value="@ViewBag.SearchString">
+                 <input type="hidden" name="id" value="@Model.PrivateTripID">
+
+                <button type="submit" data-href="/BTM/PrivateTripDeleteConfirmed/@Model.PrivateTripID?searchString=@ViewBag.SearchString" id="btnOKDeletePrivateTrip" name="Command" value="OK" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                    OK
+                </button>
+            }
+        </td>
+
+        <td>
+            <button type="submit" id="btnCancelDeletePrivateTrip" name="Command" value="Cancel" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                Cancel
+            </button>
+        </td>
+    </tr>
+</table>

@@ -1,0 +1,72 @@
+﻿@{
+    Layout = null;
+}
+
+
+@using (Html.BeginForm("printCalendarToPdf", "Calendar", FormMethod.Get, new   {id ="printCalendarToPdf", style="height: 11%" }))
+{
+<div id="calendarDropList">
+    @Html.AntiForgeryToken()
+    @Html.DropDownList("selectedDepartment", (SelectList)ViewBag.DepartmentDropDownList, "All Departments", new {    id = "depDropList" })
+</div>
+   <div id="rangeCalendar">
+       <table class="wtrContainer">
+           <tr id="wtrInput">
+               <td>@Html.Label("From")</td>
+               <td>@Html.TextBox("calendarFromDate", new DateTime(DateTime.Now.ToLocalTimeAzure().Year, 01, 01).ToString("dd.MM.yyyy"), new { @readonly = "true" })</td>
+               <td>@Html.Label("To")</td>
+               <td>@Html.TextBox("calendarToDate", new DateTime(DateTime.Now.ToLocalTimeAzure().Year, 12, 31).ToString("dd.MM.yyyy"), new { @readonly = "true" })</td>
+               <td><button id="calendarAbsenceSubmitButton" type="button">Submit</button></td>
+               <td><button id="pdfPrintBtn" type="submit">Print</button></td>
+           </tr> 
+        <tr id="wtrInput2">
+            <td colspan="6"><p id="errorFromAbs"></p></td>
+        </tr>
+    </table>
+    </div>
+}
+<div id="CalendarData" style="height: 89%">
+    @{Html.RenderAction("GetCalendarData", "Calendar", new { selectedDepartment = ViewBag.SelectedDepartment });}
+</div>
+
+<script>
+    $(function () {
+        $("[id^=pdfPrintBtn]").button(); 
+        $('#calendarAbsenceSubmitButton').button();
+        $('#pdfPrintBtn').button();
+    })
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#calendarFromDate').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-5:+5",
+            firstDay: 1,
+            dateFormat: "dd.mm.yy",
+            showWeek: true,
+            calculateWeek: myWeekCalc,
+            showOn: 'button',
+            buttonImage: '/Content/themes/base/images/calendar2.gif',
+            buttonImageOnly: true
+        });
+
+        $('#calendarToDate').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "-5:+5",
+            firstDay: 1,
+            dateFormat: "dd.mm.yy",
+            calculateWeek: myWeekCalc,
+            showWeek: true,
+            showOn: 'button',
+            buttonImage: '/Content/themes/base/images/calendar2.gif',
+            buttonImageOnly: true
+        });
+
+        $('#absenceButton').button();
+    })
+  
+</script>
+

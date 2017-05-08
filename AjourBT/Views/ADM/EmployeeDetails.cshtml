@@ -1,0 +1,121 @@
+﻿@model AjourBT.Domain.ViewModels.EmployeeViewModel
+
+@{
+    Layout = null;
+    ViewBag.Title = "Edit Employee";
+}
+
+<script type="text/javascript">
+    clearTimeout(timer);
+    timer = window.setTimeout(function () { location.reload(); }, timeout);
+</script>
+
+
+<div id="ModelError" style="max-width: 400px; color: red"></div>
+
+<fieldset>
+    <legend>Employee</legend>
+    <table>
+        <tr>
+            <td>@Html.LabelFor(model => model.FirstName)</td>
+            <td>@Html.DisplayFor(model => model.FirstName)
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(model => model.LastName)</td>
+            <td>@Html.DisplayFor(model => model.LastName)
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(model => model.EID)</td>
+            <td>@Html.DisplayFor(model => model.EID)
+        </tr>
+
+        <tr>
+            <td>@Html.Label("Department")</td>
+            <td>@Html.DisplayFor(model => model.DepartmentName)
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(model => model.DateEmployed)</td>
+            <td>@Html.DisplayFor(model => model.DateEmployed)
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(model => model.DateDismissed)</td>
+            <td>@Html.DisplayFor(model => model.DateDismissed)
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(model => model.IsManager)</td>
+            <td>@Html.DisplayFor(model => model.IsManager)</td>
+        </tr>
+        <tr>
+            <td>@Html.Label("HasPassport")</td>
+            <td>@Html.CheckBox("HasPassportEmp", Model.Passport != null ? true : false, new { disabled = "disabled" })</td>
+        </tr>
+        <tr>
+            <td>@Html.Label("Role")</td>
+
+            <td>
+                @foreach (var role in System.Web.Security.Roles.GetAllRoles())
+                {
+                    if (System.Web.Security.Membership.GetUser(Model.EID) != null)
+                    {
+                        @Html.CheckBox("Roles", System.Web.Security.Roles.IsUserInRole(Model.EID, role), new { disabled = "disabled" })
+                    }
+                    else
+                    {
+                        @Html.CheckBox("Roles", false, new { disabled = "disabled" })
+                    }
+
+                    @Html.Label(role);
+                }
+        </td>
+    </tr>
+
+    <tr>
+        <td>@Html.LabelFor(model => model.Position)</td>
+        <td>
+            @ViewBag.Position
+        </td>
+    </tr>
+
+    <tr>
+        <td>@Html.LabelFor(model => model.FullNameUk)</td>
+        <td>
+            @Html.DisplayFor(model => model.FullNameUk)
+        </td>
+    </tr>
+
+    <tr>
+        <td>@Html.LabelFor(model => model.BirthDay)</td>
+        <td>
+            @Html.DisplayFor(model => model.BirthDay)
+        </td>
+    </tr>
+
+    <tr>
+        <td>@Html.LabelFor(model => model.Comment)</td>
+        <td>
+            @Html.DisplayFor(model => model.Comment)
+        </td>
+    </tr>
+
+    <tr>
+        <td>@Html.LabelFor(model => model.IsUserOnly)</td>
+        <td>
+            @Html.DisplayFor(model => model.IsUserOnly)
+        </td>
+    </tr>
+
+    <tr>
+        <td>@Html.LabelFor(model => model.EMail)</td>
+        <td>
+            @Html.DisplayFor(model => model.EMail)
+        </td>
+    </tr>
+</table>
+</fieldset>
+
+

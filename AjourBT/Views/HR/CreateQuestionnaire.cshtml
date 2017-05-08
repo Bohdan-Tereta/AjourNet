@@ -1,0 +1,25 @@
+﻿@{
+    Layout = null;
+    ViewBag.Title = "CreateQuestionnaire";
+}
+
+<h5>Title</h5>
+
+<table id="createQuestionnaireTable">
+    <tr>
+        <td>
+            <div style="display: none" data-bind="text: questionnaireId" class="questionnaireId"></div>
+            <div style="display: none" data-bind="text: questionSetId" class="questionSetId"></div>
+            <input class="questionTitle" data-bind="value: title" />
+
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a id="addQuestionnaire" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" data-bind="click: SaveDataQuestionnaire">&nbsp;&nbsp;Save&nbsp;&nbsp;</a>
+        </td>
+    </tr>
+</table>
+<script>
+    $("#generateBtn").button;
+</script>

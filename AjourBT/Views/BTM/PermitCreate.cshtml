@@ -1,0 +1,57 @@
+﻿@model AjourBT.Domain.ViewModels.PermitViewModel
+
+@{
+    Layout = null;
+}
+
+<script type="text/javascript">
+    clearTimeout(timer);
+    timer = window.setTimeout(function () { location.reload(); }, timeout);
+</script>
+
+<div id="PermitModelError" style="max-width: 400px; color: red"></div>
+
+<h4>@ViewBag.EmployeeInformation</h4>
+<br>
+@using (Html.BeginForm("PermitCreate", "BTM", FormMethod.Post, new { id = "CreatePermitForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <input type="hidden" name="searchString" value="@ViewBag.SearchString">
+    <input type="hidden" name="EmployeeID" value="@ViewBag.EmployeeID">
+    <fieldset>
+        <legend>Permit</legend>
+
+<table>
+        <tr>
+            <td><b>@Html.LabelFor(model => model.IsKartaPolaka)</b></td>
+            <td>@Html.EditorFor(model => model.IsKartaPolaka)
+                <br />  @Html.ValidationMessageFor(model => model.IsKartaPolaka)</td>
+        </tr>
+
+        <tr>
+            <td><b>@Html.LabelFor(model => model.Number)</b></td>
+            <td>@Html.TextBoxFor(model => model.Number, new { @class = "forNumber" })
+                <br />  @Html.ValidationMessageFor(model => model.Number)</td>
+        </tr>
+
+        <tr>
+            <td><b>@Html.LabelFor(model => model.StartDate)</b></td>
+            <td>@Html.TextBoxFor(model => model.StartDate, new { id = "StartDatePermitCreate", @readonly = true, @class = "editorForCalendar" })
+            <br /> @Html.ValidationMessageFor(model => model.StartDate)</td>
+        </tr>
+
+        <tr>
+            <td><b>@Html.LabelFor(model => model.EndDate)</b></td>
+            <td>@Html.TextBoxFor(model => model.EndDate, new { id = "EndDatePermitCreate", @readonly = true, @class = "editorForCalendar" })
+                <br />  @Html.ValidationMessageFor(model => model.EndDate)</td>
+        </tr>
+
+</table>
+        @*<div style="float: right">
+            <button type="submit" id="btnSave" name="Command" value="Save" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                <span class="ui-button-text">Save</span>
+            </button>
+        </div>*@
+    </fieldset>
+}

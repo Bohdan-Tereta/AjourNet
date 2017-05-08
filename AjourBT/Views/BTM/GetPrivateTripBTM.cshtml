@@ -1,0 +1,27 @@
+﻿@model string
+
+@{
+    Layout = null;
+}
+
+@{
+    AjaxOptions ajaxOpts = new AjaxOptions
+    {
+        UpdateTargetId = "tableBodyPrivateTrip",
+        Url = Url.Action("GetPrivateTripDataBTM"),
+        HttpMethod = "GET"
+    };
+}
+
+<div id="privateTripBTMSearch">
+    @using (Ajax.BeginForm(ajaxOpts))
+    {
+        <input id="seachInputVU" type="search" name="searchString" value="@ViewBag.SearchString" placeholder="Search... " />
+    }
+</div>
+
+
+<div id="tableBodyPrivateTrip">
+    @Html.Action("GetPrivateTripDataBTM", new { searchString = ViewBag.SearchString })
+</div>
+

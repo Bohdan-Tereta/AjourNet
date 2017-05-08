@@ -1,0 +1,89 @@
+﻿@model IEnumerable<AjourBT.Domain.Entities.Location>
+
+@{
+    Layout = null;
+    ViewBag.Title = "Locations";
+}
+
+<div id="LocationData">
+    <p>
+        <a id="CreateLocationButton" href="/PU/LocationCreate"><span> Add Location</span></a>
+    </p>
+
+    <table>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Country)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.Label("Responsible")
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.Title, "LocationEdit", new { id = item.LocationID }, new { @class = "locEditDialog" })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Country.CountryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @{
+                        var responsibleForLocDisplay = @Html.CustomResponsibleForLocActionLink(item);
+                    }
+                    @responsibleForLocDisplay
+                </td>
+
+            </tr>
+        }
+
+    </table>
+</div>
+
+<div id="locDialog-create" style="display:none">
+
+</div>
+
+<div id="locDialog-confirm" style="display: none">
+</div>
+
+<div id="locDialog-exception">
+
+</div>
+
+<div id="locDialog-edit" style="display: none">
+
+</div>
+
+<div id="locDialog-view" style="display: none">
+</div>
+
+<script>
+    $(function () {
+        $("[id^=CreateLocationButton]").button();
+    })
+</script>
+
+<script>
+    $(function () {
+        $("#CreateLocationButton")
+          .button()
+          .click(function (event) {
+              event.preventDefault();
+          });
+    });
+</script>
+
+

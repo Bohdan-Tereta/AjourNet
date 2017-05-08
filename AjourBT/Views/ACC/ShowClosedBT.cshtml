@@ -1,0 +1,99 @@
+﻿@model AjourBT.Domain.ViewModels.BusinessTripViewModel
+@{
+    ViewBag.Title = "ShowClosedBT";
+    Layout = null;
+}
+
+<script type="text/javascript">
+    clearTimeout(timer);
+    timer = window.setTimeout(function () { location.reload(); }, timeout);
+</script>
+
+<div id="ModelError" style="max-width: 400px; color: red"></div>
+
+<h4>@ViewBag.EmployeeInformation</h4>
+
+    <fieldset>
+        <legend>BusinessTrip</legend>
+        <table id="orderTable">
+            <tr>
+                <td id="col1"><b>From </b></td>
+                <td id="col11">@Html.DisplayFor(model => model.StartDate)</td>
+                <td id="col2"><b>Order From </b></td>
+                <td id="col22">
+                    @Html.DisplayFor(model => model.OrderStartDate)
+            </tr>
+            <tr>
+                <td id="col1"><b>To </b></td>
+                <td id="col11">
+                    @Html.DisplayFor(model => model.EndDate)
+
+                </td>
+                <td id="col2"><b>Order To</b></td>
+                <td id="col22">
+                    @Html.DisplayFor(model => model.OrderEndDate)
+
+                </td>
+            </tr>
+            <tr>
+                <td id="col1"><b>Location </b></td>
+                <td id="col11"> @Html.DisplayFor(model => model.Title)</td>
+
+                <td id="col2">
+                    <b>@Html.Label("Number Of Days")</b>
+                </td>
+                <td id="col22">
+                    @Html.DisplayFor(model => model.DaysInBTForOrder)
+                </td>
+            </tr>
+        </table>
+
+        <br>
+        <br>
+
+        <table style="float:left">
+            <tr>
+                <td><b>Purpose </b></td>
+                <td> @Html.DisplayFor(model => model.Purpose)</td>
+            </tr>
+            <tr>
+                <td><b>Manager </b></td>
+                <td> @Html.DisplayFor(model => model.Manager)</td>
+            </tr>
+            <tr>
+                <td><b>Responsible </b></td>
+                <td>@Html.DisplayFor(model => model.Responsible)</td>
+            </tr>
+        </table>
+        <br>
+        <br>
+        <table>
+            @if (Model.Comment != null)
+            {
+                <tr>
+                    <td><b>Comment</b><br>@Html.TextAreaFor(model => model.Comment, new { @readonly = true, @class = "textAreaACC" })</td>
+                </tr>
+            }
+            @if (Model.BTMComment != null)
+            {
+                <tr>
+                    <td><b>BTM's Comment </b><br>@Html.TextAreaFor(model => model.BTMComment, new { @readonly = true, @class = "textAreaACC" })</td>
+                </tr>
+            }
+            <tr>
+                <td><b>Habitation </b><br>@Html.TextAreaFor(model => model.Habitation, new { @readonly = true, @class = "textAreaACC" })</td>
+            </tr>
+
+            <tr>
+                <td><b>Flights </b><br>@Html.TextAreaFor(model => model.Flights, new { @readonly = true, @class = "textAreaACC" })</td>
+            </tr>
+        </table>
+    </fieldset>
+
+    @Html.LabelFor(model => model.AccComment)
+    <br>
+    @Html.TextAreaFor(model => model.AccComment, new { @readonly = true, @class = "textAreaAccComment" })
+
+<p style="text-align:right">
+    <em>@Html.DisplayLastCRUD(Model.LastCRUDedBy, Model.LastCRUDTimestamp)</em>
+</p>

@@ -1,0 +1,32 @@
+﻿@model AjourBT.Domain.Entities.BusinessTrip
+
+@{
+    ViewBag.Title = "Delete BT by BTM";
+    Layout = null;
+}
+
+<script type="text/javascript">
+    clearTimeout(timer);
+    timer = window.setTimeout(function () { location.reload(); }, timeout);
+</script>
+<h4>Are you sure you want to delete BT of @Model.BTof.FirstName @Model.BTof.LastName?</h4>
+<h4>Details of BT:</h4>
+<br>
+
+@using (Html.BeginForm("DeleteBTBTM", "BTM", new { id = Model.BusinessTripID, searchString = ViewBag.SearchString }, FormMethod.Post, new { id = "DeleteBTBTMForm" }))
+{
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="id" value="@Model.BusinessTripID">
+    <input type="hidden" name="searchString" value="@ViewBag.SearchString">
+
+    <fieldset>
+
+        @{Html.RenderPartial("_DeleteBTInfo", Model);}
+
+        <p>
+            @*<input type="submit" value="Delete" id="DeleteBTButton" />*@
+            <button type="submit" id="DeleteBTButton">Delete</button>
+            </p>
+    </fieldset>
+}
+

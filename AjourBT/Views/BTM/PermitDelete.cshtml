@@ -1,0 +1,37 @@
+﻿@model AjourBT.Domain.Entities.Permit
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = null;
+}
+<script type="text/javascript">
+    clearTimeout(timer);
+    timer = window.setTimeout(function () { location.reload(); }, timeout);
+</script>
+<p>Delete permit of @Model.PermitOf.FirstName @Model.PermitOf.LastName</p>
+
+<p>Please confirm</p>
+
+<table>
+    <tr>
+        <td>
+
+            @using (Html.BeginForm("PermitDelete", "BTM", FormMethod.Post, new { id = "DeletePermitForm" }))
+            {
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="searchString" value="@ViewBag.SearchString">
+                <input type="hidden" name="id" value="@ViewBag.EmployeeID">
+                
+                <button type="submit" data-href="/BTM/DeleteConfirmed/@Model.EmployeeID" id="OKDeletePermit" name="Command" value="OK">
+                    OK
+                </button>
+            }
+        </td>
+
+        <td>
+            <button type="submit" id="btnCancelDeletePermit" name="Command" value="Cancel">
+                Cancel
+            </button>
+        </td>
+    </tr>
+</table>

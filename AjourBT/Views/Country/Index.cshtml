@@ -1,0 +1,66 @@
+﻿@model IEnumerable<AjourBT.Domain.Entities.Country>
+
+@{
+    Layout = null;
+    ViewBag.Title = "Countries";
+}
+
+<script>
+    $(function () {
+        $("[id^=CreateCountry]").button();
+    });
+</script>
+
+
+<div id="CountryData">
+    <p>
+        <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="CreateCountry" href="/Country/Create"><span> Add Country</span></a>
+    </p>
+
+    <table>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CountryName) &nbsp;&nbsp;
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comment)
+           </th>
+           
+           
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.CountryName, "Edit", new { id = item.CountryID }, new { @class = "countryEditDialog" })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comment)
+                </td>
+           
+            </tr>
+        }
+
+    </table>
+</div>
+
+<div id="countryDialog-create" style="display:none">
+
+</div>
+
+<div id="countryDialog-confirm" style="display: none">
+</div>
+
+<div id="countryDialog-exception">
+
+</div>
+
+<div id="countryDialog-edit" style="display: none">
+
+</div>
+
+<div id="countryDialog-view" style="display: none">
+</div>
+
+

@@ -1,0 +1,198 @@
+﻿@model IEnumerable<AjourBT.Domain.ViewModels.EmployeeViewModel>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        sortTable = $('#employeeViewexample').DataTable({
+            "sScrollY": (0.55 * $(window).height()),
+            "sScrollX": "100%",
+            "sScrollXInner": "100%",
+            "bDestroy": true,
+            "aaSortingFixed": [[10, "desc"]],
+            "bPaginate": false,
+            "bFilter": false,
+            "bScrollCollapse": true,
+            "aoColumns": [
+                null,
+                null,
+                { " bSortable": false },
+                null,
+                null,
+                null,
+                { "sType": "date" },
+                null,
+                { "sType": "date" },
+                //null,
+                { "bSortable": false },
+                { "sType": "date" },
+                null,
+                //{ "sType": "date" }
+            ]
+        });
+        setTimeout(function () {
+            sortTable.fnAdjustColumnSizing();
+        }, 10);
+
+        $("div.dataTables_scrollBody").scrollTop(window.scrollPosition);
+
+    });
+
+    $(function () {
+        $("#CreateEmployee").button();
+        $("[id^=ADMSendM]").button();
+    })
+
+</script>
+
+
+<div id="EmployeeData">
+    <a class="buttonStyle" id="CreateEmployee" href="/PU/EmployeeCreate/?selectedDepartment=@ViewBag.SelectedDepartment&searchString=@ViewBag.SearchString" data-date-format="@ViewBag.JSDatePattern"><span> Add Employee</span></a>
+    <table class="employeeView" id="employeeViewexample">
+        <colgroup>
+            <col class="empCol01">
+            <col class="empCol02">
+            <col class="empCol03">
+            <col class="empCol04">
+            <col class="empCol05">
+            <col class="empCol06">
+            <col class="empCol07">
+            <col class="empCol08">
+            <col class="empCol09">
+            @*<col class="empCol010">*@
+            <col class="empCol010">
+            <col class="empCol011">
+            <col class="empCol012">
+        </colgroup>
+        <thead>
+            <tr>
+                <th>
+                    EID
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Role
+                </th>
+                <th>
+                    Dept
+                </th>
+                <th>
+                    Position
+                </th>
+                <th>
+                    Employed
+                </th>
+                <th>
+                    Full Name
+                </th>
+                <th>
+                    Birthday
+                </th>
+                @*<th>
+                        Comment
+                    </th>*@
+                <th>
+                    Dismissed
+                </th>
+
+                <th style="display: none"></th>
+                <th>
+                    Education
+                </th>
+            </tr>
+        </thead>
+
+        <tbody id="PUEmployee">
+            @foreach (var item in Model)
+            {
+                <tr class="zebra">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EID)
+                    </td>
+
+                    @if (item.DateDismissed != null && item.DateDismissed != String.Empty)
+                    {
+                        <td style="font-size: 0.98em">
+                            <strike> @Html.ActionLink(item.LastName.ToString() + " " + item.FirstName.ToString(), "EmployeeEdit", new { id = item.EmployeeID, selectedDepartment = ViewBag.SelectedDepartment, searchString = ViewBag.SearchString }, new { @class = "empEditDialog", data_date_format = ViewBag.JSDatePattern }) </strike>
+                        </td>
+                    }
+                    else
+                    {
+                        if (item.IsManager == true)
+                        {
+                            <td style="font-size: 0.98em">
+                                <b> @Html.ActionLink(item.LastName.ToString() + " " + item.FirstName.ToString(), "EmployeeEdit", new { id = item.EmployeeID, selectedDepartment = ViewBag.SelectedDepartment, searchString = ViewBag.SearchString }, new { @class = "empEditDialog", data_date_format = ViewBag.JSDatePattern })</b>
+                            </td>
+                        }
+                        else
+                        {
+                            <td style="font-size: 0.98em">
+                                @Html.ActionLink(item.LastName.ToString() + " " + item.FirstName.ToString(), "EmployeeEdit", new { id = item.EmployeeID, selectedDepartment = ViewBag.SelectedDepartment, searchString = ViewBag.SearchString }, new { @class = "empEditDialog", data_date_format = ViewBag.JSDatePattern })
+                            </td>
+                        }
+                    }
+                    @if (!String.IsNullOrEmpty(item.EMail))
+                    {
+                        <td style="font-size: 0.8em"><a id="ADMSendMail" href="mailto:@item.EMail">Send</a> </td>
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                    <td style="font-size: 0.8em">
+                        @if (System.Web.Security.Membership.GetUser(item.EID) != null)
+                        {
+                            @String.Join(", ", System.Web.Security.Roles.GetRolesForUser(item.EID));
+                        }
+                    </td>
+                    <td style="font-size: 0.8em">
+                        @Html.DisplayFor(modelItem => item.DepartmentName)
+                    </td>
+                    <td style="font-size: 0.8em">
+                        @Html.DisplayFor(modelItem => item.TitleEn)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateEmployed)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FullNameUk)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BirthDay)
+                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.Comment)
+                        </td>*@
+
+
+
+                    <td>
+                        <i>@Html.DisplayFor(modelItem => item.DateDismissed)</i>
+                    </td>
+
+                    <td style="display: none">
+                        @{
+                if (item.DateDismissed == "")
+                {
+                    @:31.12.9999
+                            }
+                else
+                {
+                    @item.DateDismissed
+                }
+                        }
+                    </td>
+                    <td>
+                        @item.EducationSummary&nbsp;<b>@item.EducationComment</b>
+                    </td>
+
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

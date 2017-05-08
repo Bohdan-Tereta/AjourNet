@@ -1,0 +1,69 @@
+﻿@{
+    Layout = null;
+
+    string textBoxFromText = ViewBag.FromText.ToString("dd.MM.yyyy");
+    string textBoxToText = ViewBag.ToText.ToString("dd.MM.yyyy");
+
+    AjaxOptions ajaxOpts = new AjaxOptions
+    {
+        UpdateTargetId = "wtrDataAbsence",
+        Url = Url.Action("GetAbsenceDataPerEMP")
+
+    };
+}
+
+@using (Ajax.BeginForm("GetAbsenceDataPerEMP", "EMP", ajaxOpts, new { id = "formAbsence" }))
+{
+    <table class="wtrContainer">
+        <tr id="wtrInput">
+            <td>@Html.Label("From")</td>
+            <td>@Html.TextBox("FromAbsence", textBoxFromText)</td>
+            <td>@Html.Label("To")</td>
+            <td>@Html.TextBox("ToAbsence", textBoxToText)</td>
+
+        </tr>
+
+        <tr id="wtrInput2">
+            <td></td>
+            <td><p id="errorFromAbsence"></p></td>
+            <td></td>
+            <td><p id="errorToAbsence"></p></td>
+        </tr>
+    </table>
+    <div id="empAbsenceSubmitButton">
+        <a id="buttonSubmitAbsence">Show data</a>
+    </div>
+    
+    var userName = HttpContext.Current.User.Identity.Name.ToString();
+
+    @Html.Hidden("userName", userName);
+}
+<div id="wtrDataAbsence">
+    @{Html.RenderAction("GetAbsenceDataPerEMP", "EMP");}
+</div>
+
+
+<script type="text/javascript"> 
+    $('#buttonSubmitAbsence').button();
+    $(document).ready(function () {
+        $('#FromAbsence').datepicker({
+            firstDay: 1,
+            dateFormat: "dd.mm.yy",
+            showWeek: true,
+            calculateWeek: myWeekCalc,
+            showOn: 'button',
+            buttonImage: '/Content/themes/base/images/calendar2.gif',
+            buttonImageOnly: true
+        });
+
+        $('#ToAbsence').datepicker({
+            firstDay: 1,
+            dateFormat: "dd.mm.yy",
+            calculateWeek: myWeekCalc,
+            showWeek: true,
+            showOn: 'button',
+            buttonImage: '/Content/themes/base/images/calendar2.gif',
+            buttonImageOnly: true
+        });
+    })
+</script>

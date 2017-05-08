@@ -1,0 +1,167 @@
+﻿@model AjourBT.Domain.ViewModels.BusinessTripViewModel
+@{
+    ViewBag.Title = "EditReportedFinishedBT";
+    Layout = null;
+}
+
+<script type="text/javascript">
+    $(document).on("change", "#orderEndDateFinishedBTACC", function (event) {
+        Calculate();
+    });
+    function Calculate() {
+        var StartDate = document.getElementById('orderStartDateFinishedBTACC').value;
+        var EndDate = document.getElementById('orderEndDateFinishedBTACC').value;
+        var parts1 = StartDate.split('.');
+        var parts2 = EndDate.split('.');
+        // this will split your string into date parts, eg. 11/30/2012 would result as an array ['11','30','2012'];
+        var date1 = new Date(parts1[2], parts1[1] - 1, parts1[0]);
+        var date2 = new Date(parts2[2], parts2[1] - 1, parts2[0]);
+        var msecPerMinute = 1000 * 60;
+        var msecPerHour = msecPerMinute * 60;
+        var msecPerDay = msecPerHour * 24;
+        var StartDateMsec = date1.getTime();
+        var EndDateMsec = date2.getTime();
+        var interval = EndDateMsec - StartDateMsec;
+        var days = Math.round(interval / msecPerDay) + 1;
+        document.getElementById('daysInAccComment').value = days;
+    }
+    $(document).on("change", "#orderEndDateFinishedBTACC", function (event) {
+        Calculate();
+    });
+</script>
+<script type="text/javascript">
+    clearTimeout(timer);
+    timer = window.setTimeout(function () { location.reload(); }, timeout);
+</script>
+
+<div id="ModelError" style="max-width: 400px; color: red"></div>
+
+<h4>@ViewBag.EmployeeInformation</h4>
+
+@using (Html.BeginForm("EditReportedBT", "ACC", FormMethod.Post, new { id = "editFinishedBTForm" }))
+{
+
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.EmployeeID)
+    @Html.HiddenFor(model => model.BusinessTripID)
+    @Html.HiddenFor(model => model.StartDate)
+    @Html.HiddenFor(model => model.LocationID)
+    @Html.Hidden("Status", Model.Status)
+    @*@Html.HiddenFor(model => model.OrderStartDate)*@
+    @*@Html.HiddenFor(model => model.EndDate)*@
+    @Html.HiddenFor(model => model.RowVersion)
+    <input type="hidden" name="selectedDepartment" value="@ViewBag.SelectedDepartment" />
+
+    <fieldset>
+        <legend>BusinessTrip</legend>
+        <table id="orderTable">
+            <tr>
+                <td id="col1"><b>From </b></td>
+                <td id="col11">@Html.DisplayFor(model => model.StartDate)</td>
+                <td id="col2"><b>Order From </b></td>
+                <td id="col22">
+                    @Html.TextBoxFor(model => model.OrderStartDate, new { @readonly = true, id = "orderStartDateFinishedBTACC", @class = "editorForCalendar" })
+                </td>
+            </tr>
+            <tr>
+                <td id="col1"><b>To </b></td>
+                <td id="col11">
+                    @Html.TextBoxFor(model => model.EndDate, new { id = "editEndDateACCFinished", @readonly = false, @class = "editorForCalendar" })
+                <td id="col2"><b>Order To</b></td>
+                <td id="col22">
+                    @Html.TextBoxFor(model => model.OrderEndDate, new { @readonly = false, id = "orderEndDateFinishedBTACC", @class = "editorForCalendar" })
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">  @Html.ValidationMessageFor(model => model.EndDate)</td>
+                <td colspan="4">  @Html.ValidationMessageFor(model => model.OrderEndDate)</td>
+            </tr>
+            <tr>
+                <td id="col1"><b>Location </b></td>
+                <td id="col11"> @Html.DisplayFor(model => model.Title)</td>
+
+                <td id="col2">
+                    <b>@Html.Label("Number Of Days")</b>
+                </td>
+                <td id="col22">
+                    @Html.TextBoxFor(model => model.DaysInBTForOrder, new { id = "daysInAccComment", @readonly = true, @class = "forCalcDays" })
+                </td>
+            </tr>
+
+
+        </table><div style="float: left; margin-top:10px">
+            <button id="btnChangeFinished" type="submit">
+                Change BT
+            </button>
+        </div>
+    </fieldset>
+
+
+    <table>
+        <tr>
+            <td><b>Purpose </b></td>
+            <td> @Html.DisplayFor(model => model.Purpose)</td>
+        </tr>
+        <tr>
+            <td><b>Manager </b></td>
+            <td> @Html.DisplayFor(model => model.Manager)</td>
+        </tr>
+        <tr>
+            <td><b>Responsible </b></td>
+            <td>@Html.DisplayFor(model => model.Responsible)</td>
+        </tr>
+    </table>
+
+    <table>
+        @if (Model.Comment != null)
+        {
+        <tr>
+            <td><b>Comment</b><br>@Html.TextAreaFor(model => model.Comment, new { @readonly = true, @class = "textAreaACC" })</td>
+        </tr>
+        }
+        @if (Model.BTMComment != null)
+        {
+        <tr>
+            <td><b>BTM's Comment </b><br>@Html.TextAreaFor(model => model.BTMComment, new { @readonly = true, @class = "textAreaACC" })</td>
+        </tr>
+        }
+        <tr>
+            <td><b>Habitation </b><br>@Html.TextAreaFor(model => model.Habitation, new { @readonly = true, @class = "textAreaACC" })</td>
+        </tr>
+
+        <tr>
+            <td><b>Flights </b><br>@Html.TextAreaFor(model => model.Flights, new { @readonly = true, @class = "textAreaACC" })</td>
+        </tr>
+    </table>
+
+}
+
+
+
+
+@using (Html.BeginForm("SaveAccComment", "BusinessTrip", FormMethod.Post, new { id = "saveAccCommentForm" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    @Html.HiddenFor(model => model.EmployeeID)
+    @Html.HiddenFor(model => model.BusinessTripID)
+    @Html.Hidden("Status", Model.Status)
+    @Html.HiddenFor(model => model.RowVersion)
+    <input type="hidden" name="selectedDepartment" value="@ViewBag.SelectedDepartment" />
+
+    @Html.LabelFor(model => model.AccComment)
+    <br>
+    @Html.TextAreaFor(model => model.AccComment, new { @class = "textAreaAccComment" })
+    <br />
+    @Html.ValidationMessageFor(model => model.AccComment)
+
+    <div>
+        <a id="btnSaveAccComment"> Save ACC Comment </a>
+    </div>
+}
+
+<p style="text-align:right">
+    <em>@Html.DisplayLastCRUD(Model.LastCRUDedBy, Model.LastCRUDTimestamp)</em>
+</p>

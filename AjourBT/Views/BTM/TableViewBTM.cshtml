@@ -1,0 +1,254 @@
+﻿@model IEnumerable<AjourBT.Domain.Entities.Employee>
+@{
+    Layout = null;
+    ViewBag.Title = "IndexBTM";
+}
+
+<tbody id="tbodyBts">
+
+    @foreach (var item in Model)
+    {
+        <tr class="zebra" id="Data-@item.EmployeeID">
+            <td>
+                @Html.DisplayFor(modelItem => item.EID)
+            </td>
+            <td id="viewBT">
+
+                @{
+                    var visaAndPermitInfo = Html.CustomPopupVisaAndPermit(item);
+                }
+
+                @if (item.IsManager == true)
+                {
+                    @*<b>@Html.ActionLink(item.LastName + " " + item.FirstName, "ShowBTsDataForEmployee", new { id = item.EmployeeID })</b>*@
+                    @*<b><a id="ShowBTsDataForEmployeeBTM" href="/BusinessTrip/ShowBTsDataForEmployee/@item.EmployeeID"> @item.LastName @item.FirstName</a></b>*@
+                    <b><a id="ShowBTsDataForEmployeeADM" href="#" title="@visaAndPermitInfo"> @item.LastName @item.FirstName</a></b>
+                }
+                else
+                {
+                    @*@Html.ActionLink(item.LastName + " " + item.FirstName, "ShowBTsDataForEmployee", new { id = item.EmployeeID })*@
+                    @*<a id="ShowBTsDataForEmployeeBTM" href="/BusinessTrip/ShowBTsDataForEmployee/@item.EmployeeID"> @item.LastName @item.FirstName</a>*@
+                    <a id="ShowBTsDataForEmployeeADM" href="#" title="@visaAndPermitInfo"> @item.LastName @item.FirstName</a>
+                }
+            </td>
+
+            <td>
+                @if (item.BusinessTrips != null)
+                {
+                    foreach (BusinessTrip bt in item.BusinessTrips.Where(
+                        b => ((b.Status & BTStatus.Registered) == BTStatus.Registered)).OrderBy(b => b.StartDate))
+                    {
+                        if (!bt.Status.HasFlag(BTStatus.Cancelled))
+                        {
+                            <a id="Habitation" href="/BTM/BTMArrangeBT/@bt.BusinessTripID?searchString=@ViewBag.SearchString" data-updateid="Data-@item.EmployeeID"><span> @bt.Location.Title:@bt.StartDate.ToString("dd.MM")-@bt.EndDate.ToString("dd.MM") </span></a>
+
+                            @*@Html.ActionLink(bt.Location.Title + ":" + bt.StartDate.ToString("dd.MM") + "-" + bt.EndDate.ToString("dd.MM"), "BTMArrangeBT", new { id = bt.BusinessTripID })*@
+                            if (bt.Status.HasFlag(BTStatus.Modified))
+                            {
+                                <span id="i4">
+                                    @if (bt.OldLocationTitle != null && bt.OldStartDate != null && bt.OldEndDate != null)
+                                    {
+                                        <br />
+                                        @: Modified:
+                                        @(bt.OldLocationTitle + ": " + bt.OldStartDate.Value.ToString("dd.MM") + "-" + bt.OldEndDate.Value.ToString("dd.MM"))
+
+                                    }
+                                </span>
+                            }
+
+                            if (bt.Habitation == null || bt.Habitation == String.Empty)
+                            {
+                                <br />
+                                <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="AddHabitation" href="/BTM/BTMArrangeBT/@bt.BusinessTripID?searchString=@ViewBag.SearchString" data-updateid="Data-@item.EmployeeID"><span> + Habitation</span></a>
+
+                            }
+
+                            if (bt.Flights == null || bt.Flights == String.Empty)
+                            {
+                                <br />
+                                <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="AddFlights" href="/BTM/BTMArrangeBT/@bt.BusinessTripID?searchString=@ViewBag.SearchString" data-updateid="Data-@item.EmployeeID"><span> + Flights</span></a>
+
+                            }
+                        }
+                        else
+                        {
+
+
+                            <a id="Habitation" style="color:red; text-decoration:line-through" href="/BTM/BTMArrangeBT/@bt.BusinessTripID?searchString=@ViewBag.SearchString" data-updateid="Data-@item.EmployeeID"><span> @bt.Location.Title:@bt.StartDate.ToString("dd.MM")-@bt.EndDate.ToString("dd.MM") </span></a>
+
+                            @*@Html.ActionLink(bt.Location.Title + ": " + bt.StartDate.ToString("dd.MM") + "-" + bt.EndDate.ToString("dd.MM"), "BTMArrangeBT", new { id = bt.BusinessTripID }, new { @class = "displayActionLink", style = "color: red;" })*@
+
+                        }
+
+                        <br />
+                    }
+
+                    foreach (BusinessTrip bt in item.BusinessTrips.Where(
+                        b => ((b.Status & BTStatus.Planned) == BTStatus.Planned)).OrderBy(b => b.StartDate))
+                    {
+                        if (bt.Status == (BTStatus.Planned | BTStatus.Modified))
+                        {
+                            <a id="Habitation" href="/BTM/BTMArrangeBT/@bt.BusinessTripID?searchString=@ViewBag.SearchString" data-updateid="Data-@item.EmployeeID"><span> @bt.Location.Title:@bt.StartDate.ToString("dd.MM")-@bt.EndDate.ToString("dd.MM")<i style=" color: red">?</i></span></a>
+
+                            @*@Html.ActionLink(bt.Location.Title + ": " + bt.StartDate.ToString("dd.MM") + "-" + bt.EndDate.ToString("dd.MM"), "BTMArrangeBT", new { id = bt.BusinessTripID }) <i>?</i>*@
+                        }
+
+                        else if (bt.Status == (BTStatus.Planned | BTStatus.Cancelled))
+                        {
+                            <a id="Habitation" style="color:red; text-decoration:line-through" href="/BTM/BTMArrangeBT/@bt.BusinessTripID?searchString=@ViewBag.SearchString" data-updateid="Data-@item.EmployeeID"><span> @bt.Location.Title:@bt.StartDate.ToString("dd.MM")-@bt.EndDate.ToString("dd.MM") </span></a>
+                            @*@Html.ActionLink(bt.Location.Title + ": " + bt.StartDate.ToString("dd.MM") + "-" + bt.EndDate.ToString("dd.MM"), "BTMArrangeBT", new { id = bt.BusinessTripID }, new { @class = "displayActionLink", style = "color: red;" })*@
+
+                        }
+                        <br />
+                    }
+                }
+            </td>
+            <td>
+                @if (item.BusinessTrips != null)
+                {
+                    foreach (BusinessTrip bt in item.BusinessTrips
+                            .Where(b => ((b.Status & BTStatus.Confirmed) == BTStatus.Confirmed) && !b.Status.HasFlag(BTStatus.Reported)).OrderBy(b => b.StartDate))
+                    {
+                        if ((bt.Status & BTStatus.Cancelled) == BTStatus.Cancelled)
+                        {
+
+                            <a id="Habitation" style="color:red; text-decoration:line-through" href="/BTM/BTMArrangeBT/@bt.BusinessTripID?searchString=@ViewBag.SearchString" data-updateid="Data-@item.EmployeeID"><span> @bt.Location.Title:@bt.StartDate.ToString("dd.MM")-@bt.EndDate.ToString("dd.MM") </span></a>
+                            @*@Html.ActionLink(bt.Location.Title + ": " + bt.StartDate.ToString("dd.MM") + "-" + bt.EndDate.ToString("dd.MM"), "BTMArrangeBT", new { id = bt.BusinessTripID }, new { @class = "displayActionLink", style = "color: red;" })*@
+
+                            if (bt.Status.HasFlag(BTStatus.Modified))
+                            {
+                                <span id="i4">
+                                    @if (bt.OldLocationTitle != null && bt.OldStartDate != null && bt.OldEndDate != null)
+                                    {
+                                        <br />
+                                        @: Modified:
+                                        @(bt.OldLocationTitle + ": " + bt.OldStartDate.Value.ToString("dd.MM") + "-" + bt.OldEndDate.Value.ToString("dd.MM"))
+                                    }
+                                </span>
+                            }
+                        }
+                        else
+                        {
+                            <a id="Habitation" href="/BTM/BTMArrangeBT/@bt.BusinessTripID?searchString=@ViewBag.SearchString" data-date-format="@ViewBag.JSDatePattern" data-updateid="Data-@item.EmployeeID"><span> @bt.Location.Title:@bt.StartDate.ToString("dd.MM")-@bt.EndDate.ToString("dd.MM") </span></a>
+                            @*@Html.ActionLink(bt.Location.Title + ": " + bt.StartDate.ToString("dd.MM") + "-" + bt.EndDate.ToString("dd.MM"), "BTMArrangeBT", new { id = bt.BusinessTripID })*@
+                            if (((bt.Status == BTStatus.Confirmed) || (bt.Status == (BTStatus.Confirmed | BTStatus.Modified))) &&
+
+                                        (bt.Flights != null && bt.Flights != String.Empty)
+                                         && (bt.Habitation != null && bt.Habitation != String.Empty)
+                                          && (bt.Invitation == true)
+                                          && (bt.HabitationConfirmed == true)
+                                         && (bt.FlightsConfirmed == true)
+                                        && (bt.OrderStartDate != null && bt.OrderEndDate != null))
+                            {
+                                @Html.CreateCustomCheckBox("selectedConfirmedBTs", false, bt)
+                            }
+                            if (bt.Status.HasFlag(BTStatus.Modified))
+                            {
+                                <span id="i4">
+                                    @if (bt.OldLocationTitle != null && bt.OldStartDate != null && bt.OldEndDate != null)
+                                    {
+                                        <br />
+                                        @: Modified:
+                                        @(bt.OldLocationTitle + ": " + bt.OldStartDate.Value.ToString("dd.MM") + "-" + bt.OldEndDate.Value.ToString("dd.MM"))
+                                    }
+                                </span>
+                            }
+
+                            if (bt.Habitation == null || bt.Habitation == String.Empty)
+                            {
+                                <br />
+                                <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="AddHabitation" href="/BTM/BTMArrangeBT/@bt.BusinessTripID?searchString=@ViewBag.SearchString" data-date-format="@ViewBag.JSDatePattern" data-updateid="Data-@item.EmployeeID"><span> + Habitation</span></a>
+                                @*@Html.ActionLink("+ Habitation", "BTMArrangeBT", new { id = bt.BusinessTripID })*@
+                            }
+                            else if (bt.HabitationConfirmed == false)
+                            {
+                                <br />
+                                <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="ConfirmHabitation" href="/BTM/BTMArrangeBT/@bt.BusinessTripID?searchString=@ViewBag.SearchString" data-date-format="@ViewBag.JSDatePattern" data-updateid="Data-@item.EmployeeID"><span> Confirm Habitation</span></a>
+                                @*@Html.ActionLink("Confirm Habitation", "BTMArrangeBT", new { id = bt.BusinessTripID })*@
+                            }
+
+                            if (bt.Flights == null || bt.Flights == String.Empty)
+                            {
+                                <br />
+                                <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="AddFlights" href="/BTM/BTMArrangeBT/@bt.BusinessTripID?searchString=@ViewBag.SearchString" data-date-format="@ViewBag.JSDatePattern" data-updateid="Data-@item.EmployeeID"><span> + Flights</span></a>
+                                @*@Html.ActionLink("+ Flights", "BTMArrangeBT", new { id = bt.BusinessTripID })*@
+                            }
+                            else if (bt.FlightsConfirmed == false)
+                            {
+                                <br />
+                                <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="ConfirmFlights" href="/BTM/BTMArrangeBT/@bt.BusinessTripID?selectedDepartment=@ViewBag.SelectedDepartment" data-date-format="@ViewBag.JSDatePattern" data-updateid="Data-@item.EmployeeID"><span> Confirm Flights</span></a>
+                                @*@Html.ActionLink("Confirm Flights", "BTMArrangeBT", new { id = bt.BusinessTripID })*@
+                            }
+
+                            if (bt.Invitation == false)
+                            {
+                                <br />
+                                <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="AddInvitation" href="/BTM/BTMArrangeBT/@bt.BusinessTripID?selectedDepartment=@ViewBag.SelectedDepartment" data-date-format="@ViewBag.JSDatePattern" data-updateid="Data-@item.EmployeeID"><span> + Invitation</span></a>
+                                @*@Html.ActionLink("+ Invitation", "BTMArrangeBT", new { id = bt.BusinessTripID })*@
+                            }
+                        }
+
+                        <br />
+                    }
+                }
+            </td>
+
+            <td>
+                @if (item.BusinessTrips != null)
+                {
+                    foreach (BusinessTrip bt in item.BusinessTrips
+                            .Where(b => (b.Status == (BTStatus.Confirmed | BTStatus.Reported)) && (b.StartDate >= DateTime.Now.ToLocalTimeAzure().Date)).OrderBy(b => b.StartDate))
+                    {
+                        <a id="ShowBTData" href="/BusinessTrip/ShowBTData/@bt.BusinessTripID">@bt.Location.Title:@bt.StartDate.ToString("dd.MM") - @bt.EndDate.ToString("dd.MM")</a>
+                        @*@Html.ActionLink(bt.Location.Title + ": " + bt.StartDate.ToString("dd.MM") + "-" + bt.EndDate.ToString("dd.MM"), "ShowBTData", new { id = bt.BusinessTripID })*@
+
+                        <br>
+                    }
+                }
+            </td>
+
+            <td>
+                @if (item.BusinessTrips != null)
+                {
+                    BusinessTrip currentBT = item.BusinessTrips.Where(b => (b.Status == (BTStatus.Confirmed | BTStatus.Reported)) && b.StartDate <= DateTime.Now.ToLocalTimeAzure().Date && b.EndDate >= DateTime.Now.ToLocalTimeAzure().Date).FirstOrDefault();
+                    if (currentBT != null)
+                    {
+                        <a id="ShowBTData" href="/BusinessTrip/ShowBTData/@currentBT.BusinessTripID">@currentBT.Location.Title:@currentBT.StartDate.ToString("dd.MM") - @currentBT.EndDate.ToString("dd.MM")</a>
+                        @*@Html.ActionLink(currentBT.Location.Title + ":" + currentBT.StartDate.ToString("dd.MM") + "-" + currentBT.EndDate.ToString("dd.MM"), "ShowBTData", new { id = currentBT.BusinessTripID })*@
+                    }
+                }
+            </td>
+        </tr>
+    }
+
+</tbody>
+
+
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#viewBTsBTMexample').dataTable({
+            "sScrollY": (0.5 * $(window).height()),
+            "bPaginate": false,
+            "bFilter": false,
+            "bDestroy": true,
+            "bScrollCollapse": true,
+            "aaSorting": [],
+            "aoColumns": [
+                null,
+                null,
+                { "sType": "numeric" },
+                { "sType": "numeric" },
+                { "sType": "numeric" },
+                { "sType": "numeric" }
+            ]
+        });
+        $("#AddHabitation, #AddFlights, #ConfirmHabitation, #ConfirmFlights, #AddInvitation").button();
+        $("div.dataTables_scrollBody").scrollTop(window.scrollPositionBT);
+    });
+   
+
+</script>

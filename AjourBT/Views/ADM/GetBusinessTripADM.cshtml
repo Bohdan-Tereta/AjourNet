@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Index ADM for BTs";
+    Layout = null;
+}
+
+@{
+    AjaxOptions ajaxOpts = new AjaxOptions
+    {
+        UpdateTargetId = "tableBodyBusinessTrip",
+        Url = Url.Action("GetBusinessTripDataADM"),
+        HttpMethod = "GET"
+
+    };
+}
+
+@using (Ajax.BeginForm(ajaxOpts))
+{
+    <div id="destination3">
+        @Html.DropDownList("selectedDepartment", (SelectList)ViewBag.DepartmentList, "All Departments", new { onchange = "$(this.form).submit();" })
+    </div>
+}
+<br />
+
+<div id="tableBodyBusinessTrip">
+    @Html.Action("GetBusinessTripDataADM", new { userName = HttpContext.Current.User.Identity.Name.ToString(), selectedUserDepartment = ViewBag.UserDepartment})
+</div>

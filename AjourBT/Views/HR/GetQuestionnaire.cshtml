@@ -1,0 +1,81 @@
+﻿@{
+    ViewBag.Title = "GetQuestionnaire";
+    Layout = null;
+}
+
+<script>
+    var questModel = {
+        QuestionnaireList: ko.observableArray()
+    };
+
+    function QuestionnaireList(obj) {
+        this.questionnaireId = ko.observable(obj.QuestionnaireId),
+        this.questionSetId = ko.observable(obj.QuestionSetId),
+        this.title = ko.observable(obj.Title),
+        this.url = ko.observable("/HR/GetQuestWindow/?questionnaireId=" + obj.QuestionnaireId);
+    };
+
+    function getAllItems() {
+        $.getJSON("/HR/GetQuestionnaireList", function (data) {
+            $.each(data, function (index, obj) {
+                var newList = new QuestionnaireList(obj);
+                questModel.QuestionnaireList.push(newList);
+            })
+        })
+    };
+
+    $(document).ready(function () {
+        getAllItems();
+            ko.cleanNode(document.getElementById("koBind"));
+            ko.applyBindings(questModel, document.getElementById("koBind"));
+    });
+    
+    function CreateQuestionnaire(num) {
+        this.questionnaireId = ko.observable(""),
+        this.title = ko.observable(""),
+        this.questionSetId = ko.observableArray([ko.observable("")]),
+     
+ 
+        this.SaveDataQuestionnaire = function () {
+            var data_to_send = ko.toJSON(this);
+            if (this.title().trim() != "") {
+                var self = this;
+                $.ajax({
+                    url: "/HR/CreateQuestionnaire",
+                    type: "POST",
+                    data: "questionnaire=" + data_to_send,
+                    success: function (data) {
+                        num = data;
+                        if (data != 0) {
+                            self.url = ko.observable("/HR/GetQuestWindow/?questionnaireId=" + num);
+
+                            questModel.QuestionnaireList.push(self)
+                            $(dialogCreateQuestionnaire).dialog("close");
+
+                        }
+
+                    }
+                });
+            }
+            else
+            {
+                alert("Please enter Questionnaire title.")
+            }
+        }
+          this.url = self.url;
+          }
+
+
+    $("#addQuestionnaireButton").button();
+</script>
+
+<a id="addQuestionnaireButton" href="/HR/CreateQuestionnaire">Add Questionnaire</a>
+<br />
+<table id="koBind" data-bind="foreach: questModel.QuestionnaireList">
+    <tr>
+        <td>
+                <a class="questionTitle" data-bind=" text: $data.title, attr: { 'href': url }"></a>
+        </td>
+    </tr>
+</table>
+<div id="ConfirmQuestionnaireDelete"></div>

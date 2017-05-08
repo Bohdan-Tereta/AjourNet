@@ -1,0 +1,73 @@
+﻿@model AjourBT.Domain.Entities.Questionnaire
+@{
+    Layout = null;
+    List<KeyValuePair<string, List<SelectListItem>>> allYouNeed = ViewBag.QuestSetList;
+    int id = ViewBag.questId;
+
+}
+<table id="createQuestionnaire">
+    <thead>
+    </thead>
+    <tbody id="questWindowTable">
+        <tr>
+            <td>
+                &nbsp;@Html.LabelFor(m => m.Title)
+                <strong>@Html.EditorFor(m => m.Title, new { id = "TitleQuest" })</strong>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span id="QuestionnaireOrderNumber">&nbsp;№</span>
+                <span>QuestionSet</span>
+            </td>
+        </tr>
+        @Html.Hidden("QuestionnaryID", Model.QuestionnaireId)
+        @if (!(allYouNeed.Count == 1 && allYouNeed[0].Key == ""))
+        {
+            for (int i = 0; i < allYouNeed.Count; i++)
+            {
+                <tr id="questionDataRow">
+                    <td>
+                        @Html.TextBox("orderVal", allYouNeed[i].Key)
+                        @Html.CreateCustomDropdownList(allYouNeed[i].Value, "testDropDown", "Select Item")
+                        <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="questionSetDelete" role="button"> Delete </a>
+                    </td>
+                </tr>
+            }
+        }
+        <tr id="questionDataRow">
+            <td>
+                @Html.TextBox("orderVal", "")
+                @Html.CreateDefaultCustomDropdownList(allYouNeed.FirstOrDefault().Value, "testDropDown", "Select Item")
+                <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="questionSetToAdd" role="button"> Add </a>
+            </td>
+        </tr>
+
+    </tbody>
+    <tfoot>
+        <tr>
+            <td>
+                <br />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="questionnaireSaveBtn" role="button">Save</a>
+                @*@Ajax.ActionLink("Save and Generate", "GenerateQuestionnaire", "HR", new { questionaireID = id },
+                                             new AjaxOptions { HttpMethod = "Get" }, new { @class = "ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only", id = "generateQuestButton" })*@ 
+                <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="generateQuestButton" role="button">Save and Generate</a>
+            </td>
+        </tr>
+        <tr>
+            <td style="margin-right: 3.0em; float:right"><a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" id="questionnaireDeleteBtn" role="button">Delete</a></td>
+        </tr>
+    </tfoot>
+</table>
+<br />
+<div id="generateQ">
+</div>

@@ -1,0 +1,179 @@
+﻿@model  Dictionary<Employee, List<BusinessTrip>>
+
+@{
+    Layout = null;
+    ViewBag.Title = "GetPrepBusinessTripDataVU";
+}
+
+<div id="PrepBTsDataVU">
+    <table class="prepBusinessTripDataVU" id="prepBTDataVU">
+        <colgroup>
+            <col class="ccc1" />
+            <col class="ccc2" />
+            <col class="ccc3" />
+            <col class="ccc4" />
+            <col class="ccc5" />
+            <col class="ccc6" />
+        </colgroup>
+        <thead>
+            <tr>
+                <th>
+                    EID
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Registered
+                </th>
+                <th>
+                    Confirmed
+                </th>
+                <th>
+                    Reported
+                </th>
+                <th>
+                    Current
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="zebra">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Key.EID)
+                    </td>
+
+                    @if (item.Key.DateDismissed.HasValue)
+                    {
+                        <td id="viewBT">
+                            <strike> @item.Key.LastName @item.Key.FirstName</strike> <br> <span id='i2'>@Html.CustomDisplayDateTime(item.Key.DateDismissed)</span>
+                        </td>
+                    }
+                    else
+                    {
+
+                        if (item.Key.IsManager == true)
+                        {
+                            <td id="viewBT">
+                                <b> @item.Key.LastName&nbsp;@item.Key.FirstName </b>
+                            </td>
+                        }
+                        else
+                        {
+                            <td id="viewBT">
+                                @item.Key.LastName @item.Key.FirstName
+                            </td>
+                        }
+                    }
+
+                    <td>
+                        @if (item.Value.Count > 0)
+                        {
+                            foreach (var bts in item.Value
+                                .Where(b => b.Status.HasFlag(BTStatus.Registered)))
+                            {
+                                    if (bts.StartDate > DateTime.Now.ToLocalTimeAzure().Date)
+                                    {
+                                        var statusHint = Html.CustomStatusHintForVUPreps(bts);
+                                        if (bts.Status.HasFlag(BTStatus.Cancelled))
+                                        {
+                                            <span style="color:red; text-decoration: line-through">
+                                                @*<div title="@statusHint" style="display: inline; color: red">@bt.Location.Title:@bt.StartDate.ToString("dd.MM")-@bt.EndDate.ToString("dd.MM")</div>*@
+                                                <a id="PrepBTsDataShowBTInformation" title="@statusHint" style="display: inline; color: red" href="/VU/ShowBTInformation/@bts.BusinessTripID"> @bts.Location.Title:@bts.StartDate.ToString("dd.MM")-@bts.EndDate.ToString("dd.MM")</a>
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            @*<div title="@statusHint" style="display: inline">@bt.Location.Title:@bt.StartDate.ToString("dd.MM")-@bt.EndDate.ToString("dd.MM")</div>*@
+                                            <a id="PrepBTsDataShowBTInformation" title="@statusHint" style="display: inline; color: #045796" href="/VU/ShowBTInformation/@bts.BusinessTripID"> @bts.Location.Title:@bts.StartDate.ToString("dd.MM")-@bts.EndDate.ToString("dd.MM")</a>
+                                        }
+                                    }
+                                    else
+                                    {
+                                    }
+
+                            }
+                        }
+                    </td>
+
+                    <td>
+                        @if (item.Value.Count > 0)
+                        {
+                            foreach (var bts in item.Value
+                                    .Where(b => (b.Status.HasFlag(BTStatus.Confirmed) && !b.Status.HasFlag(BTStatus.Reported))))
+                            {
+                                    if (bts.StartDate > DateTime.Now.ToLocalTimeAzure().Date)
+                                    {
+                                        var statusHint = Html.CustomStatusHintForVUPreps(bts);
+
+                                        if ((bts.Status & BTStatus.Cancelled) == BTStatus.Cancelled)
+                                        {
+                                            <span style="color:red; text-decoration: line-through">
+                                                <a id="PrepBTsDataShowBTInformation" title="@statusHint" style="display: inline; color: red;" href="/VU/ShowBTInformation/@bts.BusinessTripID"> @bts.Location.Title:@bts.StartDate.ToString("dd.MM")-@bts.EndDate.ToString("dd.MM")</a>
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <a id="PrepBTsDataShowBTInformation" title="@statusHint" style="color: #045796;" href="/VU/ShowBTInformation/@bts.BusinessTripID"> @bts.Location.Title:@bts.StartDate.ToString("dd.MM")-@bts.EndDate.ToString("dd.MM")</a>
+                                        }
+                                    }
+
+                            }
+                        }
+                    </td>
+
+                    <td>
+                        @foreach (var bts in item.Value
+                    .Where(b => (b.Status.HasFlag(BTStatus.Reported))))
+                        {
+                                if (bts.StartDate > DateTime.Now.ToLocalTimeAzure().Date)
+                                {
+                                    var statusHint = Html.CustomStatusHintForVUPreps(bts);
+                                    <a id="PrepBTsDataShowBTInformation" title="@statusHint" style="color: #026419;" href="/VU/ShowBTInformation/@bts.BusinessTripID"> @bts.Location.Title:@bts.StartDate.ToString("dd.MM")-@bts.EndDate.ToString("dd.MM")</a>
+                                }
+
+                        }
+                    </td>
+                    <td>
+                        @foreach (var bts in item.Value.Where(b => (b.Status.HasFlag(BTStatus.Reported | BTStatus.Confirmed))))
+                        {
+                                if (bts.StartDate <= DateTime.Now.ToLocalTimeAzure().Date && bts.EndDate >= DateTime.Now.ToLocalTimeAzure().Date)
+                                {
+                                    <a id="PrepBTsDataShowBTInformation" style="color: #000000;" href="/VU/ShowBTInformation/@bts.BusinessTripID"> @bts.Location.Title:@bts.StartDate.ToString("dd.MM")-@bts.EndDate.ToString("dd.MM")</a>
+                                }
+                        }
+                    </td>
+
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        sortTable = $('#prepBTDataVU').dataTable({
+            "bFilter": false,
+            "sScrollY": (0.6 * $(window).height()),
+            "bPaginate": false,
+            "bDestroy": true,
+            "bScrollCollapse": true,
+            "aaSorting": [],
+            "aoColumns": [
+                null,
+                null,
+                { "sType": "numeric" },
+                { "sType": "numeric" },
+                { "sType": "numeric" },
+                { "sType": "numeric" }
+
+            ]
+        });
+        $("div.dataTables_scrollBody").scrollTop(window.scrollPositionVUPrepBTsData)
+    });
+</script>
